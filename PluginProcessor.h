@@ -12,6 +12,7 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Carve.h"
 
 
 //==============================================================================
@@ -64,8 +65,32 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    // Custom methods/variables
+    enum Parameters {
+        mode1 = 0,
+        preGain1,
+        postGain1,
+        tweak1,
+        totalNumParams
+    };
+    
+    bool NeedsUIUpdate() {
+        return UIUpdateFlag;
+    }
+    
+    void RequestUIUpdate() {
+        UIUpdateFlag = true;
+    }
+    
+    void ClearUIUpdate() {
+        UIUpdateFlag = false;
+    }
 
 private:
+    float UserParams[totalNumParams];
+    Carve mCarve;
+    bool UIUpdateFlag;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CarveAudioProcessor)
 };

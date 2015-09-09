@@ -22,6 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+#include "PluginProcessor.h"
 //[/Headers]
 
 
@@ -35,7 +36,8 @@
                                                                     //[/Comments]
 */
 class CarveAudioProcessorEditor  : public AudioProcessorEditor,
-                                   public Timer
+                                   public Timer,
+                                   public SliderListener
 {
 public:
     //==============================================================================
@@ -44,10 +46,15 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    void timerCallback();
+    CarveAudioProcessor* getProcessor() const {
+        return static_cast<CarveAudioProcessor*>(getAudioProcessor());
+    }
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
+    void sliderValueChanged (Slider* sliderThatWasMoved);
 
 
 
@@ -56,6 +63,9 @@ private:
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<Slider> PreGain1Sld;
+    ScopedPointer<Slider> PostGain1Sld;
+    ScopedPointer<Slider> Tweak1Sld;
 
 
     //==============================================================================

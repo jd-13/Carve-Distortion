@@ -15,6 +15,16 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
+    UserParams[mode1] = MODE_DEFAULT;
+    UserParams[preGain1] = PREGAIN_DEFAULT;
+    UserParams[postGain1] = POSTGAIN_DEFAULT;
+    UserParams[tweak1] = TWEAK_DEFAULT;
+    
+    mCarve.DSPUnit1.setPreGain(UserParams[preGain1]);
+    mCarve.DSPUnit1.setPostGain(UserParams[postGain1]);
+    mCarve.DSPUnit1.setTweak(UserParams[tweak1]);
+    
+    UIUpdateFlag = true;
 }
 
 CarveAudioProcessor::~CarveAudioProcessor()
@@ -29,16 +39,61 @@ const String CarveAudioProcessor::getName() const
 
 int CarveAudioProcessor::getNumParameters()
 {
-    return 0;
+    return totalNumParams;
 }
 
 float CarveAudioProcessor::getParameter (int index)
 {
-    return 0.0f;
+    switch (index) {
+        case mode1:
+            UserParams[mode1] = mCarve.DSPUnit1.getMode();
+            return UserParams[mode1];
+            
+        case preGain1:
+            UserParams[preGain1] = mCarve.DSPUnit1.getPreGain();
+            return UserParams[preGain1];
+        
+        case postGain1:
+            UserParams[postGain1] = mCarve.DSPUnit1.getPostGain();
+            return UserParams[postGain1];
+            
+        case tweak1:
+            UserParams[tweak1] = mCarve.DSPUnit1.getTweak();
+            return UserParams[tweak1];
+            
+        default:
+            return 0.0f;
+    }
 }
 
 void CarveAudioProcessor::setParameter (int index, float newValue)
 {
+    switch (index) {
+        case mode1:
+            UserParams[mode1] = newValue;
+            mCarve.DSPUnit1.setMode(UserParams[mode1]); // TODO: rounding?
+            break;
+            
+        case preGain1:
+            UserParams[preGain1] = newValue;
+            mCarve.DSPUnit1.setPreGain(UserParams[preGain1]);
+            break;
+            
+        case postGain1:
+            UserParams[postGain1] = newValue;
+            mCarve.DSPUnit1.setPostGain(UserParams[postGain1]);
+            break;
+            
+        case tweak1:
+            UserParams[tweak1] = newValue;
+            mCarve.DSPUnit1.setTweak(UserParams[tweak1]);
+            break;
+            
+        default:
+            return;
+    }
+    
+    UIUpdateFlag = true;
 }
 
 const String CarveAudioProcessor::getParameterName (int index)
