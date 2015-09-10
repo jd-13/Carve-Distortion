@@ -15,11 +15,13 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
+    //Logger::outputDebugString("CarveAudioProcessor::CarveAudioProcessor");
     UserParams[mode1] = MODE_DEFAULT;
     UserParams[preGain1] = PREGAIN_DEFAULT;
     UserParams[postGain1] = POSTGAIN_DEFAULT;
     UserParams[tweak1] = TWEAK_DEFAULT;
     
+    mCarve.DSPUnit1.setMode(UserParams[mode1]);
     mCarve.DSPUnit1.setPreGain(UserParams[preGain1]);
     mCarve.DSPUnit1.setPostGain(UserParams[postGain1]);
     mCarve.DSPUnit1.setTweak(UserParams[tweak1]);
@@ -98,12 +100,32 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 
 const String CarveAudioProcessor::getParameterName (int index)
 {
-    return String();
+    switch (index)
+    {
+        case mode1:
+            return MODE_STR;
+            
+        case preGain1:
+            return PREGAIN_STR;
+            
+        case postGain1:
+            return POSTGAIN_STR;
+            
+        case tweak1:
+            return TWEAK_STR;
+            
+        default:
+            return String::empty;
+    }
 }
 
 const String CarveAudioProcessor::getParameterText (int index)
 {
-    return String();
+    if (index >= 0 && index < totalNumParams) {
+        return String(UserParams[index]);
+    } else {
+        return String::empty;
+    }
 }
 
 const String CarveAudioProcessor::getInputChannelName (int channelIndex) const
@@ -199,16 +221,17 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
     // I've added this to avoid people getting screaming feedback
     // when they first compile the plugin, but obviously you don't need to
     // this code if your algorithm already fills all the output channels.
-    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i) {
         buffer.clear (i, 0, buffer.getNumSamples());
+    }
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    for (int channel = 0; channel < getNumInputChannels(); ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+    float* leftSample = buffer.getWritePointer(0);
+    float* rightSample = buffer.getWritePointer(1);
+    
+    for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        mCarve.ClockProcess(&leftSample[iii], &rightSample[iii]);
     }
 }
 
@@ -229,12 +252,53 @@ void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    XmlElement root("Root");
+    XmlElement *el;
+    
+    el = root.createNewChildElement("mode1");
+    el->addTextElement(String(UserParams[mode1]));
+    
+    el = root.createNewChildElement("preGain1");
+    el->addTextElement(String(UserParams[preGain1]));
+    
+    el = root.createNewChildElement("postGain1");
+    el->addTextElement(String(UserParams[postGain1]));
+    
+    el = root.createNewChildElement("tweak1");
+    el->addTextElement(String(UserParams[tweak1]));
+    
+    copyXmlToBinary(root, destData);
+
 }
 
 void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
+
+    if (pRoot != NULL) {
+        forEachXmlChildElement((*pRoot), pChild) {
+            if (pChild->hasTagName("mode1")) {
+                String text = pChild->getAllSubText();
+                setParameter(mode1, text.getFloatValue());
+            } else if (pChild->hasTagName("preGain1")) {
+                String text = pChild->getAllSubText();
+                setParameter(preGain1, text.getFloatValue());
+            } else if (pChild->hasTagName("postGain1")) {
+                String text = pChild->getAllSubText();
+                setParameter(postGain1, text.getFloatValue());
+            } else if (pChild->hasTagName("tweak1")) {
+                String text = pChild->getAllSubText();
+                setParameter(tweak1, text.getFloatValue());
+            }
+        }
+        
+        delete pRoot;
+        pRoot = NULL;
+        UIUpdateFlag = true;
+    }
+
 }
 
 //==============================================================================

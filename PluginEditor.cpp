@@ -104,21 +104,25 @@ void CarveAudioProcessorEditor::resized()
 void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
+    CarveAudioProcessor* ourProcessor = getProcessor();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == PreGain1Sld)
     {
         //[UserSliderCode_PreGain1Sld] -- add your slider handling code here..
+        ourProcessor->setParameter(CarveAudioProcessor::preGain1, static_cast<float>(PreGain1Sld->getValue()));
         //[/UserSliderCode_PreGain1Sld]
     }
     else if (sliderThatWasMoved == PostGain1Sld)
     {
         //[UserSliderCode_PostGain1Sld] -- add your slider handling code here..
+        ourProcessor->setParameter(CarveAudioProcessor::postGain1, static_cast<float>(PostGain1Sld->getValue()));
         //[/UserSliderCode_PostGain1Sld]
     }
     else if (sliderThatWasMoved == Tweak1Sld)
     {
         //[UserSliderCode_Tweak1Sld] -- add your slider handling code here..
+        ourProcessor->setParameter(CarveAudioProcessor::tweak1, static_cast<float>(Tweak1Sld->getValue()));
         //[/UserSliderCode_Tweak1Sld]
     }
 
@@ -131,6 +135,13 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void CarveAudioProcessorEditor::timerCallback() {
     CarveAudioProcessor* ourProcessor = getProcessor();
+    
+    if (ourProcessor ->NeedsUIUpdate()) {
+        // TODO: add mode here
+        PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
+        PostGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::postGain1), dontSendNotification);
+        Tweak1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::tweak1), dontSendNotification);
+    }
 }
 //[/MiscUserCode]
 
