@@ -6,7 +6,7 @@ For more details and a download of the compiled plugin: http://whiteelephantaudi
 Carve was originally written as an AudioUnit and is now being rebuilt for using the JUCE framework. The original version 
 can be found here: https://github.com/jd-13/Carve-Distortion--old-version
 
-Timeline: (check dev branch for progress)  
+Timeline: (check dev branch README for progress)  
 14/09/15 -- Single distortion unit with multiple wave options  
 21/09/15 -- Second distortion unit and serial/parallel routing  
 28/09/15 -- Stereo routing option and master section (master vol, dry level etc)  
