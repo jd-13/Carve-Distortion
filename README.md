@@ -7,8 +7,8 @@ Carve was originally written as an AudioUnit and is now being rebuilt for using 
 can be found here: https://github.com/jd-13/Carve-Distortion--old-version
 
 Timeline: (check dev branch README for progress)  
-14/09/15 -- Single distortion unit with multiple wave options  
-21/09/15 -- Second distortion unit and serial/parallel routing  
+14/09/15 -- Single distortion unit with multiple wave options [DONE] [TESTED]  
+21/09/15 -- Second distortion unit and serial/parallel routing [DONE] [TESTED]  
 28/09/15 -- Stereo routing option and master section (master vol, dry level etc)  
 05/10/15 -- GUI enhancement  
 19/10/15 -- Testing completion  
