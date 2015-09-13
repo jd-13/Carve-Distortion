@@ -26,15 +26,29 @@
 #define CARVE_H_INCLUDED
 
 #include "CarveDSPUnit.h"
+#include "ParameterData.h"
 
 class Carve {
 public:
     Carve();
     ~Carve();
     
+    CarveDSPUnit DSPUnit1, DSPUnit2;
+    
     void ClockProcess(float* leftSample, float* rightSample);
     
-    CarveDSPUnit DSPUnit1;
+    float getRouting() const { return routing; }
+    
+    void setRouting(float val) { routing = val; }
+
+    
+    
+private:
+    float routing;
+    
+    inline float ProcessSerial(float inSample);
+    
+    inline float ProcessParallel(float inSample);
 };
 
 

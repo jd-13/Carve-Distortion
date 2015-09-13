@@ -37,7 +37,8 @@
 */
 class CarveAudioProcessorEditor  : public AudioProcessorEditor,
                                    public Timer,
-                                   public SliderListener
+                                   public SliderListener,
+                                   public ComboBoxListener
 {
 public:
     //==============================================================================
@@ -55,6 +56,7 @@ public:
     void paint (Graphics& g);
     void resized();
     void sliderValueChanged (Slider* sliderThatWasMoved);
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
 
 
 
@@ -66,6 +68,13 @@ private:
     ScopedPointer<Slider> PreGain1Sld;
     ScopedPointer<Slider> PostGain1Sld;
     ScopedPointer<Slider> Tweak1Sld;
+    ScopedPointer<ComboBox> Mode1Cmb;
+    ScopedPointer<Label> DbgLbl;
+    ScopedPointer<Slider> PreGain2Sld;
+    ScopedPointer<Slider> PostGain2Sld;
+    ScopedPointer<Slider> Tweak2Sld;
+    ScopedPointer<ComboBox> Mode2Cmb;
+    ScopedPointer<Slider> RoutingSld;
 
 
     //==============================================================================

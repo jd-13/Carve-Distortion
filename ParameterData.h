@@ -28,18 +28,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-const int   MODE_SINE = 0,
-            MODE_PARABOLIC_SOFT = 1,
-            MODE_PARABOLIC_HARD = 2,
-            MODE_ASYMMETRIC_SINE = 3,
-            MODE_EXPONENT = 4,
+const int   MODE_SINE = 1,
+            MODE_PARABOLIC_SOFT = 2,
+            MODE_PARABOLIC_HARD = 3,
+            MODE_ASYMMETRIC_SINE = 4,
+            MODE_EXPONENT = 5,
             MODE_DEFAULT = MODE_SINE,
             MODE_MIN = MODE_SINE,
-            MODE_MAX = MODE_EXPONENT,
-
-            ROUTING_SERIAL = 0,
-            ROUTING_PARALLEL = 1,
-            ROUTING_STEREO = 2;
+            MODE_MAX = MODE_EXPONENT;
 
 const float PREGAIN_DEFAULT = 1,
             PREGAIN_MIN = 0,
@@ -52,7 +48,11 @@ const float PREGAIN_DEFAULT = 1,
             TWEAK_DEFAULT = 0,
             TWEAK_MIN = -1,
             TWEAK_MAX = 1,
-            
+
+            ROUTING_SERIAL = 0,
+            ROUTING_PARALLEL = 100,
+            ROUTING_DEFAULT = ROUTING_SERIAL,
+
             DRYLEVEL_DEFAULT = 0,
             DRYLEVEL_MIN = 0,
             DRYLEVEL_MAX = 2,
@@ -61,11 +61,15 @@ const float PREGAIN_DEFAULT = 1,
             MASTERVOL_MIN = 0,
             MASTERVOL_MAX = 2;
 
-const String    MODE_STR = "Mode",
+const String    MODE1_STR = "Mode 1",
+                MODE2_STR = "Mode 2",
+                PREGAIN1_STR = "Pre Gain 1",
+                PREGAIN2_STR = "Pre Gain 2",
+                POSTGAIN1_STR = "Post Gain 1",
+                POSTGAIN2_STR = "Post Gain 2",
+                TWEAK1_STR = "Tweak 1",
+                TWEAK2_STR = "Tweak 2",
                 ROUTING_STR = "Routing",
-                PREGAIN_STR = "Pre Gain",
-                POSTGAIN_STR = "Post Gain",
-                TWEAK_STR = "Tweak",
                 DRYLEVEL_STR = "Dry Level",
                 MASTERVOL_STR = "Master Vol";
 

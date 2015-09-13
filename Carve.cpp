@@ -23,15 +23,22 @@
  */
 
 #include "Carve.h"
-#include "ParameterData.h"
 
-Carve::Carve() : DSPUnit1() {
+Carve::Carve() : DSPUnit1(), DSPUnit2(), routing(ROUTING_DEFAULT) {
 }
 
 Carve::~Carve(){}
 
-void Carve::ClockProcess(float* leftSample, float* rightSample) {
+inline float Carve::ProcessSerial(float inSample) {
+    return DSPUnit2.process(DSPUnit1.process(inSample));
+}
 
-    *leftSample = DSPUnit1.process(*leftSample);
-    *rightSample = DSPUnit1.process(*rightSample);
+inline float Carve::ProcessParallel(float inSample) {
+    return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
+}
+
+void Carve::ClockProcess(float* leftSample, float* rightSample) {
+    
+    *leftSample = ProcessSerial(*leftSample) * (1 - routing) + ProcessParallel(*leftSample) * routing;
+    *rightSample = ProcessSerial(*rightSample) * (1 - routing) + ProcessParallel(*rightSample) * routing;
 }

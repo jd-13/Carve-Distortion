@@ -10,21 +10,24 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <string>
 
 
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
     //Logger::outputDebugString("CarveAudioProcessor::CarveAudioProcessor");
-    UserParams[mode1] = MODE_DEFAULT;
-    UserParams[preGain1] = PREGAIN_DEFAULT;
-    UserParams[postGain1] = POSTGAIN_DEFAULT;
-    UserParams[tweak1] = TWEAK_DEFAULT;
+    mCarve.DSPUnit1.setMode(MODE_DEFAULT);
+    mCarve.DSPUnit1.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit1.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit1.setTweak(TWEAK_DEFAULT);
     
-    mCarve.DSPUnit1.setMode(UserParams[mode1]);
-    mCarve.DSPUnit1.setPreGain(UserParams[preGain1]);
-    mCarve.DSPUnit1.setPostGain(UserParams[postGain1]);
-    mCarve.DSPUnit1.setTweak(UserParams[tweak1]);
+    mCarve.DSPUnit2.setMode(MODE_DEFAULT);
+    mCarve.DSPUnit2.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit2.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit2.setTweak(TWEAK_DEFAULT);
+    
+    mCarve.setRouting(ROUTING_DEFAULT);
     
     UIUpdateFlag = true;
 }
@@ -48,20 +51,40 @@ float CarveAudioProcessor::getParameter (int index)
 {
     switch (index) {
         case mode1:
-            UserParams[mode1] = mCarve.DSPUnit1.getMode();
-            return UserParams[mode1];
+            return mCarve.DSPUnit1.getMode();
             
         case preGain1:
-            UserParams[preGain1] = mCarve.DSPUnit1.getPreGain();
-            return UserParams[preGain1];
+            return mCarve.DSPUnit1.getPreGain();
         
         case postGain1:
-            UserParams[postGain1] = mCarve.DSPUnit1.getPostGain();
-            return UserParams[postGain1];
+            return mCarve.DSPUnit1.getPostGain();
             
         case tweak1:
-            UserParams[tweak1] = mCarve.DSPUnit1.getTweak();
-            return UserParams[tweak1];
+            return mCarve.DSPUnit1.getTweak();
+            
+        
+            
+            
+        case mode2:
+            return mCarve.DSPUnit2.getMode();
+            
+        case preGain2:
+            return mCarve.DSPUnit2.getPreGain();
+            
+        case postGain2:
+            return mCarve.DSPUnit2.getPostGain();
+            
+        case tweak2:
+            return mCarve.DSPUnit2.getTweak();
+            
+            
+            
+            
+        case routing:
+            return mCarve.getRouting();
+            
+            
+            
             
         default:
             return 0.0f;
@@ -72,24 +95,49 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 {
     switch (index) {
         case mode1:
-            UserParams[mode1] = newValue;
-            mCarve.DSPUnit1.setMode(UserParams[mode1]); // TODO: rounding?
+            mCarve.DSPUnit1.setMode(round(newValue));
             break;
             
         case preGain1:
-            UserParams[preGain1] = newValue;
-            mCarve.DSPUnit1.setPreGain(UserParams[preGain1]);
+            mCarve.DSPUnit1.setPreGain(newValue);
             break;
             
         case postGain1:
-            UserParams[postGain1] = newValue;
-            mCarve.DSPUnit1.setPostGain(UserParams[postGain1]);
+            mCarve.DSPUnit1.setPostGain(newValue);
             break;
             
         case tweak1:
-            UserParams[tweak1] = newValue;
-            mCarve.DSPUnit1.setTweak(UserParams[tweak1]);
+            mCarve.DSPUnit1.setTweak(newValue);
             break;
+            
+            
+            
+            
+        case mode2:
+            mCarve.DSPUnit2.setMode(round(newValue));
+            break;
+            
+        case preGain2:
+            mCarve.DSPUnit2.setPreGain(newValue);
+            break;
+            
+        case postGain2:
+            mCarve.DSPUnit2.setPostGain(newValue);
+            break;
+            
+        case tweak2:
+            mCarve.DSPUnit2.setTweak(newValue);
+            break;
+            
+            
+            
+        case routing:
+            mCarve.setRouting(newValue);
+            break;
+            
+            
+            
+            
             
         default:
             return;
@@ -103,16 +151,35 @@ const String CarveAudioProcessor::getParameterName (int index)
     switch (index)
     {
         case mode1:
-            return MODE_STR;
+            return MODE1_STR;
             
         case preGain1:
-            return PREGAIN_STR;
+            return PREGAIN1_STR;
             
         case postGain1:
-            return POSTGAIN_STR;
+            return POSTGAIN1_STR;
             
         case tweak1:
-            return TWEAK_STR;
+            return TWEAK1_STR;
+            
+            
+            
+        case mode2:
+            return MODE2_STR;
+            
+        case preGain2:
+            return PREGAIN2_STR;
+            
+        case postGain2:
+            return POSTGAIN2_STR;
+            
+        case tweak2:
+            return TWEAK2_STR;
+            
+            
+            
+        case routing:
+            return ROUTING_STR;
             
         default:
             return String::empty;
@@ -121,10 +188,40 @@ const String CarveAudioProcessor::getParameterName (int index)
 
 const String CarveAudioProcessor::getParameterText (int index)
 {
-    if (index >= 0 && index < totalNumParams) {
-        return String(UserParams[index]);
-    } else {
-        return String::empty;
+    switch (index) {
+        case mode1:
+            return String(mCarve.DSPUnit1.getMode());
+            
+        case preGain1:
+            return String(mCarve.DSPUnit1.getPreGain());
+            
+        case postGain1:
+            return String(mCarve.DSPUnit1.getPostGain());
+            
+        case tweak1:
+            return String(mCarve.DSPUnit1.getTweak());
+            
+            
+            
+        case mode2:
+            return String(mCarve.DSPUnit2.getMode());
+            
+        case preGain2:
+            return String(mCarve.DSPUnit2.getPreGain());
+            
+        case postGain2:
+            return String(mCarve.DSPUnit2.getPostGain());
+            
+        case tweak2:
+            return String(mCarve.DSPUnit2.getTweak());
+            
+        
+            
+        case routing:
+            return String(mCarve.getRouting());
+            
+        default:
+            return String::empty;
     }
 }
 
@@ -255,17 +352,41 @@ void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
     XmlElement root("Root");
     XmlElement *el;
     
-    el = root.createNewChildElement("mode1");
-    el->addTextElement(String(UserParams[mode1]));
+    el = root.createNewChildElement(MODE1_STR);
+    el->addTextElement(String(mCarve.DSPUnit1.getMode()));
     
-    el = root.createNewChildElement("preGain1");
-    el->addTextElement(String(UserParams[preGain1]));
+    el = root.createNewChildElement(PREGAIN1_STR);
+    el->addTextElement(String(mCarve.DSPUnit1.getPreGain()));
     
-    el = root.createNewChildElement("postGain1");
-    el->addTextElement(String(UserParams[postGain1]));
+    el = root.createNewChildElement(POSTGAIN1_STR);
+    el->addTextElement(String(mCarve.DSPUnit1.getPostGain()));
     
-    el = root.createNewChildElement("tweak1");
-    el->addTextElement(String(UserParams[tweak1]));
+    el = root.createNewChildElement(TWEAK1_STR);
+    el->addTextElement(String(mCarve.DSPUnit1.getTweak()));
+    
+    
+    
+    
+    el = root.createNewChildElement(MODE2_STR);
+    el->addTextElement(String(mCarve.DSPUnit2.getMode()));
+    
+    el = root.createNewChildElement(PREGAIN2_STR);
+    el->addTextElement(String(mCarve.DSPUnit2.getPreGain()));
+    
+    el = root.createNewChildElement(POSTGAIN2_STR);
+    el->addTextElement(String(mCarve.DSPUnit2.getPostGain()));
+    
+    el = root.createNewChildElement(TWEAK2_STR);
+    el->addTextElement(String(mCarve.DSPUnit2.getTweak()));
+    
+    
+    
+    
+    el = root.createNewChildElement(ROUTING_STR);
+    el->addTextElement(String(mCarve.getRouting()));
+    
+    
+    
     
     copyXmlToBinary(root, destData);
 
@@ -279,18 +400,41 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 
     if (pRoot != NULL) {
         forEachXmlChildElement((*pRoot), pChild) {
-            if (pChild->hasTagName("mode1")) {
+            if (pChild->hasTagName(MODE1_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(mode1, text.getFloatValue());
-            } else if (pChild->hasTagName("preGain1")) {
+            } else if (pChild->hasTagName(PREGAIN1_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(preGain1, text.getFloatValue());
-            } else if (pChild->hasTagName("postGain1")) {
+            } else if (pChild->hasTagName(POSTGAIN1_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(postGain1, text.getFloatValue());
-            } else if (pChild->hasTagName("tweak1")) {
+            } else if (pChild->hasTagName(TWEAK1_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(tweak1, text.getFloatValue());
+            }
+            
+            
+            
+            else if (pChild->hasTagName(MODE2_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(mode2, text.getFloatValue());
+            } else if (pChild->hasTagName(PREGAIN2_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(preGain2, text.getFloatValue());
+            } else if (pChild->hasTagName(POSTGAIN2_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(postGain2, text.getFloatValue());
+            } else if (pChild->hasTagName(TWEAK2_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(tweak2, text.getFloatValue());
+            }
+            
+            
+            
+            else if (pChild->hasTagName(ROUTING_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(routing, text.getFloatValue());
             }
         }
         

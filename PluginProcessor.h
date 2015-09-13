@@ -72,6 +72,11 @@ public:
         preGain1,
         postGain1,
         tweak1,
+        mode2,
+        preGain2,
+        postGain2,
+        tweak2,
+        routing,
         totalNumParams
     };
     
@@ -88,7 +93,6 @@ public:
     }
 
 private:
-    float UserParams[totalNumParams];
     Carve mCarve;
     bool UIUpdateFlag;
     //==============================================================================
