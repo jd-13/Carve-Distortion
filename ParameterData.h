@@ -61,6 +61,10 @@ const float PREGAIN_DEFAULT = 1,
             MASTERVOL_MIN = 0,
             MASTERVOL_MAX = 2;
 
+const bool  STEREO_OFF = false,
+            STEREO_ON = true,
+            STEREO_DEFAULT = STEREO_OFF;
+
 const String    MODE1_STR = "Mode 1",
                 MODE2_STR = "Mode 2",
                 PREGAIN1_STR = "Pre Gain 1",
@@ -70,8 +74,13 @@ const String    MODE1_STR = "Mode 1",
                 TWEAK1_STR = "Tweak 1",
                 TWEAK2_STR = "Tweak 2",
                 ROUTING_STR = "Routing",
+                STEREO_STR = "Stereo",
                 DRYLEVEL_STR = "Dry Level",
-                MASTERVOL_STR = "Master Vol";
+                MASTERVOL_STR = "Master Vol",
+                GROUP_UNIT1 = "Unit 1",
+                GROUP_LEFT = "Left",
+                GROUP_UNIT2 = "Unit 2",
+                GROUP_RIGHT = "Right";
 
 
 #endif  // PARAMETERDATA_H_INCLUDED

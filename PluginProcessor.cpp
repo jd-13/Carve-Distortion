@@ -28,6 +28,9 @@ CarveAudioProcessor::CarveAudioProcessor()
     mCarve.DSPUnit2.setTweak(TWEAK_DEFAULT);
     
     mCarve.setRouting(ROUTING_DEFAULT);
+    mCarve.setStereo(STEREO_DEFAULT);
+    mCarve.setDryLevel(DRYLEVEL_DEFAULT);
+    mCarve.setMasterVol(MASTERVOL_DEFAULT);
     
     UIUpdateFlag = true;
 }
@@ -83,6 +86,14 @@ float CarveAudioProcessor::getParameter (int index)
         case routing:
             return mCarve.getRouting();
             
+        case stereo:
+            return mCarve.getStereo();
+            
+        case dryLevel:
+            return mCarve.getDryLevel();
+            
+        case masterVol:
+            return mCarve.getMasterVol();
             
             
             
@@ -131,10 +142,22 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             
             
             
+            
         case routing:
             mCarve.setRouting(newValue);
             break;
             
+        case stereo:
+            mCarve.setStereo(newValue < 0.5 ? true : false);
+            break;
+            
+        case dryLevel:
+            mCarve.setDryLevel(newValue);
+            break;
+            
+        case masterVol:
+            mCarve.setMasterVol(newValue);
+            break;
             
             
             
@@ -164,6 +187,7 @@ const String CarveAudioProcessor::getParameterName (int index)
             
             
             
+            
         case mode2:
             return MODE2_STR;
             
@@ -178,8 +202,21 @@ const String CarveAudioProcessor::getParameterName (int index)
             
             
             
+            
         case routing:
             return ROUTING_STR;
+            
+        case stereo:
+            return STEREO_STR;
+            
+        case dryLevel:
+            return DRYLEVEL_STR;
+            
+        case masterVol:
+            return MASTERVOL_STR;
+            
+            
+            
             
         default:
             return String::empty;
@@ -203,6 +240,7 @@ const String CarveAudioProcessor::getParameterText (int index)
             
             
             
+            
         case mode2:
             return String(mCarve.DSPUnit2.getMode());
             
@@ -217,8 +255,21 @@ const String CarveAudioProcessor::getParameterText (int index)
             
         
             
+            
         case routing:
             return String(mCarve.getRouting());
+            
+        case stereo:
+            return String(mCarve.getStereo());
+            
+        case dryLevel:
+            return String(mCarve.getDryLevel());
+            
+        case masterVol:
+            return String(mCarve.getMasterVol());
+            
+            
+            
             
         default:
             return String::empty;
@@ -324,11 +375,11 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    float* leftSample = buffer.getWritePointer(0);
-    float* rightSample = buffer.getWritePointer(1);
+    float* inLeftSample = buffer.getWritePointer(0);
+    float* inRightSample = buffer.getWritePointer(1);
     
     for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
-        mCarve.ClockProcess(&leftSample[iii], &rightSample[iii]);
+        mCarve.ClockProcess(&inLeftSample[iii], &inRightSample[iii]);
     }
 }
 
@@ -385,6 +436,15 @@ void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
     el = root.createNewChildElement(ROUTING_STR);
     el->addTextElement(String(mCarve.getRouting()));
     
+    el = root.createNewChildElement(STEREO_STR);
+    el->addTextElement(String(mCarve.getStereo()));
+    
+    el = root.createNewChildElement(DRYLEVEL_STR);
+    el->addTextElement(String(mCarve.getDryLevel()));
+    
+    el = root.createNewChildElement(MASTERVOL_STR);
+    el->addTextElement(String(mCarve.getMasterVol()));
+    
     
     
     
@@ -416,6 +476,7 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
             
             
             
+            
             else if (pChild->hasTagName(MODE2_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(mode2, text.getFloatValue());
@@ -432,9 +493,19 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
             
             
             
+            
             else if (pChild->hasTagName(ROUTING_STR)) {
                 String text = pChild->getAllSubText();
                 setParameter(routing, text.getFloatValue());
+            } else if (pChild->hasTagName(STEREO_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(stereo, text.getFloatValue());
+            } else if (pChild->hasTagName(DRYLEVEL_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(dryLevel, text.getFloatValue());
+            } else if (pChild->hasTagName(MASTERVOL_STR)) {
+                String text = pChild->getAllSubText();
+                setParameter(masterVol, text.getFloatValue());
             }
         }
         

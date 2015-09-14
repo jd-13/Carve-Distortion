@@ -35,16 +35,34 @@ public:
     
     CarveDSPUnit DSPUnit1, DSPUnit2;
     
-    void ClockProcess(float* leftSample, float* rightSample);
+    void ClockProcess(float* inLeftSample, float* inRightSample);
     
     float getRouting() const { return routing; }
     
+    bool getStereo() const { return isStereo; }
+    
+    float getDryLevel() const { return dryLevel; }
+    
+    float getMasterVol() const { return masterVol; }
+    
+    
+    
     void setRouting(float val) { routing = val; }
+    
+    void setStereo(bool val) { isStereo = val; }
+    
+    void setDryLevel(float val) { dryLevel = val; }
+    
+    void setMasterVol(float val) { masterVol = val; }
 
     
     
 private:
-    float routing;
+    float   routing,
+            dryLevel,
+            masterVol;
+    
+    bool isStereo;
     
     inline float ProcessSerial(float inSample);
     

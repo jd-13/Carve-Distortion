@@ -77,6 +77,9 @@ public:
         postGain2,
         tweak2,
         routing,
+        stereo,
+        dryLevel,
+        masterVol,
         totalNumParams
     };
     

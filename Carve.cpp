@@ -37,8 +37,23 @@ inline float Carve::ProcessParallel(float inSample) {
     return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
 }
 
-void Carve::ClockProcess(float* leftSample, float* rightSample) {
+void Carve::ClockProcess(float* inLeftSample, float* inRightSample) {
     
-    *leftSample = ProcessSerial(*leftSample) * (1 - routing) + ProcessParallel(*leftSample) * routing;
-    *rightSample = ProcessSerial(*rightSample) * (1 - routing) + ProcessParallel(*rightSample) * routing;
+    float leftSample = *inLeftSample;
+    float rightSample = *inRightSample;
+    
+    // stereo specific processing
+    if (isStereo) {
+        leftSample = DSPUnit1.process(leftSample);
+        rightSample = DSPUnit2.process(rightSample);
+    } else {
+        leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
+        rightSample = ProcessSerial(rightSample) * (1 - routing) + ProcessParallel(rightSample) * routing;
+    }
+    
+    // dry level and master vol
+    *inLeftSample = (leftSample + (dryLevel * *inLeftSample)) * masterVol;
+    *inRightSample = (rightSample + (dryLevel * *inRightSample)) * masterVol;
+
+    
 }

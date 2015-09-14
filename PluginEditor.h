@@ -38,7 +38,8 @@
 class CarveAudioProcessorEditor  : public AudioProcessorEditor,
                                    public Timer,
                                    public SliderListener,
-                                   public ComboBoxListener
+                                   public ComboBoxListener,
+                                   public ButtonListener
 {
 public:
     //==============================================================================
@@ -57,6 +58,7 @@ public:
     void resized();
     void sliderValueChanged (Slider* sliderThatWasMoved);
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
+    void buttonClicked (Button* buttonThatWasClicked);
 
 
 
@@ -65,6 +67,9 @@ private:
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<GroupComponent> MasterGroup;
+    ScopedPointer<GroupComponent> Unit1Group;
+    ScopedPointer<GroupComponent> Unit2Group;
     ScopedPointer<Slider> PreGain1Sld;
     ScopedPointer<Slider> PostGain1Sld;
     ScopedPointer<Slider> Tweak1Sld;
@@ -75,6 +80,19 @@ private:
     ScopedPointer<Slider> Tweak2Sld;
     ScopedPointer<ComboBox> Mode2Cmb;
     ScopedPointer<Slider> RoutingSld;
+    ScopedPointer<Label> PreGain1Lbl;
+    ScopedPointer<Label> PostGain1Lbl;
+    ScopedPointer<Label> Tweak1Lbl;
+    ScopedPointer<Label> SerialLbl;
+    ScopedPointer<Label> ParallelLbl;
+    ScopedPointer<Slider> MasterVolSld;
+    ScopedPointer<Label> MasterVolLbl;
+    ScopedPointer<Label> PreGain2Lbl;
+    ScopedPointer<Label> PostGain2Lbl;
+    ScopedPointer<Label> Tweak2Lbl;
+    ScopedPointer<Slider> DryLevelSld;
+    ScopedPointer<Label> DryLevelLbl;
+    ScopedPointer<TextButton> StereoBtn;
 
 
     //==============================================================================
