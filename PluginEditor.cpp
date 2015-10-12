@@ -35,12 +35,15 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (MasterGroup = new GroupComponent ("Master Group",
                                                          TRANS("Master")));
+    MasterGroup->setTextLabelPosition (Justification::centred);
 
     addAndMakeVisible (Unit1Group = new GroupComponent ("Unit 1 Group",
                                                         TRANS("Unit 1")));
+    Unit1Group->setTextLabelPosition (Justification::centred);
 
     addAndMakeVisible (Unit2Group = new GroupComponent ("Unit 2 Group",
                                                         TRANS("Unit 2")));
+    Unit2Group->setTextLabelPosition (Justification::centred);
 
     addAndMakeVisible (PreGain1Sld = new Slider ("PreGain 1 Slider"));
     PreGain1Sld->setRange (0, 2, 0.01);
@@ -71,14 +74,6 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 4);
     Mode1Cmb->addItem (TRANS("Exponent"), 5);
     Mode1Cmb->addListener (this);
-
-    addAndMakeVisible (DbgLbl = new Label ("Debugging Label",
-                                           TRANS("label text")));
-    DbgLbl->setFont (Font (15.00f, Font::plain));
-    DbgLbl->setJustificationType (Justification::centredLeft);
-    DbgLbl->setEditable (false, false, false);
-    DbgLbl->setColour (TextEditor::textColourId, Colours::black);
-    DbgLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
     PreGain2Sld->setRange (0, 2, 0.01);
@@ -217,11 +212,12 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (400, 400);
+    setSize (375, 340);
 
 
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
+    LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
     //[/Constructor]
 }
 
@@ -237,7 +233,6 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     PostGain1Sld = nullptr;
     Tweak1Sld = nullptr;
     Mode1Cmb = nullptr;
-    DbgLbl = nullptr;
     PreGain2Sld = nullptr;
     PostGain2Sld = nullptr;
     Tweak2Sld = nullptr;
@@ -271,6 +266,8 @@ void CarveAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colours::white);
 
     //[UserPaint] Add your own custom painting code here..
+    Image bg = ImageCache::getFromMemory(BinaryData::dark_brushed_metal_texture_steel_black_stock_photo_scratch_wallpaper_jpg, BinaryData::dark_brushed_metal_texture_steel_black_stock_photo_scratch_wallpaper_jpgSize);
+    g.drawImage(bg, 0, 0, 375, 340, 0, 0, 750, 680);
     //[/UserPaint]
 }
 
@@ -279,32 +276,31 @@ void CarveAudioProcessorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    MasterGroup->setBounds (16, 176, 344, 120);
-    Unit1Group->setBounds (16, 16, 168, 152);
-    Unit2Group->setBounds (192, 16, 168, 152);
-    PreGain1Sld->setBounds (128, 72, 32, 24);
-    PostGain1Sld->setBounds (128, 104, 32, 24);
-    Tweak1Sld->setBounds (128, 136, 32, 24);
-    Mode1Cmb->setBounds (24, 40, 150, 24);
-    DbgLbl->setBounds (120, 304, 150, 24);
-    PreGain2Sld->setBounds (304, 72, 32, 24);
-    PostGain2Sld->setBounds (304, 104, 32, 24);
-    Tweak2Sld->setBounds (304, 136, 32, 24);
-    Mode2Cmb->setBounds (200, 40, 150, 24);
-    RoutingSld->setBounds (104, 200, 96, 24);
-    PreGain1Lbl->setBounds (32, 72, 64, 24);
-    PostGain1Lbl->setBounds (32, 104, 64, 24);
-    Tweak1Lbl->setBounds (32, 136, 64, 24);
-    SerialLbl->setBounds (24, 200, 80, 24);
-    ParallelLbl->setBounds (208, 200, 56, 24);
-    MasterVolSld->setBounds (104, 263, 240, 24);
-    MasterVolLbl->setBounds (24, 263, 80, 24);
-    PreGain2Lbl->setBounds (208, 72, 64, 24);
-    PostGain2Lbl->setBounds (208, 104, 64, 24);
-    Tweak2Lbl->setBounds (208, 136, 64, 24);
-    DryLevelSld->setBounds (104, 232, 240, 24);
-    DryLevelLbl->setBounds (24, 232, 80, 24);
-    StereoBtn->setBounds (272, 200, 70, 24);
+    MasterGroup->setBounds (16, 208, 344, 120);
+    Unit1Group->setBounds (16, 48, 168, 152);
+    Unit2Group->setBounds (192, 48, 168, 152);
+    PreGain1Sld->setBounds (128, 104, 32, 24);
+    PostGain1Sld->setBounds (128, 136, 32, 24);
+    Tweak1Sld->setBounds (128, 168, 32, 24);
+    Mode1Cmb->setBounds (24, 72, 150, 24);
+    PreGain2Sld->setBounds (304, 104, 32, 24);
+    PostGain2Sld->setBounds (304, 136, 32, 24);
+    Tweak2Sld->setBounds (304, 168, 32, 24);
+    Mode2Cmb->setBounds (200, 72, 150, 24);
+    RoutingSld->setBounds (104, 232, 96, 24);
+    PreGain1Lbl->setBounds (32, 104, 64, 24);
+    PostGain1Lbl->setBounds (32, 136, 64, 24);
+    Tweak1Lbl->setBounds (32, 168, 64, 24);
+    SerialLbl->setBounds (24, 232, 80, 24);
+    ParallelLbl->setBounds (208, 232, 56, 24);
+    MasterVolSld->setBounds (104, 295, 240, 24);
+    MasterVolLbl->setBounds (24, 295, 80, 24);
+    PreGain2Lbl->setBounds (208, 104, 64, 24);
+    PostGain2Lbl->setBounds (208, 136, 64, 24);
+    Tweak2Lbl->setBounds (208, 168, 64, 24);
+    DryLevelSld->setBounds (104, 264, 240, 24);
+    DryLevelLbl->setBounds (24, 264, 80, 24);
+    StereoBtn->setBounds (272, 232, 70, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -407,7 +403,6 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_StereoBtn] -- add your button handler code here..
         ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(StereoBtn->getToggleState()));
-        DbgLbl->setText(String(static_cast<float>(StereoBtn->getToggleState())), dontSendNotification);
         //[/UserButtonCode_StereoBtn]
     }
 
@@ -421,7 +416,7 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 void CarveAudioProcessorEditor::timerCallback() {
     CarveAudioProcessor* ourProcessor = getProcessor();
 
-    if (ourProcessor ->NeedsUIUpdate()) {
+    if (ourProcessor->NeedsUIUpdate()) {
 
         // change group titles if in stereo mode
         if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
@@ -471,124 +466,122 @@ BEGIN_JUCER_METADATA
                  componentName="" parentClasses="public AudioProcessorEditor, public Timer"
                  constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="AudioProcessorEditor(ownerFilter)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="400" initialHeight="400">
+                 fixedSize="1" initialWidth="375" initialHeight="340">
   <BACKGROUND backgroundColour="ffffffff"/>
   <GROUPCOMPONENT name="Master Group" id="a0ae877bd426411a" memberName="MasterGroup"
-                  virtualName="" explicitFocusOrder="0" pos="16 176 344 120" title="Master"/>
+                  virtualName="" explicitFocusOrder="0" pos="16 208 344 120" title="Master"
+                  textpos="36"/>
   <GROUPCOMPONENT name="Unit 1 Group" id="540af1b8b630cc1f" memberName="Unit1Group"
-                  virtualName="" explicitFocusOrder="0" pos="16 16 168 152" title="Unit 1"/>
+                  virtualName="" explicitFocusOrder="0" pos="16 48 168 152" title="Unit 1"
+                  textpos="36"/>
   <GROUPCOMPONENT name="Unit 2 Group" id="ab152c6e7348165e" memberName="Unit2Group"
-                  virtualName="" explicitFocusOrder="0" pos="192 16 168 152" title="Unit 2"/>
+                  virtualName="" explicitFocusOrder="0" pos="192 48 168 152" title="Unit 2"
+                  textpos="36"/>
   <SLIDER name="PreGain 1 Slider" id="f32c9f6afaac55bd" memberName="PreGain1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 72 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
           virtualName="" explicitFocusOrder="0" pos="128 104 32 24" min="0"
           max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
+          virtualName="" explicitFocusOrder="0" pos="128 136 32 24" min="0"
+          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 136 32 24" min="-1"
+          virtualName="" explicitFocusOrder="0" pos="128 168 32 24" min="-1"
           max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
-            virtualName="" explicitFocusOrder="0" pos="24 40 150 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="24 72 150 24" editable="0"
             layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <LABEL name="Debugging Label" id="efa42544b202f8cb" memberName="DbgLbl"
-         virtualName="" explicitFocusOrder="0" pos="120 304 150 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 72 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" min="0"
           max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
+          virtualName="" explicitFocusOrder="0" pos="304 136 32 24" min="0"
+          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 136 32 24" min="-1"
+          virtualName="" explicitFocusOrder="0" pos="304 168 32 24" min="-1"
           max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
-            virtualName="" explicitFocusOrder="0" pos="200 40 150 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="200 72 150 24" editable="0"
             layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
-          virtualName="" explicitFocusOrder="0" pos="104 200 96 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="104 232 96 24" min="0"
           max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="PreGain 1 Label" id="23c42a895f3ddaf2" memberName="PreGain1Lbl"
-         virtualName="" explicitFocusOrder="0" pos="32 72 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="32 104 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Pre Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="PostGain 1 Label" id="d4ad48771666454" memberName="PostGain1Lbl"
-         virtualName="" explicitFocusOrder="0" pos="32 104 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="32 136 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Post Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 1 Label" id="33e8e0f78b54327f" memberName="Tweak1Lbl"
-         virtualName="" explicitFocusOrder="0" pos="32 136 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="32 168 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Tweak" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="Serial Label" id="c969ac5b46238aca" memberName="SerialLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 200 80 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="24 232 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Serial" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="36"/>
   <LABEL name="Parallel Label" id="a189167740b46f3f" memberName="ParallelLbl"
-         virtualName="" explicitFocusOrder="0" pos="208 200 56 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="208 232 56 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Parallel" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <SLIDER name="Master Vol Slider" id="98dbad60d21a006b" memberName="MasterVolSld"
-          virtualName="" explicitFocusOrder="0" pos="104 263 240 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="104 295 240 24" min="0"
           max="2" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Master Vol Label" id="7ced186274c6d879" memberName="MasterVolLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 263 80 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="24 295 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Master Vol" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="36"/>
   <LABEL name="PreGain 2 Label" id="1b1fcd244dbb837c" memberName="PreGain2Lbl"
-         virtualName="" explicitFocusOrder="0" pos="208 72 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="208 104 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Pre Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="PostGain 2 Label" id="10dbd505cd27ccc1" memberName="PostGain2Lbl"
-         virtualName="" explicitFocusOrder="0" pos="208 104 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="208 136 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Post Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 2 Label" id="1ff0730a1fb3a90b" memberName="Tweak2Lbl"
-         virtualName="" explicitFocusOrder="0" pos="208 136 64 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="208 168 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Tweak" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
-          virtualName="" explicitFocusOrder="0" pos="104 232 240 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="104 264 240 24" min="0"
           max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 232 80 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="24 264 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Dry Level" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
-              virtualName="" explicitFocusOrder="0" pos="272 200 70 24" bgColOff="ffb8b8c4"
+              virtualName="" explicitFocusOrder="0" pos="272 232 70 24" bgColOff="ffb8b8c4"
               buttonText="Stereo" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 

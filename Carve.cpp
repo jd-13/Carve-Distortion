@@ -42,11 +42,11 @@ void Carve::ClockProcess(float* inLeftSample, float* inRightSample) {
     float leftSample = *inLeftSample;
     float rightSample = *inRightSample;
     
-    // stereo specific processing
+    // stereo mode processing
     if (isStereo) {
         leftSample = DSPUnit1.process(leftSample);
         rightSample = DSPUnit2.process(rightSample);
-    } else {
+    } else { // non stereo mode processing
         leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
         rightSample = ProcessSerial(rightSample) * (1 - routing) + ProcessParallel(rightSample) * routing;
     }

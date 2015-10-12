@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
+#include "CustomLookAndFeel.h"
 //[/Headers]
 
 
@@ -64,6 +65,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    CustomLookAndFeel customLookAndFeel;
     //[/UserVariables]
 
     //==============================================================================
@@ -74,7 +76,6 @@ private:
     ScopedPointer<Slider> PostGain1Sld;
     ScopedPointer<Slider> Tweak1Sld;
     ScopedPointer<ComboBox> Mode1Cmb;
-    ScopedPointer<Label> DbgLbl;
     ScopedPointer<Slider> PreGain2Sld;
     ScopedPointer<Slider> PostGain2Sld;
     ScopedPointer<Slider> Tweak2Sld;
