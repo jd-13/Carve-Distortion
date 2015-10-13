@@ -15,6 +15,9 @@ CustomLookAndFeel::CustomLookAndFeel() :    LookAndFeel_V2(),
                                             darkGrey(107, 107, 107),
                                             neonBlue(34, 252, 255),
                                             isStereo(false) {
+                                                
+    setColour(PopupMenu::highlightedBackgroundColourId, darkGrey);
+    setColour(PopupMenu::backgroundColourId, lightGrey);
 }
 
 void CustomLookAndFeel::drawRotarySlider(Graphics& g,
@@ -63,12 +66,12 @@ void CustomLookAndFeel::drawLinearSliderThumb(Graphics& g,
     
     const float sliderRadius = static_cast<float>(getSliderThumbRadius(slider) - 2);
     
-    Image image;
+    Colour* ring;
     
     if (slider.isEnabled()) {
-        image = ImageCache::getFromMemory(BinaryData::LinearSlider1_png, BinaryData::LinearSlider1_pngSize);
+        ring = &neonBlue;
     } else {
-        // TODO: disabled graphic
+        ring = &lightGrey;
     }
     
     if (style == Slider::LinearHorizontal || style == Slider::LinearVertical)
@@ -86,16 +89,14 @@ void CustomLookAndFeel::drawLinearSliderThumb(Graphics& g,
             ky = y + height * 0.5f;
         }
         
-        g.drawImage(image,
-                    kx - sliderRadius,
-                    ky - sliderRadius,
-                    sliderRadius * 2,
-                    sliderRadius * 2,
-                    0,
-                    0,
-                    image.getWidth(),
-                    image.getHeight());
-
+        Path p;
+        p.addEllipse(kx - sliderRadius, ky - sliderRadius, sliderRadius * 2, sliderRadius * 2);
+        
+        g.setColour(darkGrey);
+        g.fillPath(p);
+        
+        g.setColour(*ring);
+        g.strokePath(p, PathStrokeType(2.0f));
     }
     
 }
@@ -143,7 +144,7 @@ void CustomLookAndFeel::drawComboBox(Graphics& g,
     
     g.fillAll(lightGrey);
     g.setColour(darkGrey);
-    g.fillRect(buttonX, buttonY, buttonW, buttonY);
+    g.fillRect(buttonX, buttonY, buttonW, buttonH);
     
     const float arrowX = 0.2f;
     const float arrowH = 0.3f;
@@ -158,10 +159,13 @@ void CustomLookAndFeel::drawComboBox(Graphics& g,
                       buttonX + buttonW * (1.0f -arrowX),       buttonY + buttonH * 0.55f,
                       buttonX + buttonW * arrowX,               buttonY + buttonH * 0.55f);
         
-        g.setColour(isButtonDown ? neonBlue : lightGrey);
+        g.setColour(box.isPopupActive() ? neonBlue : lightGrey);
         
         g.fillPath(p);
     }
 }
-
+/*
+void CustomLookAndFeel::drawPopupMenuBackground(Graphics& g, int width, int height) {
+    g.fillAll(lightGrey);
+}*/
 

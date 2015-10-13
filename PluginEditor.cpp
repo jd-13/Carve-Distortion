@@ -266,8 +266,8 @@ void CarveAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colours::white);
 
     //[UserPaint] Add your own custom painting code here..
-    Image bg = ImageCache::getFromMemory(BinaryData::dark_brushed_metal_texture_steel_black_stock_photo_scratch_wallpaper_jpg, BinaryData::dark_brushed_metal_texture_steel_black_stock_photo_scratch_wallpaper_jpgSize);
-    g.drawImage(bg, 0, 0, 375, 340, 0, 0, 750, 680);
+    Image bg = ImageCache::getFromMemory(BinaryData::background_jpeg, BinaryData::background_jpegSize);
+    g.drawImage(bg, 0, 0, 375, 340, 0, 0, 5 * 375, 5 * 340);
     //[/UserPaint]
 }
 
