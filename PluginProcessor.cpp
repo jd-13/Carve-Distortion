@@ -375,11 +375,27 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    float* inLeftSample = buffer.getWritePointer(0);
-    float* inRightSample = buffer.getWritePointer(1);
-    
-    for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
-        mCarve.ClockProcess(&inLeftSample[iii], &inRightSample[iii]);
+    if (getNumOutputChannels() == 1) {
+        float* inSample = buffer.getWritePointer(0);
+        
+        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+            mCarve.ClockProcess1in1out(&inSample[iii]);
+        }
+    } else if (getNumInputChannels() == 1 && getNumOutputChannels() == 2) {
+        float* inLeftSample = buffer.getWritePointer(0);
+        float* inRightSample = buffer.getWritePointer(1);
+        
+        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+            mCarve.ClockProcess1in2out(&inLeftSample[iii], &inRightSample[iii]);
+        }
+        
+    } else {
+        float* inLeftSample = buffer.getWritePointer(0);
+        float* inRightSample = buffer.getWritePointer(1);
+        
+        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+            mCarve.ClockProcess2in2out(&inLeftSample[iii], &inRightSample[iii]);
+        }
     }
 }
 

@@ -62,7 +62,6 @@ public:
     void buttonClicked (Button* buttonThatWasClicked);
 
 
-
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     CustomLookAndFeel customLookAndFeel;

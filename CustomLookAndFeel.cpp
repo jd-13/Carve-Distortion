@@ -122,11 +122,16 @@ void CustomLookAndFeel::drawButtonBackground(Graphics& g,
     
     Colour* bc;
     
-    if (isStereo) {
-        bc = &neonBlue;
+    if (button.isEnabled()) {
+        if (isStereo) {
+            bc = &neonBlue;
+        } else {
+            bc = &darkGrey;
+        }
     } else {
         bc = &lightGrey;
     }
+    
     
     g.setColour(*bc);
     g.fillPath(p);

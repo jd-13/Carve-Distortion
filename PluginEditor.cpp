@@ -426,6 +426,8 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
+        
+        StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
         PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);

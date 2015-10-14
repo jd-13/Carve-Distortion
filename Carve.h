@@ -27,6 +27,7 @@
 
 #include "CarveDSPUnit.h"
 #include "ParameterData.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 class Carve {
 public:
@@ -35,11 +36,17 @@ public:
     
     CarveDSPUnit DSPUnit1, DSPUnit2;
     
-    void ClockProcess(float* inLeftSample, float* inRightSample);
+    void ClockProcess1in1out(float* inSample);
+    
+    void ClockProcess1in2out(float* inLeftSample, float* inRightSample);
+    
+    void ClockProcess2in2out(float* inLeftSample, float* inRightSample);
     
     float getRouting() const { return routing; }
     
     bool getStereo() const { return isStereo; }
+    
+    bool getStereoAvailable() const { return isStereoAvailable; }
     
     float getDryLevel() const { return dryLevel; }
     
@@ -50,6 +57,8 @@ public:
     void setRouting(float val) { routing = val; }
     
     void setStereo(bool val) { isStereo = val; }
+    
+    void setStereoAvailable(bool val) { isStereoAvailable = val; }
     
     void setDryLevel(float val) { dryLevel = val; }
     
@@ -62,7 +71,8 @@ private:
             dryLevel,
             masterVol;
     
-    bool isStereo;
+    bool    isStereo,
+            isStereoAvailable;
     
     inline float ProcessSerial(float inSample);
     
