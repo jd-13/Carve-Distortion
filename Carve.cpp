@@ -37,6 +37,10 @@ inline float Carve::ProcessParallel(float inSample) {
     return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
 }
 
+inline void Carve::ProcessMaster(float sample, float* inSample) {
+    *inSample = (sample + (dryLevel * *inSample)) * masterVol;
+}
+
 void Carve::ClockProcess1in1out(float* inSample) {
     
     float sample = *inSample;
@@ -44,7 +48,7 @@ void Carve::ClockProcess1in1out(float* inSample) {
     sample = ProcessSerial(sample) * (1 - routing) + ProcessParallel(sample) * routing;
     
     // dry level and master vol
-    *inSample = (sample + (dryLevel * *inSample)) * masterVol;
+    ProcessMaster(sample, inSample);
 }
 
 void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
@@ -62,8 +66,8 @@ void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
     }
     
     // dry level and master vol
-    *inLeftSample = (leftSample + (dryLevel * *inLeftSample)) * masterVol;
-    *inRightSample = (rightSample + (dryLevel * *inRightSample)) * masterVol;
+    ProcessMaster(leftSample, inLeftSample);
+    ProcessMaster(rightSample, inRightSample);
 }
 
 void Carve::ClockProcess2in2out(float* inLeftSample, float* inRightSample) {
@@ -81,6 +85,6 @@ void Carve::ClockProcess2in2out(float* inLeftSample, float* inRightSample) {
     }
     
     // dry level and master vol
-    *inLeftSample = (leftSample + (dryLevel * *inLeftSample)) * masterVol;
-    *inRightSample = (rightSample + (dryLevel * *inRightSample)) * masterVol;
+    ProcessMaster(leftSample, inLeftSample);
+    ProcessMaster(rightSample, inRightSample);
 }

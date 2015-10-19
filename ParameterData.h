@@ -82,5 +82,14 @@ const String    MODE1_STR = "Mode 1",
                 GROUP_UNIT2 = "Unit 2",
                 GROUP_RIGHT = "Right";
 
+// Translates betweeen the normalised 0 - 1 range used by VSTs and the ranges used by the plugin internally
+inline float TranslateParam_Norm2Inter(float val, float min, float max) {
+    return val * (max - min) + min;
+}
+
+inline float TranslateParam_Inter2Norm(float val, float min, float max) {
+    return (val - min) / (max - min);
+}
+
 
 #endif  // PARAMETERDATA_H_INCLUDED

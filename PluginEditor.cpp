@@ -46,19 +46,19 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Unit2Group->setTextLabelPosition (Justification::centred);
 
     addAndMakeVisible (PreGain1Sld = new Slider ("PreGain 1 Slider"));
-    PreGain1Sld->setRange (0, 2, 0.01);
+    PreGain1Sld->setRange (0, 1, 0.01);
     PreGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PreGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PreGain1Sld->addListener (this);
 
     addAndMakeVisible (PostGain1Sld = new Slider ("PostGain 1 Slider"));
-    PostGain1Sld->setRange (0, 2, 0.01);
+    PostGain1Sld->setRange (0, 1, 0.01);
     PostGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PostGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PostGain1Sld->addListener (this);
 
     addAndMakeVisible (Tweak1Sld = new Slider ("Tweak 1 Slider"));
-    Tweak1Sld->setRange (-1, 1, 0.01);
+    Tweak1Sld->setRange (0, 1, 0.01);
     Tweak1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     Tweak1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     Tweak1Sld->addListener (this);
@@ -76,19 +76,19 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->addListener (this);
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
-    PreGain2Sld->setRange (0, 2, 0.01);
+    PreGain2Sld->setRange (0, 1, 0.01);
     PreGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PreGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PreGain2Sld->addListener (this);
 
     addAndMakeVisible (PostGain2Sld = new Slider ("PostGain 2 Slider"));
-    PostGain2Sld->setRange (0, 2, 0.01);
+    PostGain2Sld->setRange (0, 1, 0.01);
     PostGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PostGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PostGain2Sld->addListener (this);
 
     addAndMakeVisible (Tweak2Sld = new Slider ("Tweak 2 Slider"));
-    Tweak2Sld->setRange (-1, 1, 0.01);
+    Tweak2Sld->setRange (0, 1, 0.01);
     Tweak2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     Tweak2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     Tweak2Sld->addListener (this);
@@ -152,7 +152,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     ParallelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (MasterVolSld = new Slider ("Master Vol Slider"));
-    MasterVolSld->setRange (0, 2, 0.01);
+    MasterVolSld->setRange (0, 1, 0.01);
     MasterVolSld->setSliderStyle (Slider::LinearHorizontal);
     MasterVolSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     MasterVolSld->addListener (this);
@@ -426,8 +426,11 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
-        
+
+        // disable stereo mode if only single output
         StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
+
+
 
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
         PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
@@ -481,16 +484,16 @@ BEGIN_JUCER_METADATA
                   textpos="36"/>
   <SLIDER name="PreGain 1 Slider" id="f32c9f6afaac55bd" memberName="PreGain1Sld"
           virtualName="" explicitFocusOrder="0" pos="128 104 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
           virtualName="" explicitFocusOrder="0" pos="128 136 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 168 32 24" min="-1"
+          virtualName="" explicitFocusOrder="0" pos="128 168 32 24" min="0"
           max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
@@ -500,16 +503,16 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 136 32 24" min="0"
-          max="2" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 168 32 24" min="-1"
+          virtualName="" explicitFocusOrder="0" pos="304 168 32 24" min="0"
           max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
@@ -549,7 +552,7 @@ BEGIN_JUCER_METADATA
          bold="0" italic="0" justification="33"/>
   <SLIDER name="Master Vol Slider" id="98dbad60d21a006b" memberName="MasterVolSld"
           virtualName="" explicitFocusOrder="0" pos="104 295 240 24" min="0"
-          max="2" int="0.010000000000000000208" style="LinearHorizontal"
+          max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Master Vol Label" id="7ced186274c6d879" memberName="MasterVolLbl"

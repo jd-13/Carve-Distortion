@@ -77,6 +77,8 @@ private:
     inline float ProcessSerial(float inSample);
     
     inline float ProcessParallel(float inSample);
+    
+    inline void ProcessMaster(float sample, float *inSample);
 };
 
 
