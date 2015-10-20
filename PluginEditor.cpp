@@ -208,6 +208,14 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     StereoBtn->addListener (this);
     StereoBtn->setColour (TextButton::buttonColourId, Colour (0xffb8b8c4));
 
+    addAndMakeVisible (DbgLbl = new Label ("Debugging Label",
+                                           TRANS("label text")));
+    DbgLbl->setFont (Font (15.00f, Font::plain));
+    DbgLbl->setJustificationType (Justification::centredLeft);
+    DbgLbl->setEditable (false, false, false);
+    DbgLbl->setColour (TextEditor::textColourId, Colours::black);
+    DbgLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -218,6 +226,9 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
     LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
+    if (!DEBUGGING_MODE) {
+        DbgLbl->setText(" ", dontSendNotification);
+    }
     //[/Constructor]
 }
 
@@ -251,6 +262,7 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     DryLevelSld = nullptr;
     DryLevelLbl = nullptr;
     StereoBtn = nullptr;
+    DbgLbl = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -301,6 +313,7 @@ void CarveAudioProcessorEditor::resized()
     DryLevelSld->setBounds (104, 264, 240, 24);
     DryLevelLbl->setBounds (24, 264, 80, 24);
     StereoBtn->setBounds (272, 232, 70, 24);
+    DbgLbl->setBounds (8, 8, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -367,6 +380,11 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     }
 
     //[UsersliderValueChanged_Post]
+    if (DEBUGGING_MODE) {
+        float val = sliderThatWasMoved->getValue();
+        val = TranslateParam_Norm2Inter(val, PREGAIN_MIN, PREGAIN_MAX);
+        DbgLbl->setText(String(val), dontSendNotification);
+    }
     //[/UsersliderValueChanged_Post]
 }
 
@@ -429,7 +447,6 @@ void CarveAudioProcessorEditor::timerCallback() {
 
         // disable stereo mode if only single output
         StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
-
 
 
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
@@ -588,6 +605,11 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
               virtualName="" explicitFocusOrder="0" pos="272 232 70 24" bgColOff="ffb8b8c4"
               buttonText="Stereo" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <LABEL name="Debugging Label" id="f07bb186e183e4be" memberName="DbgLbl"
+         virtualName="" explicitFocusOrder="0" pos="8 8 150 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

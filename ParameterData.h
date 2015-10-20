@@ -50,7 +50,7 @@ const float PREGAIN_DEFAULT = 1,
             TWEAK_MAX = 1,
 
             ROUTING_SERIAL = 0,
-            ROUTING_PARALLEL = 100,
+            ROUTING_PARALLEL = 1,
             ROUTING_DEFAULT = ROUTING_SERIAL,
 
             DRYLEVEL_DEFAULT = 0,
@@ -63,7 +63,8 @@ const float PREGAIN_DEFAULT = 1,
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
-            STEREO_DEFAULT = STEREO_OFF;
+            STEREO_DEFAULT = STEREO_OFF,
+            DEBUGGING_MODE = false;
 
 const String    MODE1_STR = "Mode 1",
                 MODE2_STR = "Mode 2",

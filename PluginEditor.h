@@ -94,6 +94,7 @@ private:
     ScopedPointer<Slider> DryLevelSld;
     ScopedPointer<Label> DryLevelLbl;
     ScopedPointer<TextButton> StereoBtn;
+    ScopedPointer<Label> DbgLbl;
 
 
     //==============================================================================
