@@ -64,7 +64,9 @@ const float PREGAIN_DEFAULT = 1,
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
             STEREO_DEFAULT = STEREO_OFF,
-            DEBUGGING_MODE = false;
+            DEBUGGING_MODE = false;         // Enables debugging output label
+                                            // Check sliderValueChanged_Post (or equivalent)
+                                            // is set to display the required value
 
 const String    MODE1_STR = "Mode 1",
                 MODE2_STR = "Mode 2",
