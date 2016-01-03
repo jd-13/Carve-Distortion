@@ -1,7 +1,7 @@
 /*
  *	File:		Carve.cpp
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
@@ -24,7 +24,9 @@
 
 #include "Carve.h"
 
-Carve::Carve() : DSPUnit1(), DSPUnit2(), routing(ROUTING_DEFAULT) {
+Carve::Carve() :    DSPUnit1(), DSPUnit2(),
+                    routing(ROUTING_DEFAULT), dryLevel(DRYLEVEL_DEFAULT), masterVol(MASTERVOL_DEFAULT),
+                    isStereo(STEREO_DEFAULT) {
 }
 
 Carve::~Carve(){}

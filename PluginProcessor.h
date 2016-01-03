@@ -74,14 +74,17 @@ public:
         preGain1,
         postGain1,
         tweak1,
+        
         mode2,
         preGain2,
         postGain2,
         tweak2,
+        
         routing,
         stereo,
         dryLevel,
         masterVol,
+        
         totalNumParams
     };
     

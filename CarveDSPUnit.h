@@ -1,7 +1,7 @@
 /*
  *	File:		CarveDSPUnit.h
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
@@ -22,11 +22,14 @@
  *
  */
 
-#include "math.h"
-#include "ParameterData.h"
 
 #ifndef Carve_CarveDSPUnit_h
 #define Carve_CarveDSPUnit_h
+
+#define _USE_MATH_DEFINES
+
+#include "math.h"
+#include "ParameterData.h"
 
 class CarveDSPUnit {
 private:
@@ -49,6 +52,8 @@ private:
     float processAsymmetricSine(float inSample) const;
     
     float processExponent(float inSample) const;
+    
+    float processClipper(float inSample) const;
     
 public:
     CarveDSPUnit();

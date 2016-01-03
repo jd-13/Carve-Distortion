@@ -33,9 +33,10 @@ const int   MODE_SINE = 1,
             MODE_PARABOLIC_HARD = 3,
             MODE_ASYMMETRIC_SINE = 4,
             MODE_EXPONENT = 5,
+            MODE_CLIPPER = 6,
             MODE_DEFAULT = MODE_SINE,
             MODE_MIN = MODE_SINE,
-            MODE_MAX = MODE_EXPONENT;
+            MODE_MAX = MODE_CLIPPER;
 
 const float PREGAIN_DEFAULT = 1,
             PREGAIN_MIN = 0,
@@ -63,26 +64,23 @@ const float PREGAIN_DEFAULT = 1,
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
-            STEREO_DEFAULT = STEREO_OFF,
-            DEBUGGING_MODE = false;         // Enables debugging output label
-                                            // Check sliderValueChanged_Post (or equivalent)
-                                            // is set to display the required value
+STEREO_DEFAULT = STEREO_OFF;
 
-const String    MODE1_STR = "Mode 1",
-                MODE2_STR = "Mode 2",
-                PREGAIN1_STR = "Pre Gain 1",
-                PREGAIN2_STR = "Pre Gain 2",
-                POSTGAIN1_STR = "Post Gain 1",
-                POSTGAIN2_STR = "Post Gain 2",
-                TWEAK1_STR = "Tweak 1",
-                TWEAK2_STR = "Tweak 2",
+const String    MODE1_STR = "Mode1",
+                MODE2_STR = "Mode2",
+                PREGAIN1_STR = "PreGain1",
+                PREGAIN2_STR = "PreGain2",
+                POSTGAIN1_STR = "PostGain1",
+                POSTGAIN2_STR = "PostGain2",
+                TWEAK1_STR = "Tweak1",
+                TWEAK2_STR = "Tweak2",
                 ROUTING_STR = "Routing",
                 STEREO_STR = "Stereo",
-                DRYLEVEL_STR = "Dry Level",
-                MASTERVOL_STR = "Master Vol",
-                GROUP_UNIT1 = "Unit 1",
+                DRYLEVEL_STR = "DryLevel",
+                MASTERVOL_STR = "MasterVol",
+                GROUP_UNIT1 = "Unit1",
                 GROUP_LEFT = "Left",
-                GROUP_UNIT2 = "Unit 2",
+                GROUP_UNIT2 = "Unit2",
                 GROUP_RIGHT = "Right";
 
 // Translates betweeen the normalised 0 - 1 range used by VSTs and the ranges used by the plugin internally

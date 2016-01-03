@@ -163,7 +163,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             
             
         default:
-            return;
+            break;
     }
     
     UIUpdateFlag = true;
@@ -171,8 +171,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 
 const String CarveAudioProcessor::getParameterName (int index)
 {
-    switch (index)
-    {
+    switch (index) {
         case mode1:
             return MODE1_STR;
             
@@ -389,7 +388,7 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    if (getNumOutputChannels() == 1) {
+    if (getNumOutputChannels() == 1 && getNumOutputChannels() == 1) {
         float* inSample = buffer.getWritePointer(0);
         
         for (long iii = 0; iii < buffer.getNumSamples(); iii++) {

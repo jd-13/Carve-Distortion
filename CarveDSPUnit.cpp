@@ -1,7 +1,7 @@
 /*
  *	File:		CarveDSPUnit.cpp
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
@@ -52,6 +52,10 @@ inline float CarveDSPUnit::processExponent(float inSample) const {
     return (sin(tweak * pow(M_E, (inSample + preGain)))) * postGain;
 }
 
+inline float CarveDSPUnit::processClipper(float inSample) const {
+    return inSample;
+}
+
 CarveDSPUnit::CarveDSPUnit() {
 }
 
@@ -93,6 +97,9 @@ float CarveDSPUnit::process (float inSample) const {
             
         case MODE_EXPONENT:
             return processExponent(inSample);
+            
+        case MODE_CLIPPER:
+            return processClipper(inSample);
             
         default:
             return processSine(inSample);

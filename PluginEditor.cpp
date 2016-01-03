@@ -73,6 +73,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->addItem (TRANS("Parabolic Hard"), 3);
     Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 4);
     Mode1Cmb->addItem (TRANS("Exponent"), 5);
+    Mode1Cmb->addItem (TRANS("Clipper"), 6);
     Mode1Cmb->addListener (this);
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
@@ -103,6 +104,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode2Cmb->addItem (TRANS("Parabolic Hard"), 3);
     Mode2Cmb->addItem (TRANS("Asymmetric Sine"), 4);
     Mode2Cmb->addItem (TRANS("Exponent"), 5);
+    Mode2Cmb->addItem (TRANS("Clipper"), 6);
     Mode2Cmb->addListener (this);
 
     addAndMakeVisible (RoutingSld = new Slider ("Routing Slider"));
@@ -208,14 +210,6 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     StereoBtn->addListener (this);
     StereoBtn->setColour (TextButton::buttonColourId, Colour (0xffb8b8c4));
 
-    addAndMakeVisible (DbgLbl = new Label ("Debugging Label",
-                                           TRANS("label text")));
-    DbgLbl->setFont (Font (15.00f, Font::plain));
-    DbgLbl->setJustificationType (Justification::centredLeft);
-    DbgLbl->setEditable (false, false, false);
-    DbgLbl->setColour (TextEditor::textColourId, Colours::black);
-    DbgLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -226,9 +220,9 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
     LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
-    if (!DEBUGGING_MODE) {
-        DbgLbl->setText(" ", dontSendNotification);
-    }
+    // disable stereo mode if only single output
+    CarveAudioProcessor* ourProcessor = getProcessor();
+    StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
     //[/Constructor]
 }
 
@@ -262,7 +256,6 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     DryLevelSld = nullptr;
     DryLevelLbl = nullptr;
     StereoBtn = nullptr;
-    DbgLbl = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -313,7 +306,6 @@ void CarveAudioProcessorEditor::resized()
     DryLevelSld->setBounds (104, 264, 240, 24);
     DryLevelLbl->setBounds (24, 264, 80, 24);
     StereoBtn->setBounds (272, 232, 70, 24);
-    DbgLbl->setBounds (8, 8, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -380,11 +372,6 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     }
 
     //[UsersliderValueChanged_Post]
-    if (DEBUGGING_MODE) {
-        float val = sliderThatWasMoved->getValue();
-        val = TranslateParam_Norm2Inter(val, PREGAIN_MIN, PREGAIN_MAX);
-        DbgLbl->setText(String(val), dontSendNotification);
-    }
     //[/UsersliderValueChanged_Post]
 }
 
@@ -444,10 +431,6 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
-
-        // disable stereo mode if only single output
-        StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
-
 
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
         PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
@@ -516,7 +499,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
             virtualName="" explicitFocusOrder="0" pos="24 72 150 24" editable="0"
-            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent"
+            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" min="0"
@@ -535,7 +518,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
             virtualName="" explicitFocusOrder="0" pos="200 72 150 24" editable="0"
-            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent"
+            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
           virtualName="" explicitFocusOrder="0" pos="104 232 96 24" min="0"
@@ -605,11 +588,6 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
               virtualName="" explicitFocusOrder="0" pos="272 232 70 24" bgColOff="ffb8b8c4"
               buttonText="Stereo" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <LABEL name="Debugging Label" id="f07bb186e183e4be" memberName="DbgLbl"
-         virtualName="" explicitFocusOrder="0" pos="8 8 150 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
