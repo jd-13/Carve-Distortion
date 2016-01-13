@@ -1,21 +1,21 @@
 /*
   ==============================================================================
 
-    CustomLookAndFeel.h
+    CarveLookAndFeel.h
     Created: 17 Sep 2015 10:39:00pm
     Author:  Jack Devlin
 
   ==============================================================================
 */
 
-#ifndef CUSTOMLOOKANDFEEL_H_INCLUDED
-#define CUSTOMLOOKANDFEEL_H_INCLUDED
+#ifndef CARVELOOKANDFEEL_H_INCLUDED
+#define CARVELOOKANDFEEL_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class CustomLookAndFeel : public LookAndFeel_V2 {
+class CarveLookAndFeel : public LookAndFeel_V2 {
 public:
-    CustomLookAndFeel();
+    CarveLookAndFeel();
         
     virtual void drawRotarySlider(Graphics& g,
                                   int x,
@@ -25,7 +25,7 @@ public:
                                   float sliderPosProportional,
                                   float rotaryStartAngle,
                                   float rotaryEndAngle,
-                                  Slider& slider);
+                                  Slider& slider) override;
     
     virtual void drawLinearSliderThumb(Graphics& g,
                                        int x,
@@ -36,13 +36,13 @@ public:
                                        float minSliderPos,
                                        float maxSliderPos,
                                        const Slider::SliderStyle style,
-                                       Slider& slider);
+                                       Slider& slider) override;
     
     virtual void drawButtonBackground(Graphics& g,
                                       Button& button,
                                       const Colour& backgroundColour,
                                       bool isMouseOverButton,
-                                      bool isButtonDown);
+                                      bool isButtonDown) override;
     
     virtual void drawComboBox(Graphics& g,
                               int width,
@@ -52,7 +52,7 @@ public:
                               int buttonY,
                               int buttonW,
                               int buttonH,
-                              ComboBox& box);
+                              ComboBox& box) override;
     
     
     /*virtual void drawPopupMenuBackground(Graphics& g,
@@ -61,14 +61,13 @@ public:
     */
     
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CustomLookAndFeel);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CarveLookAndFeel);
     
     Colour  lightGrey,
             darkGrey,
             neonBlue;
     
-    bool isStereo;
 };
 
 
-#endif  // CUSTOMLOOKANDFEEL_H_INCLUDED
+#endif  // CARVELOOKANDFEEL_H_INCLUDED

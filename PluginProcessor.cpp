@@ -329,7 +329,7 @@ bool CarveAudioProcessor::producesMidi() const
 
 bool CarveAudioProcessor::silenceInProducesSilenceOut() const
 {
-    return false;
+    return true;
 }
 
 double CarveAudioProcessor::getTailLengthSeconds() const

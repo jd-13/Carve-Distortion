@@ -1,34 +1,33 @@
 /*
   ==============================================================================
 
-    CustomLookAndFeel.cpp
+    CarveLookAndFeel.cpp
     Created: 17 Sep 2015 10:39:00pm
     Author:  Jack Devlin
 
   ==============================================================================
 */
 
-#include "CustomLookAndFeel.h"
+#include "CarveLookAndFeel.h"
 
-CustomLookAndFeel::CustomLookAndFeel() :    LookAndFeel_V2(),
-                                            lightGrey(200, 200, 200),
-                                            darkGrey(107, 107, 107),
-                                            neonBlue(34, 252, 255),
-                                            isStereo(false) {
+CarveLookAndFeel::CarveLookAndFeel() :  LookAndFeel_V2(),
+                                        lightGrey(200, 200, 200),
+                                        darkGrey(107, 107, 107),
+                                        neonBlue(34, 252, 255) {
                                                 
     setColour(PopupMenu::highlightedBackgroundColourId, darkGrey);
     setColour(PopupMenu::backgroundColourId, lightGrey);
 }
 
-void CustomLookAndFeel::drawRotarySlider(Graphics& g,
-                                         int x,
-                                         int y,
-                                         int width,
-                                         int height,
-                                         float sliderPosProportional,
-                                         float rotaryStartAngle,
-                                         float rotaryEndAngle,
-                                         Slider &slider) {
+void CarveLookAndFeel::drawRotarySlider(Graphics& g,
+                                        int x,
+                                        int y,
+                                        int width,
+                                        int height,
+                                        float sliderPosProportional,
+                                        float rotaryStartAngle,
+                                        float rotaryEndAngle,
+                                        Slider &slider) {
     
     Image image = ImageCache::getFromMemory(BinaryData::RotarySliderStrip_png, BinaryData::RotarySliderStrip_pngSize);
     
@@ -53,16 +52,16 @@ void CustomLookAndFeel::drawRotarySlider(Graphics& g,
                 image.getWidth());
 }
 
-void CustomLookAndFeel::drawLinearSliderThumb(Graphics& g,
-                                              int x,
-                                              int y,
-                                              int width,
-                                              int height,
-                                              float sliderPos,
-                                              float minSliderPos,
-                                              float maxSliderPos,
-                                              const Slider::SliderStyle style,
-                                              Slider& slider) {
+void CarveLookAndFeel::drawLinearSliderThumb(Graphics& g,
+                                             int x,
+                                             int y,
+                                             int width,
+                                             int height,
+                                             float sliderPos,
+                                             float minSliderPos,
+                                             float maxSliderPos,
+                                             const Slider::SliderStyle style,
+                                             Slider& slider) {
     
     const float sliderRadius = static_cast<float>(getSliderThumbRadius(slider) - 2);
     
@@ -101,11 +100,11 @@ void CustomLookAndFeel::drawLinearSliderThumb(Graphics& g,
     
 }
 
-void CustomLookAndFeel::drawButtonBackground(Graphics& g,
-                                             Button& button,
-                                             const Colour& backgroundColour,
-                                             bool isMouseOverButton,
-                                             bool isButtonDown) {
+void CarveLookAndFeel::drawButtonBackground(Graphics& g,
+                                            Button& button,
+                                            const Colour& backgroundColour,
+                                            bool isMouseOverButton,
+                                            bool isButtonDown) {
     const int width = button.getWidth();
     const int height = button.getHeight();
     
@@ -116,14 +115,10 @@ void CustomLookAndFeel::drawButtonBackground(Graphics& g,
     Path p;
     p.addRoundedRectangle(indent, indent, width - indent, height - indent, static_cast<float>(cornerSize));
     
-    if (isButtonDown) {
-        isStereo = !isStereo; //TODO: replace this with a direct check of the carve object's isStereo member?
-    }
-    
     Colour* bc;
     
     if (button.isEnabled()) {
-        if (isStereo) {
+        if (button.getToggleState()) {
             bc = &neonBlue;
         } else {
             bc = &darkGrey;
@@ -137,15 +132,15 @@ void CustomLookAndFeel::drawButtonBackground(Graphics& g,
     g.fillPath(p);
 }
 
-void CustomLookAndFeel::drawComboBox(Graphics& g,
-                                     int width,
-                                     int height,
-                                     const bool isButtonDown,
-                                     int buttonX,
-                                     int buttonY,
-                                     int buttonW,
-                                     int buttonH,
-                                     ComboBox& box) {
+void CarveLookAndFeel::drawComboBox(Graphics& g,
+                                    int width,
+                                    int height,
+                                    const bool isButtonDown,
+                                    int buttonX,
+                                    int buttonY,
+                                    int buttonW,
+                                    int buttonH,
+                                    ComboBox& box) {
     
     g.fillAll(lightGrey);
     g.setColour(darkGrey);
@@ -170,7 +165,7 @@ void CustomLookAndFeel::drawComboBox(Graphics& g,
     }
 }
 /*
-void CustomLookAndFeel::drawPopupMenuBackground(Graphics& g, int width, int height) {
+void CarveLookAndFeel::drawPopupMenuBackground(Graphics& g, int width, int height) {
     g.fillAll(lightGrey);
 }*/
 
