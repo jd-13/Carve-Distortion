@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Carve.h"
 #include "ParameterData.h"
+#include <memory>
 
 
 //==============================================================================

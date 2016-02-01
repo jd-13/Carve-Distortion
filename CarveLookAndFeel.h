@@ -11,7 +11,12 @@
 #ifndef CARVELOOKANDFEEL_H_INCLUDED
 #define CARVELOOKANDFEEL_H_INCLUDED
 
+#define _USE_MATH_DEFINES
+
+#include "math.h"
 #include "../JuceLibraryCode/JuceHeader.h"
+
+
 
 class CarveLookAndFeel : public LookAndFeel_V2 {
 public:

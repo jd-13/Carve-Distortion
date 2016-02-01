@@ -45,7 +45,7 @@ inline void Carve::ProcessMaster(float sample, float* inSample) {
 
 void Carve::ClockProcess1in1out(float* inSample) {
     
-    float sample = *inSample;
+    float sample {*inSample};
     
     sample = ProcessSerial(sample) * (1 - routing) + ProcessParallel(sample) * routing;
     
@@ -55,8 +55,8 @@ void Carve::ClockProcess1in1out(float* inSample) {
 
 void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
     
-    float leftSample = *inLeftSample;
-    float rightSample = *inRightSample;
+    float leftSample {*inLeftSample};
+    float rightSample {*inRightSample};
     
     // stereo mode processing
     if (isStereo) {
@@ -74,8 +74,8 @@ void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
 
 void Carve::ClockProcess2in2out(float* inLeftSample, float* inRightSample) {
     
-    float leftSample = *inLeftSample;
-    float rightSample = *inRightSample;
+    float leftSample {*inLeftSample};
+    float rightSample {*inRightSample};
     
     // stereo mode processing
     if (isStereo) {

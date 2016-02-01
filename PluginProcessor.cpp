@@ -148,7 +148,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case stereo:
-            mCarve.setStereo(newValue < 0.5 ? true : false);
+            mCarve.setStereo(newValue < 0.5);
             break;
             
         case dryLevel:
@@ -389,24 +389,24 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     if (getNumOutputChannels() == 1 && getNumOutputChannels() == 1) {
-        float* inSample = buffer.getWritePointer(0);
+        float* inSample {buffer.getWritePointer(0)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess1in1out(&inSample[iii]);
         }
     } else if (getNumInputChannels() == 1 && getNumOutputChannels() == 2) {
-        float* inLeftSample = buffer.getWritePointer(0);
-        float* inRightSample = buffer.getWritePointer(1);
+        float* inLeftSample {buffer.getWritePointer(0)};
+        float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess1in2out(&inLeftSample[iii], &inRightSample[iii]);
         }
         
     } else {
-        float* inLeftSample = buffer.getWritePointer(0);
-        float* inRightSample = buffer.getWritePointer(1);
+        float* inLeftSample {buffer.getWritePointer(0)};
+        float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess2in2out(&inLeftSample[iii], &inRightSample[iii]);
         }
     }
@@ -485,7 +485,7 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
+    std::unique_ptr<XmlElement> pRoot(getXmlFromBinary(data, sizeInBytes));
 
     if (pRoot != NULL) {
         forEachXmlChildElement((*pRoot), pChild) {
@@ -538,8 +538,9 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
             }
         }
         
-        delete pRoot;
-        pRoot = NULL;
+        // Slightly hacky fix to prevent inverted button settings on startup
+        setParameter(stereo, getParameter(stereo));
+        
         UIUpdateFlag = true;
     }
 

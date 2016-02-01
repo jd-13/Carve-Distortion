@@ -221,7 +221,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     startTimer(200);
     LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
     // disable stereo mode if only single output
-    CarveAudioProcessor* ourProcessor = getProcessor();
+    CarveAudioProcessor* ourProcessor {getProcessor()};
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
     //[/Constructor]
 }
@@ -313,7 +313,7 @@ void CarveAudioProcessorEditor::resized()
 void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
-    CarveAudioProcessor* ourProcessor = getProcessor();
+    CarveAudioProcessor* ourProcessor {getProcessor()};
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == PreGain1Sld)
@@ -378,7 +378,7 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 void CarveAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
     //[UsercomboBoxChanged_Pre]
-    CarveAudioProcessor* ourProcessor = getProcessor();
+    CarveAudioProcessor* ourProcessor {getProcessor()};
     //[/UsercomboBoxChanged_Pre]
 
     if (comboBoxThatHasChanged == Mode1Cmb)
@@ -401,12 +401,13 @@ void CarveAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
 void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-    CarveAudioProcessor* ourProcessor = getProcessor();
+    CarveAudioProcessor* ourProcessor {getProcessor()};
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == StereoBtn)
     {
         //[UserButtonCode_StereoBtn] -- add your button handler code here..
+        Logger::outputDebugString("onclick getToggleState: " + String(StereoBtn->getToggleState()));
         ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(StereoBtn->getToggleState()));
         //[/UserButtonCode_StereoBtn]
     }
@@ -419,9 +420,11 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void CarveAudioProcessorEditor::timerCallback() {
-    CarveAudioProcessor* ourProcessor = getProcessor();
+    CarveAudioProcessor* ourProcessor {getProcessor()};
 
     if (ourProcessor->NeedsUIUpdate()) {
+
+        Logger::outputDebugString("refresh getToggleState: " + String(StereoBtn->getToggleState()));
 
         // change group titles if in stereo mode
         if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {

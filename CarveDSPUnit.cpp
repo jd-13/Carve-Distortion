@@ -61,23 +61,19 @@ CarveDSPUnit::CarveDSPUnit() {
 
 // set parameter methods, w/ integrated bounds checks
 void CarveDSPUnit::setMode(int val) {
-    mode = val;
-    mode = boundsCheck<int>(mode, MODE_MIN, MODE_MAX);
+    mode = boundsCheck<int>(val, MODE_MIN, MODE_MAX);
 }
 
 void CarveDSPUnit::setPreGain(float val) {
-    preGain = val;
-    preGain = boundsCheck(preGain, PREGAIN_MIN, PREGAIN_MAX);
+    preGain = boundsCheck(val, PREGAIN_MIN, PREGAIN_MAX);
 }
 
 void CarveDSPUnit::setPostGain(float val) {
-    postGain = val;
-    postGain = boundsCheck(postGain, POSTGAIN_MIN, POSTGAIN_MAX);
+    postGain = boundsCheck(val, POSTGAIN_MIN, POSTGAIN_MAX);
 }
 
 void CarveDSPUnit::setTweak(float val) {
-    tweak = val;
-    tweak = boundsCheck(tweak, TWEAK_MIN, TWEAK_MAX);
+    tweak = boundsCheck(val, TWEAK_MIN, TWEAK_MAX);
 }
 
 // process methods
