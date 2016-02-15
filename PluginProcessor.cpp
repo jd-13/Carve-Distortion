@@ -17,19 +17,19 @@
 CarveAudioProcessor::CarveAudioProcessor()
 {
     mCarve.DSPUnit1.setMode(MODE_DEFAULT);
-    mCarve.DSPUnit1.setPreGain(TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    mCarve.DSPUnit1.setPostGain(TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    mCarve.DSPUnit1.setTweak(TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    mCarve.DSPUnit1.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit1.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit1.setTweak(TWEAK_DEFAULT);
     
-    mCarve.DSPUnit2.setMode(TranslateParam_Inter2Norm(MODE_DEFAULT, MODE_MIN, MODE_MAX));
-    mCarve.DSPUnit2.setPreGain(TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    mCarve.DSPUnit2.setPostGain(TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    mCarve.DSPUnit2.setTweak(TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    mCarve.DSPUnit2.setMode(MODE_DEFAULT);
+    mCarve.DSPUnit2.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit2.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit2.setTweak(TWEAK_DEFAULT);
     
     mCarve.setRouting(ROUTING_DEFAULT);
     mCarve.setStereo(STEREO_DEFAULT);
-    mCarve.setDryLevel(TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
-    mCarve.setMasterVol(TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
+    mCarve.setDryLevel(DRYLEVEL_DEFAULT);
+    mCarve.setMasterVol(MASTERVOL_DEFAULT);
     
     UIUpdateFlag = true;
 }
