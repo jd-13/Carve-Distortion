@@ -220,9 +220,23 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
     LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
+    
     // disable stereo mode if only single output
     CarveAudioProcessor* ourProcessor {getProcessor()};
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
+    
+    // set double click to default for sliders
+    PreGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
+    PostGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
+    Tweak1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    
+    PreGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX)   );
+    PostGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
+    Tweak2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    
+    RoutingSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(ROUTING_DEFAULT, ROUTING_SERIAL, ROUTING_PARALLEL));
+    DryLevelSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
+    MasterVolSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
     //[/Constructor]
 }
 
