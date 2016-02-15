@@ -407,7 +407,6 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == StereoBtn)
     {
         //[UserButtonCode_StereoBtn] -- add your button handler code here..
-        Logger::outputDebugString("onclick getToggleState: " + String(StereoBtn->getToggleState()));
         ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(StereoBtn->getToggleState()));
         //[/UserButtonCode_StereoBtn]
     }
@@ -423,8 +422,6 @@ void CarveAudioProcessorEditor::timerCallback() {
     CarveAudioProcessor* ourProcessor {getProcessor()};
 
     if (ourProcessor->NeedsUIUpdate()) {
-
-        Logger::outputDebugString("refresh getToggleState: " + String(StereoBtn->getToggleState()));
 
         // change group titles if in stereo mode
         if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
