@@ -434,7 +434,13 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
-
+        
+        // disable tweak control for hard clipper wave shape
+        Tweak1Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode1) != MODE_CLIPPER);
+        Tweak2Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode2) != MODE_CLIPPER);
+        
+        
+        
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
         PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
         PostGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::postGain1), dontSendNotification);

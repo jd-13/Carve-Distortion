@@ -42,7 +42,12 @@ void CarveLookAndFeel::drawRotarySlider(Graphics& g,
     g.fillPath(p);
     
     // draw outer ring
-    g.setColour(neonBlue);
+    if (slider.isEnabled()) {
+        g.setColour(neonBlue);
+    } else {
+        g.setColour(lightGrey);
+    }
+    
     p.clear();
     
     const float gap {0.4};
