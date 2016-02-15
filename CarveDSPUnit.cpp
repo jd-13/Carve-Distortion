@@ -24,14 +24,6 @@
 
 #include "CarveDSPUnit.h"
 
-template<typename T>
-T CarveDSPUnit::boundsCheck(T param, T min, T max) {
-    if (param < min) param = min;
-    if (param > max) param = max;
-    
-    return param;
-}
-
 inline float CarveDSPUnit::processSine(float inSample) const {
     return sin(M_PI * inSample * preGain + (tweak * M_PI)) * postGain;
 }
@@ -64,7 +56,10 @@ inline float CarveDSPUnit::processClipper(float inSample) const {
             0.009375 * sin(6.5 * inSample)) * postGain / 1.5;
 }
 
-CarveDSPUnit::CarveDSPUnit() {
+CarveDSPUnit::CarveDSPUnit() :  preGain(PREGAIN_DEFAULT),
+                                postGain(POSTGAIN_DEFAULT),
+                                tweak(TWEAK_DEFAULT),
+                                mode(MODE_DEFAULT) {
 }
 
 // set parameter methods, w/ integrated bounds checks
