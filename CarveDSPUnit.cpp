@@ -37,15 +37,15 @@ inline float CarveDSPUnit::processSine(float inSample) const {
 }
 
 inline float CarveDSPUnit::processParabolicSoft(float inSample) const {
-    return (inSample * ((4 * tweak) - sqrt((4 - preGain) * pow(inSample, 2))) * 0.5) * postGain;
+    return (M_PI * inSample * ((4 * tweak) - sqrt((4 - preGain) * pow(inSample, 2))) * 0.5) * postGain;
 }
 
 inline float CarveDSPUnit::processParabolicHard(float inSample) const {
-    return (atan(preGain * 4 * inSample + (tweak * M_PI)) / 1.5) * postGain;
+    return (atan(preGain * 4 * M_PI * inSample + (tweak * M_PI)) / 1.5) * postGain;
 }
 
 inline float CarveDSPUnit::processAsymmetricSine(float inSample) const {
-    return (cos(inSample * (tweak + 1)) * atan(4 * inSample * preGain)) * postGain;
+    return (cos(M_PI * inSample * (tweak + 1)) * atan(4 * M_PI * inSample * preGain)) * postGain;
 }
 
 inline float CarveDSPUnit::processExponent(float inSample) const {
@@ -53,7 +53,15 @@ inline float CarveDSPUnit::processExponent(float inSample) const {
 }
 
 inline float CarveDSPUnit::processClipper(float inSample) const {
-    return inSample;
+    inSample *= M_PI * preGain;
+    
+    return (sin(0.5 * inSample) +
+            0.3 * sin(1.5 * inSample) +
+            0.15 * sin(2.5 * inSample) *
+            0.075 * sin(3.5 * inSample) +
+            0.0375 * sin(4.5 * inSample) +
+            0.01875 * sin(5.5 * inSample) +
+            0.009375 * sin(6.5 * inSample)) * postGain / 1.5;
 }
 
 CarveDSPUnit::CarveDSPUnit() {
