@@ -64,7 +64,7 @@ const float PREGAIN_DEFAULT = 1,
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
-STEREO_DEFAULT = STEREO_OFF;
+            STEREO_DEFAULT = STEREO_OFF;
 
 const String    MODE1_STR = "Mode1",
                 MODE2_STR = "Mode2",
