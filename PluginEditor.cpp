@@ -28,7 +28,7 @@
 
 //==============================================================================
 CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter)
-    : AudioProcessorEditor(ownerFilter)
+    : AudioProcessorEditor(ownerFilter), tooltipWindow()
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -46,24 +46,28 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Unit2Group->setTextLabelPosition (Justification::centred);
 
     addAndMakeVisible (PreGain1Sld = new Slider ("PreGain 1 Slider"));
+    PreGain1Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain1Sld->setRange (0, 1, 0.01);
     PreGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PreGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PreGain1Sld->addListener (this);
 
     addAndMakeVisible (PostGain1Sld = new Slider ("PostGain 1 Slider"));
+    PostGain1Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain1Sld->setRange (0, 1, 0.01);
     PostGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PostGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PostGain1Sld->addListener (this);
 
     addAndMakeVisible (Tweak1Sld = new Slider ("Tweak 1 Slider"));
+    Tweak1Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak1Sld->setRange (0, 1, 0.01);
     Tweak1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     Tweak1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     Tweak1Sld->addListener (this);
 
     addAndMakeVisible (Mode1Cmb = new ComboBox ("Mode 1 Combo Box"));
+    Mode1Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode1Cmb->setEditableText (false);
     Mode1Cmb->setJustificationType (Justification::centredLeft);
     Mode1Cmb->setTextWhenNothingSelected (String::empty);
@@ -77,24 +81,28 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->addListener (this);
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
+    PreGain2Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain2Sld->setRange (0, 1, 0.01);
     PreGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PreGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PreGain2Sld->addListener (this);
 
     addAndMakeVisible (PostGain2Sld = new Slider ("PostGain 2 Slider"));
+    PostGain2Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain2Sld->setRange (0, 1, 0.01);
     PostGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     PostGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     PostGain2Sld->addListener (this);
 
     addAndMakeVisible (Tweak2Sld = new Slider ("Tweak 2 Slider"));
+    Tweak2Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak2Sld->setRange (0, 1, 0.01);
     Tweak2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
     Tweak2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     Tweak2Sld->addListener (this);
 
     addAndMakeVisible (Mode2Cmb = new ComboBox ("Mode 2 Combo Box"));
+    Mode2Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode2Cmb->setEditableText (false);
     Mode2Cmb->setJustificationType (Justification::centredLeft);
     Mode2Cmb->setTextWhenNothingSelected (String::empty);
@@ -108,6 +116,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode2Cmb->addListener (this);
 
     addAndMakeVisible (RoutingSld = new Slider ("Routing Slider"));
+    RoutingSld->setTooltip (TRANS("Routing of the signal between the two distortion units"));
     RoutingSld->setRange (0, 1, 0.01);
     RoutingSld->setSliderStyle (Slider::LinearHorizontal);
     RoutingSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
@@ -154,6 +163,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     ParallelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (MasterVolSld = new Slider ("Master Vol Slider"));
+    MasterVolSld->setTooltip (TRANS("Master volume"));
     MasterVolSld->setRange (0, 1, 0.01);
     MasterVolSld->setSliderStyle (Slider::LinearHorizontal);
     MasterVolSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
@@ -192,6 +202,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Tweak2Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (DryLevelSld = new Slider ("Dry Level Slider"));
+    DryLevelSld->setTooltip (TRANS("Adds the unprocessed signal into the output"));
     DryLevelSld->setRange (0, 1, 0.01);
     DryLevelSld->setSliderStyle (Slider::LinearHorizontal);
     DryLevelSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
@@ -206,6 +217,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     DryLevelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (StereoBtn = new TextButton ("Stereo Button"));
+    StereoBtn->setTooltip (TRANS("Allows unit 1 and unit 2 to process the left and right channels independently"));
     StereoBtn->setButtonText (TRANS("Stereo"));
     StereoBtn->addListener (this);
     StereoBtn->setColour (TextButton::buttonColourId, Colour (0xffb8b8c4));
@@ -220,20 +232,20 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
     LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
-    
+
     // disable stereo mode if only single output
     CarveAudioProcessor* ourProcessor {getProcessor()};
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
-    
+
     // set double click to default for sliders
     PreGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
     PostGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
     Tweak1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
-    
+
     PreGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX)   );
     PostGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
     Tweak2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
-    
+
     RoutingSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(ROUTING_DEFAULT, ROUTING_SERIAL, ROUTING_PARALLEL));
     DryLevelSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
     MasterVolSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
@@ -445,13 +457,13 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
-        
+
         // disable tweak control for hard clipper wave shape
         Tweak1Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode1) != MODE_CLIPPER);
         Tweak2Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode2) != MODE_CLIPPER);
-        
-        
-        
+
+
+
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
         PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
         PostGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::postGain1), dontSendNotification);
@@ -503,46 +515,46 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="192 48 168 152" title="Unit 2"
                   textpos="36"/>
   <SLIDER name="PreGain 1 Slider" id="f32c9f6afaac55bd" memberName="PreGain1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 104 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="128 104 32 24" tooltip="Gain applied to the signal before processing"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 136 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="128 136 32 24" tooltip="Gain applied to the signal after processing"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 168 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="128 168 32 24" tooltip="Morphs the wave shape applied to the signal"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
-            virtualName="" explicitFocusOrder="0" pos="24 72 150 24" editable="0"
-            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            virtualName="" explicitFocusOrder="0" pos="24 72 150 24" tooltip="Wave shape applied to the signal"
+            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 104 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="304 104 32 24" tooltip="Gain applied to the signal before processing"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 136 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="304 136 32 24" tooltip="Gain applied to the signal after processing"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 168 32 24" min="0"
-          max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
+          virtualName="" explicitFocusOrder="0" pos="304 168 32 24" tooltip="Morphs the wave shape applied to the signal"
+          min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
-            virtualName="" explicitFocusOrder="0" pos="200 72 150 24" editable="0"
-            layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            virtualName="" explicitFocusOrder="0" pos="200 72 150 24" tooltip="Wave shape applied to the signal"
+            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
-          virtualName="" explicitFocusOrder="0" pos="104 232 96 24" min="0"
-          max="1" int="0.010000000000000000208" style="LinearHorizontal"
+          virtualName="" explicitFocusOrder="0" pos="104 232 96 24" tooltip="Routing of the signal between the two distortion units"
+          min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="PreGain 1 Label" id="23c42a895f3ddaf2" memberName="PreGain1Lbl"
@@ -571,8 +583,8 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <SLIDER name="Master Vol Slider" id="98dbad60d21a006b" memberName="MasterVolSld"
-          virtualName="" explicitFocusOrder="0" pos="104 295 240 24" min="0"
-          max="1" int="0.010000000000000000208" style="LinearHorizontal"
+          virtualName="" explicitFocusOrder="0" pos="104 295 240 24" tooltip="Master volume"
+          min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Master Vol Label" id="7ced186274c6d879" memberName="MasterVolLbl"
@@ -596,8 +608,8 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
-          virtualName="" explicitFocusOrder="0" pos="104 264 240 24" min="0"
-          max="1" int="0.010000000000000000208" style="LinearHorizontal"
+          virtualName="" explicitFocusOrder="0" pos="104 264 240 24" tooltip="Adds the unprocessed signal into the output"
+          min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
@@ -606,8 +618,9 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
-              virtualName="" explicitFocusOrder="0" pos="272 232 70 24" bgColOff="ffb8b8c4"
-              buttonText="Stereo" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="272 232 70 24" tooltip="Allows unit 1 and unit 2 to process the left and right channels independently"
+              bgColOff="ffb8b8c4" buttonText="Stereo" connectedEdges="0" needsCallback="1"
+              radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

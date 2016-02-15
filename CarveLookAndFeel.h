@@ -60,10 +60,10 @@ public:
                               ComboBox& box) override;
     
     
-    /*virtual void drawPopupMenuBackground(Graphics& g,
-                                         int width,
-                                         int height);
-    */
+    virtual void drawTooltip(Graphics& g,
+                             const String& text,
+                             int width,
+                             int height) override;
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CarveLookAndFeel);

@@ -169,8 +169,14 @@ void CarveLookAndFeel::drawComboBox(Graphics& g,
         g.fillPath(p);
     }
 }
-/*
-void CarveLookAndFeel::drawPopupMenuBackground(Graphics& g, int width, int height) {
-    g.fillAll(lightGrey);
-}*/
 
+void CarveLookAndFeel::drawTooltip(Graphics& g,
+                                   const String& text,
+                                   int width,
+                                   int height) {
+    g.setColour(lightGrey);
+    g.fillRect(0, 0, width, height);
+    
+    g.setColour(darkGrey);
+    g.drawFittedText(text, 0, 0, width, height, Justification::centred, 3);
+}
