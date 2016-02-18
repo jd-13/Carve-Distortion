@@ -29,7 +29,7 @@ inline float CarveDSPUnit::processSine(float inSample) const {
 }
 
 inline float CarveDSPUnit::processParabolicSoft(float inSample) const {
-    return (M_PI * inSample * ((4 * tweak) - sqrt((4 - preGain) * pow(inSample, 2))) * 0.5) * postGain;
+    return (M_PI * inSample * preGain * ((4 * tweak) - sqrt(4 * pow(inSample * M_PI * preGain, 2))) * 0.5) * postGain;
 }
 
 inline float CarveDSPUnit::processParabolicHard(float inSample) const {
