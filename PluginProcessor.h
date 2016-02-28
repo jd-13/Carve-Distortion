@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Carve.h"
 #include "ParameterData.h"
+#include <memory>
 
 
 //==============================================================================
@@ -74,14 +75,17 @@ public:
         preGain1,
         postGain1,
         tweak1,
+        
         mode2,
         preGain2,
         postGain2,
         tweak2,
+        
         routing,
         stereo,
         dryLevel,
         masterVol,
+        
         totalNumParams
     };
     
@@ -100,6 +104,10 @@ public:
 private:
     Carve mCarve;
     bool UIUpdateFlag;
+    
+    String floatVectorToString(const std::vector<float>& fData) const;
+    
+    int stringToFloatVector(const String sFloatCSV, std::vector<float>& fData, int maxNumFloat) const;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CarveAudioProcessor)
 };

@@ -16,21 +16,20 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    //Logger::outputDebugString("CarveAudioProcessor::CarveAudioProcessor");
     mCarve.DSPUnit1.setMode(MODE_DEFAULT);
-    mCarve.DSPUnit1.setPreGain(TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    mCarve.DSPUnit1.setPostGain(TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    mCarve.DSPUnit1.setTweak(TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    mCarve.DSPUnit1.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit1.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit1.setTweak(TWEAK_DEFAULT);
     
-    mCarve.DSPUnit2.setMode(TranslateParam_Inter2Norm(MODE_DEFAULT, MODE_MIN, MODE_MAX));
-    mCarve.DSPUnit2.setPreGain(TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    mCarve.DSPUnit2.setPostGain(TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    mCarve.DSPUnit2.setTweak(TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    mCarve.DSPUnit2.setMode(MODE_DEFAULT);
+    mCarve.DSPUnit2.setPreGain(PREGAIN_DEFAULT);
+    mCarve.DSPUnit2.setPostGain(POSTGAIN_DEFAULT);
+    mCarve.DSPUnit2.setTweak(TWEAK_DEFAULT);
     
     mCarve.setRouting(ROUTING_DEFAULT);
     mCarve.setStereo(STEREO_DEFAULT);
-    mCarve.setDryLevel(TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
-    mCarve.setMasterVol(TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
+    mCarve.setDryLevel(DRYLEVEL_DEFAULT);
+    mCarve.setMasterVol(MASTERVOL_DEFAULT);
     
     UIUpdateFlag = true;
 }
@@ -148,7 +147,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case stereo:
-            mCarve.setStereo(newValue < 0.5 ? true : false);
+            mCarve.setStereo(newValue < 0.5);
             break;
             
         case dryLevel:
@@ -163,7 +162,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             
             
         default:
-            return;
+            break;
     }
     
     UIUpdateFlag = true;
@@ -171,8 +170,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 
 const String CarveAudioProcessor::getParameterName (int index)
 {
-    switch (index)
-    {
+    switch (index) {
         case mode1:
             return MODE1_STR;
             
@@ -330,7 +328,7 @@ bool CarveAudioProcessor::producesMidi() const
 
 bool CarveAudioProcessor::silenceInProducesSilenceOut() const
 {
-    return false;
+    return true;
 }
 
 double CarveAudioProcessor::getTailLengthSeconds() const
@@ -389,25 +387,25 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    if (getNumOutputChannels() == 1) {
-        float* inSample = buffer.getWritePointer(0);
+    if (getNumOutputChannels() == 1 && getNumOutputChannels() == 1) {
+        float* inSample {buffer.getWritePointer(0)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess1in1out(&inSample[iii]);
         }
     } else if (getNumInputChannels() == 1 && getNumOutputChannels() == 2) {
-        float* inLeftSample = buffer.getWritePointer(0);
-        float* inRightSample = buffer.getWritePointer(1);
+        float* inLeftSample {buffer.getWritePointer(0)};
+        float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess1in2out(&inLeftSample[iii], &inRightSample[iii]);
         }
         
     } else {
-        float* inLeftSample = buffer.getWritePointer(0);
-        float* inRightSample = buffer.getWritePointer(1);
+        float* inLeftSample {buffer.getWritePointer(0)};
+        float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii = 0; iii < buffer.getNumSamples(); iii++) {
+        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
             mCarve.ClockProcess2in2out(&inLeftSample[iii], &inRightSample[iii]);
         }
     }
@@ -430,120 +428,71 @@ void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    std::vector<float> userParams;
+    for (int iii {0}; iii < totalNumParams; iii++) {
+        userParams.push_back(getParameter(iii));
+    }
+    
     XmlElement root("Root");
-    XmlElement *el;
+    XmlElement *el = root.createNewChildElement("AllUserParam");
     
-    el = root.createNewChildElement(MODE1_STR);
-    el->addTextElement(String(mCarve.DSPUnit1.getMode()));
-    
-    el = root.createNewChildElement(PREGAIN1_STR);
-    el->addTextElement(String(mCarve.DSPUnit1.getPreGain()));
-    
-    el = root.createNewChildElement(POSTGAIN1_STR);
-    el->addTextElement(String(mCarve.DSPUnit1.getPostGain()));
-    
-    el = root.createNewChildElement(TWEAK1_STR);
-    el->addTextElement(String(mCarve.DSPUnit1.getTweak()));
-    
-    
-    
-    
-    el = root.createNewChildElement(MODE2_STR);
-    el->addTextElement(String(mCarve.DSPUnit2.getMode()));
-    
-    el = root.createNewChildElement(PREGAIN2_STR);
-    el->addTextElement(String(mCarve.DSPUnit2.getPreGain()));
-    
-    el = root.createNewChildElement(POSTGAIN2_STR);
-    el->addTextElement(String(mCarve.DSPUnit2.getPostGain()));
-    
-    el = root.createNewChildElement(TWEAK2_STR);
-    el->addTextElement(String(mCarve.DSPUnit2.getTweak()));
-    
-    
-    
-    
-    el = root.createNewChildElement(ROUTING_STR);
-    el->addTextElement(String(mCarve.getRouting()));
-    
-    el = root.createNewChildElement(STEREO_STR);
-    el->addTextElement(String(mCarve.getStereo()));
-    
-    el = root.createNewChildElement(DRYLEVEL_STR);
-    el->addTextElement(String(mCarve.getDryLevel()));
-    
-    el = root.createNewChildElement(MASTERVOL_STR);
-    el->addTextElement(String(mCarve.getMasterVol()));
-    
-    
-    
-    
+    el->addTextElement(String(floatVectorToString(userParams)));
     copyXmlToBinary(root, destData);
-
 }
 
 void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
-
+    std::unique_ptr<XmlElement> pRoot(getXmlFromBinary(data, sizeInBytes));
+    std::vector<float> tmpUserParam;
+    
     if (pRoot != NULL) {
         forEachXmlChildElement((*pRoot), pChild) {
-            if (pChild->hasTagName(MODE1_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(mode1, text.getFloatValue());
-            } else if (pChild->hasTagName(PREGAIN1_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(preGain1, text.getFloatValue());
-            } else if (pChild->hasTagName(POSTGAIN1_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(postGain1, text.getFloatValue());
-            } else if (pChild->hasTagName(TWEAK1_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(tweak1, text.getFloatValue());
-            }
-            
-            
-            
-            
-            else if (pChild->hasTagName(MODE2_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(mode2, text.getFloatValue());
-            } else if (pChild->hasTagName(PREGAIN2_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(preGain2, text.getFloatValue());
-            } else if (pChild->hasTagName(POSTGAIN2_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(postGain2, text.getFloatValue());
-            } else if (pChild->hasTagName(TWEAK2_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(tweak2, text.getFloatValue());
-            }
-            
-            
-            
-            
-            else if (pChild->hasTagName(ROUTING_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(routing, text.getFloatValue());
-            } else if (pChild->hasTagName(STEREO_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(stereo, text.getFloatValue());
-            } else if (pChild->hasTagName(DRYLEVEL_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(dryLevel, text.getFloatValue());
-            } else if (pChild->hasTagName(MASTERVOL_STR)) {
-                String text = pChild->getAllSubText();
-                setParameter(masterVol, text.getFloatValue());
+            if (pChild->hasTagName("AllUserParam")) {
+                String sFloatCSV = pChild->getAllSubText();
+                if (stringToFloatVector(sFloatCSV, tmpUserParam, totalNumParams) == totalNumParams) {
+                    for (int iii {0}; iii < totalNumParams; iii++) {
+                        setParameter(iii, tmpUserParam[iii]);
+                    }
+                }
             }
         }
         
-        delete pRoot;
-        pRoot = NULL;
+        // Slightly hacky fix to prevent inverted button settings on startup
+        setParameter(stereo, getParameter(stereo));
+        
         UIUpdateFlag = true;
     }
 
+}
+
+String CarveAudioProcessor::floatVectorToString(const std::vector<float>& fData) const {
+    String result {""};
+    
+    if (fData.size() < 1) {
+        return result;
+    }
+    
+    for (int iii {0}; iii < (fData.size() - 1); iii++) {
+        result << String(fData[iii])<<",";
+    }
+    
+    result << String(fData[fData.size() - 1]);
+    
+    return result;
+}
+
+int CarveAudioProcessor::stringToFloatVector(const String sFloatCSV, std::vector<float>& fData, int maxNumFloat) const {
+    StringArray tokenizer;
+    int tokenCount {tokenizer.addTokens(sFloatCSV, ",","")};
+    int resultCount {(maxNumFloat <= tokenCount) ? maxNumFloat : tokenCount};
+    
+    for (int iii {0}; iii < resultCount; iii++) {
+        fData.push_back(tokenizer[iii].getFloatValue());
+    }
+    
+    return ((tokenCount <= maxNumFloat) ? resultCount : -1);
 }
 
 //==============================================================================

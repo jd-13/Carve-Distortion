@@ -1,7 +1,7 @@
 /*
  *	File:		Carve.h
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
@@ -36,17 +36,20 @@ public:
     
     CarveDSPUnit DSPUnit1, DSPUnit2;
     
+    
+    
     void ClockProcess1in1out(float* inSample);
     
     void ClockProcess1in2out(float* inLeftSample, float* inRightSample);
     
     void ClockProcess2in2out(float* inLeftSample, float* inRightSample);
     
+    
+    
+    
     float getRouting() const { return routing; }
     
     bool getStereo() const { return isStereo; }
-    
-    bool getStereoAvailable() const { return isStereoAvailable; }
     
     float getDryLevel() const { return dryLevel; }
     
@@ -57,8 +60,6 @@ public:
     void setRouting(float val) { routing = val; }
     
     void setStereo(bool val) { isStereo = val; }
-    
-    void setStereoAvailable(bool val) { isStereoAvailable = val; }
     
     void setDryLevel(float val) { dryLevel = val; }
     
@@ -71,8 +72,7 @@ private:
             dryLevel,
             masterVol;
     
-    bool    isStereo,
-            isStereoAvailable;
+    bool    isStereo;
     
     inline float ProcessSerial(float inSample);
     

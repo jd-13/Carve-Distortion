@@ -1,7 +1,7 @@
 /*
  *	File:		Carve.cpp
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
@@ -24,7 +24,9 @@
 
 #include "Carve.h"
 
-Carve::Carve() : DSPUnit1(), DSPUnit2(), routing(ROUTING_DEFAULT) {
+Carve::Carve() :    DSPUnit1(), DSPUnit2(),
+                    routing(ROUTING_DEFAULT), dryLevel(DRYLEVEL_DEFAULT), masterVol(MASTERVOL_DEFAULT),
+                    isStereo(STEREO_DEFAULT) {
 }
 
 Carve::~Carve(){}
@@ -43,7 +45,7 @@ inline void Carve::ProcessMaster(float sample, float* inSample) {
 
 void Carve::ClockProcess1in1out(float* inSample) {
     
-    float sample = *inSample;
+    float sample {*inSample};
     
     sample = ProcessSerial(sample) * (1 - routing) + ProcessParallel(sample) * routing;
     
@@ -53,8 +55,8 @@ void Carve::ClockProcess1in1out(float* inSample) {
 
 void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
     
-    float leftSample = *inLeftSample;
-    float rightSample = *inRightSample;
+    float leftSample {*inLeftSample};
+    float rightSample {*inRightSample};
     
     // stereo mode processing
     if (isStereo) {
@@ -72,8 +74,8 @@ void Carve::ClockProcess1in2out(float* inLeftSample, float* inRightSample) {
 
 void Carve::ClockProcess2in2out(float* inLeftSample, float* inRightSample) {
     
-    float leftSample = *inLeftSample;
-    float rightSample = *inRightSample;
+    float leftSample {*inLeftSample};
+    float rightSample {*inRightSample};
     
     // stereo mode processing
     if (isStereo) {
