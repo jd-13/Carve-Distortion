@@ -81,7 +81,15 @@ public:
     
     float getTweak() { return tweak; }
     
-    // process method
+    /* process
+     *
+     * Performs the processing on the sample, by calling the appropriate
+     * private processing methods.
+     *
+     * args:   inSample    The value of the sample to process
+     * 
+     * return: The value of inSample after processing
+     */
     float process (float inSample) const;
 };
 

@@ -28,7 +28,7 @@
 
 //==============================================================================
 CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter)
-    : AudioProcessorEditor(ownerFilter), tooltipWindow()
+    : AudioProcessorEditor(ownerFilter)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
