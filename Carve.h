@@ -99,11 +99,17 @@ private:
     
     bool    isStereo;
     
-    inline float ProcessSerial(float inSample);
+    inline float ProcessSerial(float inSample) {
+        return DSPUnit2.process(DSPUnit1.process(inSample));
+    }
     
-    inline float ProcessParallel(float inSample);
+    inline float ProcessParallel(float inSample) {
+        return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
+    }
     
-    inline void ProcessMaster(float sample, float *inSample);
+    inline void ProcessMaster(float sample, float* inSample) {
+        *inSample = (sample + (dryLevel * *inSample)) * masterVol;
+    }
 };
 
 
