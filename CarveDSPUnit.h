@@ -48,17 +48,37 @@ private:
     }
     
     // private process methods
-    float processSine(float inSample) const;
+    inline float processSine(float inSample) const {
+        return sin(M_PI * inSample * preGain + (tweak * M_PI)) * postGain;
+    }
     
-    float processParabolicSoft(float inSample) const;
+    inline float processParabolicSoft(float inSample) const {
+        return (M_PI * inSample * preGain * ((4 * tweak) - sqrt(4 * pow(inSample * M_PI * preGain, 2))) * 0.5) * postGain;
+    }
     
-    float processParabolicHard(float inSample) const;
+    inline float processParabolicHard(float inSample) const {
+        return (atan(preGain * 4 * M_PI * inSample + (tweak * M_PI)) / 1.5) * postGain;
+    }
     
-    float processAsymmetricSine(float inSample) const;
+    inline float processAsymmetricSine(float inSample) const {
+        return (cos(M_PI * inSample * (tweak + 1)) * atan(4 * M_PI * inSample * preGain)) * postGain;
+    }
     
-    float processExponent(float inSample) const;
+    inline float processExponent(float inSample) const {
+        return (sin(tweak * pow(M_E, (inSample + preGain)))) * postGain;
+    }
     
-    float processClipper(float inSample) const;
+    inline float processClipper(float inSample) const {
+        inSample *= M_PI * preGain;
+        
+        return (sin(0.5 * inSample) +
+                0.3 * sin(1.5 * inSample) +
+                0.15 * sin(2.5 * inSample) *
+                0.075 * sin(3.5 * inSample) +
+                0.0375 * sin(4.5 * inSample) +
+                0.01875 * sin(5.5 * inSample) +
+                0.009375 * sin(6.5 * inSample)) * postGain / 1.5;
+    }
     
 public:
     CarveDSPUnit();
@@ -81,7 +101,15 @@ public:
     
     float getTweak() { return tweak; }
     
-    // process method
+    /* process
+     *
+     * Performs the processing on the sample, by calling the appropriate
+     * private processing methods.
+     *
+     * args:   inSample    The value of the sample to process
+     * 
+     * return: The value of inSample after processing
+     */
     float process (float inSample) const;
 };
 

@@ -37,11 +37,36 @@ public:
     CarveDSPUnit DSPUnit1, DSPUnit2;
     
     
-    
+    /* ClockProcess1in1out
+     *
+     * Performs the effect processing on inSample. Use for mono in->mono out signals.
+     *
+     * args: inSample   Pointer to the sample to be processed
+     *       index      Current position in the current buffer of samples
+     */
     void ClockProcess1in1out(float* inSample);
     
+    /* ClockProcess1in2out
+     *
+     * Performs the effect processing on inLeftSample. Provides stereo processing for
+     * mono in->stereo out signals by processing inLeftSample differently for the left
+     * and right samples.
+     *
+     * args: inLeftSample    Pointer to the sample to be processed
+     *       inRightSample   Pointer to a location in an empty sample buffer
+     *       index           Current position in the current buffer of samples
+     */
     void ClockProcess1in2out(float* inLeftSample, float* inRightSample);
     
+    /* ClockProcess2in2out
+     *
+     * Performs the effect processing on inLeftSample and inRightSample. Use for
+     * stereo in->stereo out signals.
+     *
+     * args: inLeftSample    Pointer to the left sample to be processed
+     *       inRightSample   Pointer to the right sample to be processed
+     *       index           Current position in the current buffer of samples
+     */
     void ClockProcess2in2out(float* inLeftSample, float* inRightSample);
     
     
@@ -74,11 +99,17 @@ private:
     
     bool    isStereo;
     
-    inline float ProcessSerial(float inSample);
+    inline float ProcessSerial(float inSample) {
+        return DSPUnit2.process(DSPUnit1.process(inSample));
+    }
     
-    inline float ProcessParallel(float inSample);
+    inline float ProcessParallel(float inSample) {
+        return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
+    }
     
-    inline void ProcessMaster(float sample, float *inSample);
+    inline void ProcessMaster(float sample, float* inSample) {
+        *inSample = (sample + (dryLevel * *inSample)) * masterVol;
+    }
 };
 
 

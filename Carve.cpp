@@ -31,18 +31,6 @@ Carve::Carve() :    DSPUnit1(), DSPUnit2(),
 
 Carve::~Carve(){}
 
-inline float Carve::ProcessSerial(float inSample) {
-    return DSPUnit2.process(DSPUnit1.process(inSample));
-}
-
-inline float Carve::ProcessParallel(float inSample) {
-    return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
-}
-
-inline void Carve::ProcessMaster(float sample, float* inSample) {
-    *inSample = (sample + (dryLevel * *inSample)) * masterVol;
-}
-
 void Carve::ClockProcess1in1out(float* inSample) {
     
     float sample {*inSample};
