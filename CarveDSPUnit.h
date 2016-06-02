@@ -49,7 +49,9 @@ private:
     
     // private process methods
     inline float processSine(float inSample) const {
-        return sin(M_PI * inSample * preGain + (tweak * M_PI)) * postGain;
+        return  ((((1 - fabs(tweak/2)) * sin(M_PI * inSample * preGain)))
+                + ((tweak/2) * sin(M_PI * inSample * preGain)))
+                * postGain;
     }
     
     inline float processParabolicSoft(float inSample) const {
@@ -57,7 +59,9 @@ private:
     }
     
     inline float processParabolicHard(float inSample) const {
-        return (atan(preGain * 4 * M_PI * inSample + (tweak * M_PI)) / 1.5) * postGain;
+        return  (((1 - fabs(tweak/10)) * (atan(preGain * 4 * M_PI * inSample) / 1.5))
+                + ((tweak/10) * sin(M_PI * inSample * preGain)))
+                * postGain;
     }
     
     inline float processAsymmetricSine(float inSample) const {
@@ -65,7 +69,9 @@ private:
     }
     
     inline float processExponent(float inSample) const {
-        return (sin(tweak * pow(M_E, (inSample + preGain)))) * postGain;
+        return  (sin(-0.25 *
+                     pow(2 * M_E, (inSample * preGain + 1.5))))
+                * postGain;
     }
     
     inline float processClipper(float inSample) const {
