@@ -363,14 +363,13 @@ void CarveAudioProcessor::changeProgramName (int index, const String& newName)
 //==============================================================================
 void CarveAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    mCarve.reset();
+    mCarve.setSampleRate(getSampleRate());
 }
 
 void CarveAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    mCarve.reset();
 }
 
 void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
@@ -388,26 +387,23 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     if (getNumOutputChannels() == 1 && getNumOutputChannels() == 1) {
-        float* inSample {buffer.getWritePointer(0)};
         
-        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
-            mCarve.ClockProcess1in1out(&inSample[iii]);
-        }
+        float* inSample {buffer.getWritePointer(0)};
+        mCarve.Process1in1out(inSample, buffer.getNumSamples());
+        
     } else if (getNumInputChannels() == 1 && getNumOutputChannels() == 2) {
+        
         float* inLeftSample {buffer.getWritePointer(0)};
         float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
-            mCarve.ClockProcess1in2out(&inLeftSample[iii], &inRightSample[iii]);
-        }
+        mCarve.Process1in2out(inLeftSample, inRightSample, buffer.getNumSamples());
         
     } else {
+        
         float* inLeftSample {buffer.getWritePointer(0)};
         float* inRightSample {buffer.getWritePointer(1)};
         
-        for (long iii {0}; iii < buffer.getNumSamples(); iii++) {
-            mCarve.ClockProcess2in2out(&inLeftSample[iii], &inRightSample[iii]);
-        }
+        mCarve.Process2in2out(inLeftSample, inRightSample, buffer.getNumSamples());
     }
 }
 
