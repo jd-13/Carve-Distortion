@@ -1,7 +1,7 @@
 /*
  *	File:		ParameterData.h
  *
- *	Version:	0.02.00
+ *	Version:	2.0.0
  *
  *	Created:	09/09/2015
  *
