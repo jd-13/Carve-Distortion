@@ -105,7 +105,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 {
     switch (index) {
         case mode1:
-            mCarve.DSPUnit1.setMode(round(newValue));
+            mCarve.DSPUnit1.setMode(static_cast<int>(round(newValue)));
             break;
             
         case preGain1:
@@ -124,7 +124,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             
             
         case mode2:
-            mCarve.DSPUnit2.setMode(round(newValue));
+            mCarve.DSPUnit2.setMode(static_cast<int>(round(newValue)));
             break;
             
         case preGain2:
@@ -364,7 +364,7 @@ void CarveAudioProcessor::changeProgramName (int index, const String& newName)
 void CarveAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     mCarve.reset();
-    mCarve.setSampleRate(getSampleRate());
+    mCarve.setSampleRate(sampleRate);
 }
 
 void CarveAudioProcessor::releaseResources()

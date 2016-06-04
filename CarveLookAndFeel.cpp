@@ -20,20 +20,20 @@ CarveLookAndFeel::CarveLookAndFeel() :  LookAndFeel_V2(),
 }
 
 void CarveLookAndFeel::drawRotarySlider(Graphics& g,
-                                        int x,
-                                        int y,
+                                        int /*x*/,
+                                        int /*y*/,
                                         int width,
                                         int height,
-                                        float sliderPosProportional,
-                                        float rotaryStartAngle,
-                                        float rotaryEndAngle,
+                                        float /*sliderPosProportional*/,
+                                        float /*rotaryStartAngle*/,
+                                        float /*rotaryEndAngle*/,
                                         Slider &slider) {
     // calculate useful constants
     const double rangeOfMotion {260 * (M_PI / 180)};
     const double rotation {((slider.getValue() - slider.getMinimum()) / (slider.getMaximum() - slider.getMinimum())) * rangeOfMotion - rangeOfMotion / 2};
 
     const int margin {1};
-    const double diameter {static_cast<double>(height - margin * 2)};
+    const float diameter {static_cast<float>(height - margin * 2)};
     
     // draw centre circle
     Path p;
@@ -63,8 +63,8 @@ void CarveLookAndFeel::drawLinearSliderThumb(Graphics& g,
                                              int width,
                                              int height,
                                              float sliderPos,
-                                             float minSliderPos,
-                                             float maxSliderPos,
+                                             float /*minSliderPos*/,
+                                             float /*maxSliderPos*/,
                                              const Slider::SliderStyle style,
                                              Slider& slider) {
     
