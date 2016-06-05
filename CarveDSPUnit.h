@@ -50,7 +50,7 @@ private:
     // private process methods
     inline float processSine(float inSample) const {
         return  ((((1 - fabs(tweak/2)) * sin(M_PI * inSample * preGain)))
-                + ((tweak/2) * sin(M_PI * inSample * preGain)))
+                + ((tweak/2) * sin(4 * M_PI * inSample * preGain)))
                 * postGain;
     }
     
