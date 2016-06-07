@@ -1,17 +1,17 @@
 /*
   ==============================================================================
 
-  This is an automatically generated GUI class created by the Introjucer!
+  This is an automatically generated GUI class created by the Projucer!
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.2.0
+  Created with Projucer version: 4.2.1
 
   ------------------------------------------------------------------------------
 
-  The Introjucer is part of the JUCE library - "Jules' Utility Class Extensions"
+  The Projucer is part of the JUCE library - "Jules' Utility Class Extensions"
   Copyright (c) 2015 - ROLI Ltd.
 
   ==============================================================================
@@ -70,7 +70,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode1Cmb->setEditableText (false);
     Mode1Cmb->setJustificationType (Justification::centredLeft);
-    Mode1Cmb->setTextWhenNothingSelected (String::empty);
+    Mode1Cmb->setTextWhenNothingSelected (String());
     Mode1Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     Mode1Cmb->addItem (TRANS("Sine"), 1);
     Mode1Cmb->addItem (TRANS("Parabolic Soft"), 2);
@@ -105,7 +105,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode2Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode2Cmb->setEditableText (false);
     Mode2Cmb->setJustificationType (Justification::centredLeft);
-    Mode2Cmb->setTextWhenNothingSelected (String::empty);
+    Mode2Cmb->setTextWhenNothingSelected (String());
     Mode2Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     Mode2Cmb->addItem (TRANS("Sine"), 1);
     Mode2Cmb->addItem (TRANS("Parabolic Soft"), 2);
@@ -458,10 +458,20 @@ void CarveAudioProcessorEditor::timerCallback() {
             Unit2Group->setText(GROUP_UNIT2);
         }
 
-        // disable tweak control for hard clipper wave shape
-        Tweak1Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode1) != MODE_CLIPPER);
-        Tweak2Sld->setEnabled(ourProcessor->getParameter(CarveAudioProcessor::mode2) != MODE_CLIPPER);
+        // disable tweak control for exponent and hard clipper wave shape
+        const float mode1 {ourProcessor->getParameter(CarveAudioProcessor::mode1)};
+        if (mode1 == MODE_EXPONENT || mode1 == MODE_CLIPPER) {
+            Tweak1Sld->setEnabled(false);
+        } else {
+            Tweak1Sld->setEnabled(true);
+        }
 
+        const float mode2 {ourProcessor->getParameter(CarveAudioProcessor::mode2)};
+        if (mode2 == MODE_EXPONENT || mode2 == MODE_CLIPPER) {
+            Tweak2Sld->setEnabled(false);
+        } else {
+            Tweak2Sld->setEnabled(true);
+        }
 
 
         Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
@@ -492,9 +502,9 @@ void CarveAudioProcessorEditor::timerCallback() {
 
 //==============================================================================
 #if 0
-/*  -- Introjucer information section --
+/*  -- Projucer information section --
 
-    This is where the Introjucer stores the metadata that describe this GUI layout, so
+    This is where the Projucer stores the metadata that describe this GUI layout, so
     make changes in here at your peril!
 
 BEGIN_JUCER_METADATA
@@ -518,17 +528,17 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="128 104 32 24" tooltip="Gain applied to the signal before processing"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
           virtualName="" explicitFocusOrder="0" pos="128 136 32 24" tooltip="Gain applied to the signal after processing"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
           virtualName="" explicitFocusOrder="0" pos="128 168 32 24" tooltip="Morphs the wave shape applied to the signal"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
             virtualName="" explicitFocusOrder="0" pos="24 72 150 24" tooltip="Wave shape applied to the signal"
             editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
@@ -537,17 +547,17 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" tooltip="Gain applied to the signal before processing"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 136 32 24" tooltip="Gain applied to the signal after processing"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 168 32 24" tooltip="Morphs the wave shape applied to the signal"
           min="0" max="1" int="0.010000000000000000208" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
             virtualName="" explicitFocusOrder="0" pos="200 72 150 24" tooltip="Wave shape applied to the signal"
             editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
@@ -556,7 +566,7 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="104 232 96 24" tooltip="Routing of the signal between the two distortion units"
           min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <LABEL name="PreGain 1 Label" id="23c42a895f3ddaf2" memberName="PreGain1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 104 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Pre Gain" editableSingleClick="0" editableDoubleClick="0"
@@ -586,7 +596,7 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="104 295 240 24" tooltip="Master volume"
           min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <LABEL name="Master Vol Label" id="7ced186274c6d879" memberName="MasterVolLbl"
          virtualName="" explicitFocusOrder="0" pos="24 295 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Master Vol" editableSingleClick="0" editableDoubleClick="0"
@@ -611,7 +621,7 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="104 264 240 24" tooltip="Adds the unprocessed signal into the output"
           min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
          virtualName="" explicitFocusOrder="0" pos="24 264 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Dry Level" editableSingleClick="0" editableDoubleClick="0"
