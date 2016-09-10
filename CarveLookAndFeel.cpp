@@ -107,9 +107,9 @@ void CarveLookAndFeel::drawLinearSliderThumb(Graphics& g,
 
 void CarveLookAndFeel::drawButtonBackground(Graphics& g,
                                             Button& button,
-                                            const Colour& backgroundColour,
-                                            bool isMouseOverButton,
-                                            bool isButtonDown) {
+                                            const Colour& /*backgroundColour*/,
+                                            bool /*isMouseOverButton*/,
+                                            bool /*isButtonDown*/) {
     const int width {button.getWidth()};
     const int height {button.getHeight()};
     
@@ -138,9 +138,9 @@ void CarveLookAndFeel::drawButtonBackground(Graphics& g,
 }
 
 void CarveLookAndFeel::drawComboBox(Graphics& g,
-                                    int width,
-                                    int height,
-                                    const bool isButtonDown,
+                                    int /*width*/,
+                                    int /*height*/,
+                                    const bool /*isButtonDown*/,
                                     int buttonX,
                                     int buttonY,
                                     int buttonW,
