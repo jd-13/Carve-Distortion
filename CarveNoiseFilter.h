@@ -31,16 +31,40 @@
 
 class CarveNoiseFilter {
 public:
-    CarveNoiseFilter();
+    CarveNoiseFilter() {
+        setSampleRate(44100);
+    }
     
-    void setSampleRate(double sampleRate);
+    void setSampleRate(double sampleRate) {
+        const int lowCutHz {25};
+        const int highCutHz {19000};
+        
+        monoLowCutFilter.setup(FILTER_ORDER, sampleRate, lowCutHz);
+        stereoLowCutFilter.setup(FILTER_ORDER, sampleRate, lowCutHz);
+        monoHighCutFilter.setup(FILTER_ORDER, sampleRate, highCutHz);
+        stereoHighCutFilter.setup(FILTER_ORDER, sampleRate, highCutHz);
+    }
     
-    void reset();
+    void reset() {
+        monoLowCutFilter.reset();
+        monoHighCutFilter.reset();
+        stereoLowCutFilter.reset();
+        stereoHighCutFilter.reset();
+    }
     
-    void ApplyMonoFiltering(float* inSample, int numSamples);
+    void ApplyMonoFiltering(float* inSample, int numSamples) {
+        monoLowCutFilter.process(numSamples, &inSample);
+        monoHighCutFilter.process(numSamples, &inSample);
+    }
     
-    void ApplyStereoFiltering(float* inLeftSample, float* inRightSample, int numSamples);
-    
+    void ApplyStereoFiltering(float *inLeftSample, float *inRightSample, int numSamples) {
+        float** channelsArray = new float*[2];
+        channelsArray[0] = inLeftSample;
+        channelsArray[1] = inRightSample;
+        stereoLowCutFilter.process(numSamples, channelsArray);
+        stereoHighCutFilter.process(numSamples, channelsArray);
+        delete [] channelsArray;
+    }
     
     
 private:

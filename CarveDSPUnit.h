@@ -32,6 +32,67 @@
 #include "ParameterData.h"
 
 class CarveDSPUnit {
+public:
+    CarveDSPUnit() :    preGain(PREGAIN_DEFAULT),
+    postGain(POSTGAIN_DEFAULT),
+    tweak(TWEAK_DEFAULT),
+    mode(MODE_DEFAULT) { }
+    
+    virtual ~CarveDSPUnit() {}
+    
+    // set parameter methods, w/ integrated bounds checks
+    void setMode(int val) { mode = boundsCheck<int>(val, MODE_MIN, MODE_MAX); }
+    
+    void setPreGain(float val) { preGain = boundsCheck(val, PREGAIN_MIN, PREGAIN_MAX); }
+    
+    void setPostGain(float val) { postGain = boundsCheck(val, POSTGAIN_MIN, POSTGAIN_MAX); }
+    
+    void setTweak(float val) { tweak = boundsCheck(val, TWEAK_MIN, TWEAK_MAX); }
+    
+    // get parameter methods
+    int getMode() { return mode; }
+    
+    float getPreGain() { return preGain; }
+    
+    float getPostGain() { return postGain; }
+    
+    float getTweak() { return tweak; }
+    
+    /* process
+     *
+     * Performs the processing on the sample, by calling the appropriate
+     * private processing methods.
+     *
+     * args:   inSample    The value of the sample to process
+     *
+     * return: The value of inSample after processing
+     */
+    float process (float inSample) const {
+        switch (mode) {
+            case MODE_SINE:
+                return processSine(inSample);
+                
+            case MODE_PARABOLIC_SOFT:
+                return processParabolicSoft(inSample);
+                
+            case MODE_PARABOLIC_HARD:
+                return processParabolicHard(inSample);
+                
+            case MODE_ASYMMETRIC_SINE:
+                return processAsymmetricSine(inSample);
+                
+            case MODE_EXPONENT:
+                return processExponent(inSample);
+                
+            case MODE_CLIPPER:
+                return processClipper(inSample);
+                
+            default:
+                return processSine(inSample);
+        }
+    }
+    
+    
 private:
     float   preGain,
             postGain,
@@ -85,38 +146,6 @@ private:
                 0.01875 * sin(5.5 * inSample) +
                 0.009375 * sin(6.5 * inSample)) * postGain / 1.5;
     }
-    
-public:
-    CarveDSPUnit();
-    
-    // set parameter methods, w/ integrated bounds checks
-    void setMode(int val);
-    
-    void setPreGain(float val);
-    
-    void setPostGain(float val);
-    
-    void setTweak(float val);
-    
-    // get parameter methods
-    int getMode() { return mode; }
-    
-    float getPreGain() { return preGain; }
-    
-    float getPostGain() { return postGain; }
-    
-    float getTweak() { return tweak; }
-    
-    /* process
-     *
-     * Performs the processing on the sample, by calling the appropriate
-     * private processing methods.
-     *
-     * args:   inSample    The value of the sample to process
-     * 
-     * return: The value of inSample after processing
-     */
-    float process (float inSample) const;
 };
 
 #endif
