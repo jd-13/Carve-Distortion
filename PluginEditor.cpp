@@ -238,17 +238,17 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
     // set double click to default for sliders
-    PreGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    PostGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    Tweak1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    PreGain1Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
+    PostGain1Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
+    Tweak1Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
 
-    PreGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX)   );
-    PostGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    Tweak2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    PreGain2Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
+    PostGain2Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
+    Tweak2Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
 
-    RoutingSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(ROUTING_DEFAULT, ROUTING_SERIAL, ROUTING_PARALLEL));
-    DryLevelSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
-    MasterVolSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
+    RoutingSld->setDoubleClickReturnValue(true, ROUTING.InteralToNormalised(ROUTING.defaultValue));
+    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
+    MasterVolSld->setDoubleClickReturnValue(true, MASTERVOL.InteralToNormalised(MASTERVOL.defaultValue));
     //[/Constructor]
 }
 
@@ -460,14 +460,14 @@ void CarveAudioProcessorEditor::timerCallback() {
 
         // disable tweak control for exponent and hard clipper wave shape
         const float mode1 {ourProcessor->getParameter(CarveAudioProcessor::mode1)};
-        if (mode1 == MODE_EXPONENT || mode1 == MODE_CLIPPER) {
+        if (mode1 == MODE.EXPONENT || mode1 == MODE.CLIPPER) {
             Tweak1Sld->setEnabled(false);
         } else {
             Tweak1Sld->setEnabled(true);
         }
 
         const float mode2 {ourProcessor->getParameter(CarveAudioProcessor::mode2)};
-        if (mode2 == MODE_EXPONENT || mode2 == MODE_CLIPPER) {
+        if (mode2 == MODE.EXPONENT || mode2 == MODE.CLIPPER) {
             Tweak2Sld->setEnabled(false);
         } else {
             Tweak2Sld->setEnabled(true);

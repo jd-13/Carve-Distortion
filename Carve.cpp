@@ -25,9 +25,9 @@
 #include "Carve.h"
 
 Carve::Carve() :    DSPUnit1(), DSPUnit2(),
-                    routing(ROUTING_DEFAULT),
-                    dryLevel(DRYLEVEL_DEFAULT),
-                    masterVol(MASTERVOL_DEFAULT),
+                    routing(ROUTING.defaultValue),
+                    dryLevel(DRYLEVEL.defaultValue),
+                    masterVol(MASTERVOL.defaultValue),
                     isStereo(STEREO_DEFAULT),
                     _filter() {
 }
