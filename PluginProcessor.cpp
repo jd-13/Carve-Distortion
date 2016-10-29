@@ -62,7 +62,7 @@ float CarveAudioProcessor::getParameter (int index)
             return POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
             
         case tweak1:
-            return POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getTweak());
+            return TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
             
         
             
