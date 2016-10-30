@@ -72,12 +72,13 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->setJustificationType (Justification::centredLeft);
     Mode1Cmb->setTextWhenNothingSelected (String());
     Mode1Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    Mode1Cmb->addItem (TRANS("Sine"), 1);
-    Mode1Cmb->addItem (TRANS("Parabolic Soft"), 2);
-    Mode1Cmb->addItem (TRANS("Parabolic Hard"), 3);
-    Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 4);
-    Mode1Cmb->addItem (TRANS("Exponent"), 5);
-    Mode1Cmb->addItem (TRANS("Clipper"), 6);
+    Mode1Cmb->addItem (TRANS("Off"), 1);
+    Mode1Cmb->addItem (TRANS("Sine"), 2);
+    Mode1Cmb->addItem (TRANS("Parabolic Soft"), 3);
+    Mode1Cmb->addItem (TRANS("Parabolic Hard"), 4);
+    Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 5);
+    Mode1Cmb->addItem (TRANS("Exponent"), 6);
+    Mode1Cmb->addItem (TRANS("Clipper"), 7);
     Mode1Cmb->addListener (this);
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
@@ -107,12 +108,13 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode2Cmb->setJustificationType (Justification::centredLeft);
     Mode2Cmb->setTextWhenNothingSelected (String());
     Mode2Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    Mode2Cmb->addItem (TRANS("Sine"), 1);
-    Mode2Cmb->addItem (TRANS("Parabolic Soft"), 2);
-    Mode2Cmb->addItem (TRANS("Parabolic Hard"), 3);
-    Mode2Cmb->addItem (TRANS("Asymmetric Sine"), 4);
-    Mode2Cmb->addItem (TRANS("Exponent"), 5);
-    Mode2Cmb->addItem (TRANS("Clipper"), 6);
+    Mode2Cmb->addItem (TRANS("Off"), 1);
+    Mode2Cmb->addItem (TRANS("Sine"), 2);
+    Mode2Cmb->addItem (TRANS("Parabolic Soft"), 3);
+    Mode2Cmb->addItem (TRANS("Parabolic Hard"), 4);
+    Mode2Cmb->addItem (TRANS("Asymmetric Sine"), 5);
+    Mode2Cmb->addItem (TRANS("Exponent"), 6);
+    Mode2Cmb->addItem (TRANS("Clipper"), 7);
     Mode2Cmb->addListener (this);
 
     addAndMakeVisible (RoutingSld = new Slider ("Routing Slider"));
@@ -541,7 +543,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
             virtualName="" explicitFocusOrder="0" pos="24 72 150 24" tooltip="Wave shape applied to the signal"
-            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" tooltip="Gain applied to the signal before processing"
@@ -560,7 +562,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
             virtualName="" explicitFocusOrder="0" pos="200 72 150 24" tooltip="Wave shape applied to the signal"
-            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
           virtualName="" explicitFocusOrder="0" pos="104 232 96 24" tooltip="Routing of the signal between the two distortion units"
