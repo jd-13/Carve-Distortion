@@ -29,7 +29,7 @@ Carve::Carve() :    DSPUnit1(), DSPUnit2(),
                     dryLevel(DRYLEVEL.defaultValue),
                     masterVol(MASTERVOL.defaultValue),
                     isStereo(STEREO_DEFAULT),
-                    _filter() {
+                    _filter(25, 19000) {
 }
 
 Carve::~Carve(){}
