@@ -38,8 +38,8 @@ SCENARIO("Audio is processed correctly across several standard sample rates") {
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -70,8 +70,8 @@ SCENARIO("Audio is processed correctly across several standard sample rates") {
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -102,8 +102,8 @@ SCENARIO("Audio is processed correctly across several standard sample rates") {
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -134,8 +134,8 @@ SCENARIO("Audio is processed correctly across several standard sample rates") {
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedOutput[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }

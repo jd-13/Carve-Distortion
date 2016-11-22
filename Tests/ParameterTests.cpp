@@ -334,7 +334,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
                     REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], 0.0f));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -355,7 +355,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                     REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], 0.0f));
                 }
             }
@@ -378,7 +378,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
                     REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], 0.0f));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -399,7 +399,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                     REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], 0.0f));
                 }
             }
@@ -423,7 +423,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
                     REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], 0.0f));
-                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                 }
             }
         }
@@ -445,7 +445,7 @@ SCENARIO("Parameter combinations that should result in left or right channel sil
                 const float* readPointer2 {mSampleBuffer.getReadPointer(1)};
                 
                 for (int iii {0}; iii < mSampleBuffer.getNumSamples(); iii++) {
-                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::HIGHER_TOLERANCE));
+                    REQUIRE(CoreTestLib::compareFloats(readPointer1[iii], expectedValues[iii], CoreTestLib::TOLERANCE_6DP));
                     REQUIRE(CoreTestLib::compareFloats(readPointer2[iii], 0.0f));
                 }
             }
