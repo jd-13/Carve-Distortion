@@ -12,3 +12,5 @@ JUCE: https://www.juce.com/
 A Collection of Useful C++ Classes for Digital Signal Processing: https://github.com/vinniefalco/DSPFilters
 
 WECore: https://github.com/jd-13/WE-Core  
+
+Catch (for tests): https://github.com/philsquared/Catch  
