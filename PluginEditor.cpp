@@ -72,12 +72,13 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode1Cmb->setJustificationType (Justification::centredLeft);
     Mode1Cmb->setTextWhenNothingSelected (String());
     Mode1Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    Mode1Cmb->addItem (TRANS("Sine"), 1);
-    Mode1Cmb->addItem (TRANS("Parabolic Soft"), 2);
-    Mode1Cmb->addItem (TRANS("Parabolic Hard"), 3);
-    Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 4);
-    Mode1Cmb->addItem (TRANS("Exponent"), 5);
-    Mode1Cmb->addItem (TRANS("Clipper"), 6);
+    Mode1Cmb->addItem (TRANS("Off"), 1);
+    Mode1Cmb->addItem (TRANS("Sine"), 2);
+    Mode1Cmb->addItem (TRANS("Parabolic Soft"), 3);
+    Mode1Cmb->addItem (TRANS("Parabolic Hard"), 4);
+    Mode1Cmb->addItem (TRANS("Asymmetric Sine"), 5);
+    Mode1Cmb->addItem (TRANS("Exponent"), 6);
+    Mode1Cmb->addItem (TRANS("Clipper"), 7);
     Mode1Cmb->addListener (this);
 
     addAndMakeVisible (PreGain2Sld = new Slider ("PreGain 2 Slider"));
@@ -107,12 +108,13 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Mode2Cmb->setJustificationType (Justification::centredLeft);
     Mode2Cmb->setTextWhenNothingSelected (String());
     Mode2Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    Mode2Cmb->addItem (TRANS("Sine"), 1);
-    Mode2Cmb->addItem (TRANS("Parabolic Soft"), 2);
-    Mode2Cmb->addItem (TRANS("Parabolic Hard"), 3);
-    Mode2Cmb->addItem (TRANS("Asymmetric Sine"), 4);
-    Mode2Cmb->addItem (TRANS("Exponent"), 5);
-    Mode2Cmb->addItem (TRANS("Clipper"), 6);
+    Mode2Cmb->addItem (TRANS("Off"), 1);
+    Mode2Cmb->addItem (TRANS("Sine"), 2);
+    Mode2Cmb->addItem (TRANS("Parabolic Soft"), 3);
+    Mode2Cmb->addItem (TRANS("Parabolic Hard"), 4);
+    Mode2Cmb->addItem (TRANS("Asymmetric Sine"), 5);
+    Mode2Cmb->addItem (TRANS("Exponent"), 6);
+    Mode2Cmb->addItem (TRANS("Clipper"), 7);
     Mode2Cmb->addListener (this);
 
     addAndMakeVisible (RoutingSld = new Slider ("Routing Slider"));
@@ -238,17 +240,17 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
     // set double click to default for sliders
-    PreGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX));
-    PostGain1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    Tweak1Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    PreGain1Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
+    PostGain1Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
+    Tweak1Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
 
-    PreGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(PREGAIN_DEFAULT, PREGAIN_MIN, PREGAIN_MAX)   );
-    PostGain2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(POSTGAIN_DEFAULT, POSTGAIN_MIN, POSTGAIN_MAX));
-    Tweak2Sld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(TWEAK_DEFAULT, TWEAK_MIN, TWEAK_MAX));
+    PreGain2Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
+    PostGain2Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
+    Tweak2Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
 
-    RoutingSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(ROUTING_DEFAULT, ROUTING_SERIAL, ROUTING_PARALLEL));
-    DryLevelSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(DRYLEVEL_DEFAULT, DRYLEVEL_MIN, DRYLEVEL_MAX));
-    MasterVolSld->setDoubleClickReturnValue(true, TranslateParam_Inter2Norm(MASTERVOL_DEFAULT, MASTERVOL_MIN, MASTERVOL_MAX));
+    RoutingSld->setDoubleClickReturnValue(true, ROUTING.InteralToNormalised(ROUTING.defaultValue));
+    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
+    MasterVolSld->setDoubleClickReturnValue(true, MASTERVOL.InteralToNormalised(MASTERVOL.defaultValue));
     //[/Constructor]
 }
 
@@ -460,14 +462,14 @@ void CarveAudioProcessorEditor::timerCallback() {
 
         // disable tweak control for exponent and hard clipper wave shape
         const float mode1 {ourProcessor->getParameter(CarveAudioProcessor::mode1)};
-        if (mode1 == MODE_EXPONENT || mode1 == MODE_CLIPPER) {
+        if (mode1 == MODE.EXPONENT || mode1 == MODE.CLIPPER) {
             Tweak1Sld->setEnabled(false);
         } else {
             Tweak1Sld->setEnabled(true);
         }
 
         const float mode2 {ourProcessor->getParameter(CarveAudioProcessor::mode2)};
-        if (mode2 == MODE_EXPONENT || mode2 == MODE_CLIPPER) {
+        if (mode2 == MODE.EXPONENT || mode2 == MODE.CLIPPER) {
             Tweak2Sld->setEnabled(false);
         } else {
             Tweak2Sld->setEnabled(true);
@@ -541,7 +543,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
             virtualName="" explicitFocusOrder="0" pos="24 72 150 24" tooltip="Wave shape applied to the signal"
-            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
           virtualName="" explicitFocusOrder="0" pos="304 104 32 24" tooltip="Gain applied to the signal before processing"
@@ -560,7 +562,7 @@ BEGIN_JUCER_METADATA
           textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
             virtualName="" explicitFocusOrder="0" pos="200 72 150 24" tooltip="Wave shape applied to the signal"
-            editable="0" layout="33" items="Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
+            editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
           virtualName="" explicitFocusOrder="0" pos="104 232 96 24" tooltip="Routing of the signal between the two distortion units"

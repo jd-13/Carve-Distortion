@@ -23,7 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
-#include "CarveLookAndFeel.h"
+#include "CoreLookAndFeel.h"
 //[/Headers]
 
 
@@ -65,7 +65,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    CarveLookAndFeel customLookAndFeel;
+    CoreLookAndFeel customLookAndFeel;
     SharedResourcePointer<TooltipWindow> tooltipWindow;
     //[/UserVariables]
 

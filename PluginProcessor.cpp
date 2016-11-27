@@ -16,20 +16,20 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    mCarve.DSPUnit1.setMode(MODE_DEFAULT);
-    mCarve.DSPUnit1.setPreGain(PREGAIN_DEFAULT);
-    mCarve.DSPUnit1.setPostGain(POSTGAIN_DEFAULT);
-    mCarve.DSPUnit1.setTweak(TWEAK_DEFAULT);
+    mCarve.DSPUnit1.setMode(MODE.defaultValue);
+    mCarve.DSPUnit1.setPreGain(PREGAIN.defaultValue);
+    mCarve.DSPUnit1.setPostGain(POSTGAIN.defaultValue);
+    mCarve.DSPUnit1.setTweak(TWEAK.defaultValue);
     
-    mCarve.DSPUnit2.setMode(MODE_DEFAULT);
-    mCarve.DSPUnit2.setPreGain(PREGAIN_DEFAULT);
-    mCarve.DSPUnit2.setPostGain(POSTGAIN_DEFAULT);
-    mCarve.DSPUnit2.setTweak(TWEAK_DEFAULT);
+    mCarve.DSPUnit2.setMode(MODE.defaultValue);
+    mCarve.DSPUnit2.setPreGain(PREGAIN.defaultValue);
+    mCarve.DSPUnit2.setPostGain(POSTGAIN.defaultValue);
+    mCarve.DSPUnit2.setTweak(TWEAK.defaultValue);
     
-    mCarve.setRouting(ROUTING_DEFAULT);
+    mCarve.setRouting(ROUTING.defaultValue);
     mCarve.setStereo(STEREO_DEFAULT);
-    mCarve.setDryLevel(DRYLEVEL_DEFAULT);
-    mCarve.setMasterVol(MASTERVOL_DEFAULT);
+    mCarve.setDryLevel(DRYLEVEL.defaultValue);
+    mCarve.setMasterVol(MASTERVOL.defaultValue);
     
     UIUpdateFlag = true;
 }
@@ -56,13 +56,13 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit1.getMode();
             
         case preGain1:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit1.getPreGain(), PREGAIN_MIN, PREGAIN_MAX);
+            return PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
         
         case postGain1:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit1.getPostGain(), POSTGAIN_MIN, POSTGAIN_MAX);
+            return POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
             
         case tweak1:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit1.getTweak(), TWEAK_MIN, TWEAK_MAX);
+            return TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
             
         
             
@@ -71,28 +71,28 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit2.getMode();
             
         case preGain2:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit2.getPreGain(), PREGAIN_MIN, PREGAIN_MAX);
+            return PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
             
         case postGain2:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit2.getPostGain(), POSTGAIN_MIN, POSTGAIN_MAX);
+            return POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
             
         case tweak2:
-            return TranslateParam_Inter2Norm(mCarve.DSPUnit2.getTweak(), TWEAK_MIN, TWEAK_MAX);
+            return TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
             
             
             
             
         case routing:
-            return TranslateParam_Inter2Norm(mCarve.getRouting(), ROUTING_SERIAL, ROUTING_PARALLEL);
+            return ROUTING.InteralToNormalised(mCarve.getRouting());
             
         case stereo:
             return mCarve.getStereo();
             
         case dryLevel:
-            return TranslateParam_Inter2Norm(mCarve.getDryLevel(), DRYLEVEL_MIN, DRYLEVEL_MAX);
+            return DRYLEVEL.InteralToNormalised(mCarve.getDryLevel());
             
         case masterVol:
-            return TranslateParam_Inter2Norm(mCarve.getMasterVol(), MASTERVOL_MIN, MASTERVOL_MAX);
+            return MASTERVOL.InteralToNormalised(mCarve.getMasterVol());
             
             
             
@@ -109,15 +109,15 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain1:
-            mCarve.DSPUnit1.setPreGain(TranslateParam_Norm2Inter(newValue, PREGAIN_MIN, PREGAIN_MAX));
+            mCarve.DSPUnit1.setPreGain(PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain1:
-            mCarve.DSPUnit1.setPostGain(TranslateParam_Norm2Inter(newValue, POSTGAIN_MIN, POSTGAIN_MAX));
+            mCarve.DSPUnit1.setPostGain(POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak1:
-            mCarve.DSPUnit1.setTweak(TranslateParam_Norm2Inter(newValue, TWEAK_MIN, TWEAK_MAX));
+            mCarve.DSPUnit1.setTweak(TWEAK.NormalisedToInteral(newValue));
             break;
             
             
@@ -128,22 +128,22 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain2:
-            mCarve.DSPUnit2.setPreGain(TranslateParam_Norm2Inter(newValue, PREGAIN_MIN, PREGAIN_MAX));
+            mCarve.DSPUnit2.setPreGain(PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain2:
-            mCarve.DSPUnit2.setPostGain(TranslateParam_Norm2Inter(newValue, POSTGAIN_MIN, POSTGAIN_MAX));
+            mCarve.DSPUnit2.setPostGain(POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak2:
-            mCarve.DSPUnit2.setTweak(TranslateParam_Norm2Inter(newValue, TWEAK_MIN, TWEAK_MAX));
+            mCarve.DSPUnit2.setTweak(TWEAK.NormalisedToInteral(newValue));
             break;
             
             
             
             
         case routing:
-            mCarve.setRouting(TranslateParam_Norm2Inter(newValue, ROUTING_SERIAL, ROUTING_PARALLEL));
+            mCarve.setRouting(ROUTING.NormalisedToInteral(newValue));
             break;
             
         case stereo:
@@ -151,11 +151,11 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case dryLevel:
-            mCarve.setDryLevel(TranslateParam_Norm2Inter(newValue, DRYLEVEL_MIN, DRYLEVEL_MAX));
+            mCarve.setDryLevel(DRYLEVEL.NormalisedToInteral(newValue));
             break;
             
         case masterVol:
-            mCarve.setMasterVol(TranslateParam_Norm2Inter(newValue, MASTERVOL_MIN, MASTERVOL_MAX));
+            mCarve.setMasterVol(MASTERVOL.NormalisedToInteral(newValue));
             break;
             
             
@@ -228,13 +228,13 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit1.getMode());
             
         case preGain1:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit1.getPreGain(), PREGAIN_MIN, PREGAIN_MAX));
+            return String(PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
             
         case postGain1:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit1.getPostGain(), POSTGAIN_MIN, POSTGAIN_MAX));
+            return String(POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
             
         case tweak1:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit1.getTweak(), TWEAK_MIN, TWEAK_MAX));
+            return String(TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
             
             
             
@@ -243,28 +243,28 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit2.getMode());
             
         case preGain2:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit2.getPreGain(), PREGAIN_MIN, PREGAIN_MAX));
+            return String(PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
             
         case postGain2:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit2.getPostGain(), POSTGAIN_MIN, POSTGAIN_MAX));
+            return String(POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
             
         case tweak2:
-            return String(TranslateParam_Inter2Norm(mCarve.DSPUnit2.getTweak(), TWEAK_MIN, TWEAK_MAX));
+            return String(TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
             
         
             
             
         case routing:
-            return String(TranslateParam_Inter2Norm(mCarve.getRouting(), ROUTING_SERIAL, ROUTING_PARALLEL));
+            return String(ROUTING.InteralToNormalised(mCarve.getRouting()));
             
         case stereo:
             return String(mCarve.getStereo());
             
         case dryLevel:
-            return String(TranslateParam_Inter2Norm(mCarve.getDryLevel(), DRYLEVEL_MIN, DRYLEVEL_MAX));
+            return String(DRYLEVEL.InteralToNormalised(mCarve.getDryLevel()));
             
         case masterVol:
-            return String(TranslateParam_Inter2Norm(mCarve.getMasterVol(), MASTERVOL_MIN, MASTERVOL_MAX));
+            return String(MASTERVOL.InteralToNormalised(mCarve.getMasterVol()));
             
             
             

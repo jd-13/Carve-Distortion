@@ -26,41 +26,11 @@
 #define PARAMETERDATA_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "ParameterDefinition.h"
 
-
-const int   MODE_SINE = 1,
-            MODE_PARABOLIC_SOFT = 2,
-            MODE_PARABOLIC_HARD = 3,
-            MODE_ASYMMETRIC_SINE = 4,
-            MODE_EXPONENT = 5,
-            MODE_CLIPPER = 6,
-            MODE_DEFAULT = MODE_SINE,
-            MODE_MIN = MODE_SINE,
-            MODE_MAX = MODE_CLIPPER;
-
-const float PREGAIN_DEFAULT = 1,
-            PREGAIN_MIN = 0,
-            PREGAIN_MAX = 2,
-
-            POSTGAIN_DEFAULT = 0.5,
-            POSTGAIN_MIN = 0,
-            POSTGAIN_MAX = 2,
-            
-            TWEAK_DEFAULT = 0,
-            TWEAK_MIN = -1,
-            TWEAK_MAX = 1,
-
-            ROUTING_SERIAL = 0,
-            ROUTING_PARALLEL = 1,
-            ROUTING_DEFAULT = ROUTING_SERIAL,
-
-            DRYLEVEL_DEFAULT = 0,
-            DRYLEVEL_MIN = 0,
-            DRYLEVEL_MAX = 2,
-            
-            MASTERVOL_DEFAULT = 1,
-            MASTERVOL_MIN = 0,
-            MASTERVOL_MAX = 2;
+const ParameterDefinition::RangedParameter<float>   ROUTING(0, 1, 0), // 0 = SERIAL, 1 = PARALLEL
+                                                    DRYLEVEL(0, 2, 0),
+                                                    MASTERVOL(0, 2, 1);
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
@@ -82,36 +52,5 @@ const String    MODE1_STR = "Mode1",
                 GROUP_LEFT = "Left",
                 GROUP_UNIT2 = "Unit2",
                 GROUP_RIGHT = "Right";
-
-/* TranslateParam_Norm2Inter
- *
- * Translates parameter values from the normalised (0 to 1) range as required
- * by VSTs to the range used internally for that parameter
- *
- * args: val    Normalised value of the parameter
- *       min    The minimum value of the parameter, as specified above
- *       max    The maximum value of the parameter, as specified above
- *
- * return: The value of the parameter in the internal range for that parameter
- */
-inline float TranslateParam_Norm2Inter(float val, float min, float max) {
-    return val * (max - min) + min;
-}
-
-/* TranslateParam_Inter2Norm
- *
- * Translates parameter values from the range used internally for that
- * parameter, to the normalised range (0 to 1) as required by VSTs.
- *
- * args: val    Value of the parameter in the internal range
- *       min    The minimum value of the parameter, as specified above
- *       max    The maximum value of the parameter, as specified above
- *
- * return: The normalised value of the parameter
- */
-inline float TranslateParam_Inter2Norm(float val, float min, float max) {
-    return (val - min) / (max - min);
-}
-
 
 #endif  // PARAMETERDATA_H_INCLUDED

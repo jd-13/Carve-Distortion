@@ -83,13 +83,13 @@ public:
     
     
     
-    void setRouting(float val) { routing = val; }
+    void setRouting(float val) { routing = ROUTING.BoundsCheck(val); }
     
     void setStereo(bool val) { isStereo = val; }
     
-    void setDryLevel(float val) { dryLevel = val; }
+    void setDryLevel(float val) { dryLevel = DRYLEVEL.BoundsCheck(val); }
     
-    void setMasterVol(float val) { masterVol = val; }
+    void setMasterVol(float val) { masterVol = MASTERVOL.BoundsCheck(val); }
     
     void setSampleRate(double sampleRate);
     
