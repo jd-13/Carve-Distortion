@@ -16,15 +16,15 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    mCarve.DSPUnit1.setMode(MODE.defaultValue);
-    mCarve.DSPUnit1.setPreGain(PREGAIN.defaultValue);
-    mCarve.DSPUnit1.setPostGain(POSTGAIN.defaultValue);
-    mCarve.DSPUnit1.setTweak(TWEAK.defaultValue);
+    mCarve.DSPUnit1.setMode(CarveParameters::MODE.defaultValue);
+    mCarve.DSPUnit1.setPreGain(CarveParameters::PREGAIN.defaultValue);
+    mCarve.DSPUnit1.setPostGain(CarveParameters::POSTGAIN.defaultValue);
+    mCarve.DSPUnit1.setTweak(CarveParameters::TWEAK.defaultValue);
     
-    mCarve.DSPUnit2.setMode(MODE.defaultValue);
-    mCarve.DSPUnit2.setPreGain(PREGAIN.defaultValue);
-    mCarve.DSPUnit2.setPostGain(POSTGAIN.defaultValue);
-    mCarve.DSPUnit2.setTweak(TWEAK.defaultValue);
+    mCarve.DSPUnit2.setMode(CarveParameters::MODE.defaultValue);
+    mCarve.DSPUnit2.setPreGain(CarveParameters::PREGAIN.defaultValue);
+    mCarve.DSPUnit2.setPostGain(CarveParameters::POSTGAIN.defaultValue);
+    mCarve.DSPUnit2.setTweak(CarveParameters::TWEAK.defaultValue);
     
     mCarve.setRouting(ROUTING.defaultValue);
     mCarve.setStereo(STEREO_DEFAULT);
@@ -56,13 +56,13 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit1.getMode();
             
         case preGain1:
-            return PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
+            return CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
         
         case postGain1:
-            return POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
+            return CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
             
         case tweak1:
-            return TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
+            return CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
             
         
             
@@ -71,13 +71,13 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit2.getMode();
             
         case preGain2:
-            return PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
+            return CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
             
         case postGain2:
-            return POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
+            return CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
             
         case tweak2:
-            return TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
+            return CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
             
             
             
@@ -109,15 +109,15 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain1:
-            mCarve.DSPUnit1.setPreGain(PREGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setPreGain(CarveParameters::PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain1:
-            mCarve.DSPUnit1.setPostGain(POSTGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setPostGain(CarveParameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak1:
-            mCarve.DSPUnit1.setTweak(TWEAK.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setTweak(CarveParameters::TWEAK.NormalisedToInteral(newValue));
             break;
             
             
@@ -128,15 +128,15 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain2:
-            mCarve.DSPUnit2.setPreGain(PREGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setPreGain(CarveParameters::PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain2:
-            mCarve.DSPUnit2.setPostGain(POSTGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setPostGain(CarveParameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak2:
-            mCarve.DSPUnit2.setTweak(TWEAK.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setTweak(CarveParameters::TWEAK.NormalisedToInteral(newValue));
             break;
             
             
@@ -228,13 +228,13 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit1.getMode());
             
         case preGain1:
-            return String(PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
+            return String(CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
             
         case postGain1:
-            return String(POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
+            return String(CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
             
         case tweak1:
-            return String(TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
+            return String(CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
             
             
             
@@ -243,13 +243,13 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit2.getMode());
             
         case preGain2:
-            return String(PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
+            return String(CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
             
         case postGain2:
-            return String(POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
+            return String(CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
             
         case tweak2:
-            return String(TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
+            return String(CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
             
         
             

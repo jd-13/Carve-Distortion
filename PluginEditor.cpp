@@ -28,7 +28,7 @@
 
 //==============================================================================
 CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter)
-    : AudioProcessorEditor(ownerFilter)
+    : CoreProcessorEditor(ownerFilter)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -233,20 +233,27 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
-    LookAndFeel::setDefaultLookAndFeel(&customLookAndFeel);
+    
+    _assignLookAndFeelToAllChildren(customLookAndFeel);
 
     // disable stereo mode if only single output
     CarveAudioProcessor* ourProcessor {getProcessor()};
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
     // set double click to default for sliders
-    PreGain1Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
-    PostGain1Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
-    Tweak1Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
+    PreGain1Sld->setDoubleClickReturnValue(true,
+        CarveParameters::PREGAIN.InteralToNormalised(CarveParameters::PREGAIN.defaultValue));
+    PostGain1Sld->setDoubleClickReturnValue(true,
+        CarveParameters::POSTGAIN.InteralToNormalised(CarveParameters::POSTGAIN.defaultValue));
+    Tweak1Sld->setDoubleClickReturnValue(true,
+        CarveParameters::TWEAK.InteralToNormalised(CarveParameters::TWEAK.defaultValue));
 
-    PreGain2Sld->setDoubleClickReturnValue(true, PREGAIN.InteralToNormalised(PREGAIN.defaultValue));
-    PostGain2Sld->setDoubleClickReturnValue(true, POSTGAIN.InteralToNormalised(POSTGAIN.defaultValue));
-    Tweak2Sld->setDoubleClickReturnValue(true, TWEAK.InteralToNormalised(TWEAK.defaultValue));
+    PreGain2Sld->setDoubleClickReturnValue(true,
+        CarveParameters::PREGAIN.InteralToNormalised(CarveParameters::PREGAIN.defaultValue));
+    PostGain2Sld->setDoubleClickReturnValue(true,
+        CarveParameters::POSTGAIN.InteralToNormalised(CarveParameters::POSTGAIN.defaultValue));
+    Tweak2Sld->setDoubleClickReturnValue(true,
+        CarveParameters::TWEAK.InteralToNormalised(CarveParameters::TWEAK.defaultValue));
 
     RoutingSld->setDoubleClickReturnValue(true, ROUTING.InteralToNormalised(ROUTING.defaultValue));
     DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
@@ -462,14 +469,14 @@ void CarveAudioProcessorEditor::timerCallback() {
 
         // disable tweak control for exponent and hard clipper wave shape
         const float mode1 {ourProcessor->getParameter(CarveAudioProcessor::mode1)};
-        if (mode1 == MODE.EXPONENT || mode1 == MODE.CLIPPER) {
+        if (mode1 == CarveParameters::MODE.EXPONENT || mode1 == CarveParameters::MODE.CLIPPER) {
             Tweak1Sld->setEnabled(false);
         } else {
             Tweak1Sld->setEnabled(true);
         }
 
         const float mode2 {ourProcessor->getParameter(CarveAudioProcessor::mode2)};
-        if (mode2 == MODE.EXPONENT || mode2 == MODE.CLIPPER) {
+        if (mode2 == CarveParameters::MODE.EXPONENT || mode2 == CarveParameters::MODE.CLIPPER) {
             Tweak2Sld->setEnabled(false);
         } else {
             Tweak2Sld->setEnabled(true);
@@ -512,8 +519,8 @@ void CarveAudioProcessorEditor::timerCallback() {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="CarveAudioProcessorEditor"
-                 componentName="" parentClasses="public AudioProcessorEditor, public Timer"
-                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="AudioProcessorEditor(ownerFilter)"
+                 componentName="" parentClasses="public CoreProcessorEditor, public Timer"
+                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="375" initialHeight="340">
   <BACKGROUND backgroundColour="ffffffff"/>

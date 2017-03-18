@@ -23,7 +23,8 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
-#include "CoreLookAndFeel/CoreLookAndFeel.h"
+#include "CoreJUCEPlugin/CoreLookAndFeel.h"
+#include "CoreJUCEPlugin/CoreProcessorEditor.h"
 //[/Headers]
 
 
@@ -36,7 +37,7 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class CarveAudioProcessorEditor  : public AudioProcessorEditor,
+class CarveAudioProcessorEditor  : public CoreProcessorEditor,
                                    public Timer,
                                    public SliderListener,
                                    public ComboBoxListener,
@@ -66,7 +67,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     CoreLookAndFeel customLookAndFeel;
-    SharedResourcePointer<TooltipWindow> tooltipWindow;
+
     //[/UserVariables]
 
     //==============================================================================
