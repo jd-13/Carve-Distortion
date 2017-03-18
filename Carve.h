@@ -25,8 +25,8 @@
 #ifndef CARVE_H_INCLUDED
 #define CARVE_H_INCLUDED
 
-#include "CarveDSPUnit.h"
-#include "CarveNoiseFilter.h"
+#include "CarveDSP/CarveDSPUnit.h"
+#include "CarveDSP/CarveNoiseFilter.h"
 #include "ParameterData.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 

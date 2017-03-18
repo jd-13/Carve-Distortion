@@ -26,7 +26,7 @@
 #define PARAMETERDATA_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "ParameterDefinition.h"
+#include "General/ParameterDefinition.h"
 
 const ParameterDefinition::RangedParameter<float>   ROUTING(0, 1, 0), // 0 = SERIAL, 1 = PARALLEL
                                                     DRYLEVEL(0, 2, 0),
