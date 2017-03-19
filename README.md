@@ -15,6 +15,8 @@ WECore: https://github.com/jd-13/WE-Core
 
 Catch (for tests): https://github.com/philsquared/Catch  
 
+VST SDK:  https://www.steinberg.net/en/company/developers.html
+
 ## Build Instructions (draft version):
 
 The easiest way to build this project for any OS is using the Projucer. To do this you'll need to download all of the above libraries and the files in this repo (excluding catch, unless you want to run unit tests).  
@@ -59,6 +61,10 @@ Within this repo is a file in Graphics/background.jpeg. Add this file.
 ### Add include paths
 Click config in the top left, and then select a build configuration from the left pane. In the screenshot below I've selected a debug Xcode build. Add the include paths as shown below, prepending them with the directories you have them in on your system.  
 ![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps11.png)  
+
+Finally, check the location of the VST SDK is set to the location of the VST SDK on your machine. This is specified in the Preferences menu. Here you can also specify the location of several other SDKs if you wish to do so.  
+<img src="https://whiteelephantaudio.com/buildScreenshots/BuildSteps12.png" width="200">
+<img src="https://whiteelephantaudio.com/buildScreenshots/BuildSteps13.png" width="500">
 
 ### Build the project
 From the File menu select save all, then select "Save project and open in IDE" (bottom left corner of the main window). On Windows or Mac this will open the configured IDE which will be ready to compile the project. On Linux a makefile will now have been generated, which you can find in [name_of_the_project]/Builds/LinuxMakefile
