@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.3.0
+  Created with Projucer version: 5.0.0
 
   ------------------------------------------------------------------------------
 
@@ -126,7 +126,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (PreGain1Lbl = new Label ("PreGain 1 Label",
                                                 TRANS("Pre Gain")));
-    PreGain1Lbl->setFont (Font (15.00f, Font::plain));
+    PreGain1Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     PreGain1Lbl->setJustificationType (Justification::centredLeft);
     PreGain1Lbl->setEditable (false, false, false);
     PreGain1Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -134,7 +134,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (PostGain1Lbl = new Label ("PostGain 1 Label",
                                                  TRANS("Post Gain")));
-    PostGain1Lbl->setFont (Font (15.00f, Font::plain));
+    PostGain1Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     PostGain1Lbl->setJustificationType (Justification::centredLeft);
     PostGain1Lbl->setEditable (false, false, false);
     PostGain1Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -142,7 +142,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (Tweak1Lbl = new Label ("Tweak 1 Label",
                                               TRANS("Tweak")));
-    Tweak1Lbl->setFont (Font (15.00f, Font::plain));
+    Tweak1Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     Tweak1Lbl->setJustificationType (Justification::centredLeft);
     Tweak1Lbl->setEditable (false, false, false);
     Tweak1Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -150,7 +150,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (SerialLbl = new Label ("Serial Label",
                                               TRANS("Serial")));
-    SerialLbl->setFont (Font (15.00f, Font::plain));
+    SerialLbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     SerialLbl->setJustificationType (Justification::centred);
     SerialLbl->setEditable (false, false, false);
     SerialLbl->setColour (TextEditor::textColourId, Colours::black);
@@ -158,7 +158,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (ParallelLbl = new Label ("Parallel Label",
                                                 TRANS("Parallel")));
-    ParallelLbl->setFont (Font (15.00f, Font::plain));
+    ParallelLbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     ParallelLbl->setJustificationType (Justification::centredLeft);
     ParallelLbl->setEditable (false, false, false);
     ParallelLbl->setColour (TextEditor::textColourId, Colours::black);
@@ -173,7 +173,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (MasterVolLbl = new Label ("Master Vol Label",
                                                  TRANS("Master Vol")));
-    MasterVolLbl->setFont (Font (15.00f, Font::plain));
+    MasterVolLbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     MasterVolLbl->setJustificationType (Justification::centred);
     MasterVolLbl->setEditable (false, false, false);
     MasterVolLbl->setColour (TextEditor::textColourId, Colours::black);
@@ -181,7 +181,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (PreGain2Lbl = new Label ("PreGain 2 Label",
                                                 TRANS("Pre Gain")));
-    PreGain2Lbl->setFont (Font (15.00f, Font::plain));
+    PreGain2Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     PreGain2Lbl->setJustificationType (Justification::centredLeft);
     PreGain2Lbl->setEditable (false, false, false);
     PreGain2Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -189,7 +189,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (PostGain2Lbl = new Label ("PostGain 2 Label",
                                                  TRANS("Post Gain")));
-    PostGain2Lbl->setFont (Font (15.00f, Font::plain));
+    PostGain2Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     PostGain2Lbl->setJustificationType (Justification::centredLeft);
     PostGain2Lbl->setEditable (false, false, false);
     PostGain2Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -197,7 +197,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (Tweak2Lbl = new Label ("Tweak 2 Label",
                                               TRANS("Tweak")));
-    Tweak2Lbl->setFont (Font (15.00f, Font::plain));
+    Tweak2Lbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     Tweak2Lbl->setJustificationType (Justification::centredLeft);
     Tweak2Lbl->setEditable (false, false, false);
     Tweak2Lbl->setColour (TextEditor::textColourId, Colours::black);
@@ -212,7 +212,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     addAndMakeVisible (DryLevelLbl = new Label ("Dry Level Label",
                                                 TRANS("Dry Level")));
-    DryLevelLbl->setFont (Font (15.00f, Font::plain));
+    DryLevelLbl->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     DryLevelLbl->setJustificationType (Justification::centred);
     DryLevelLbl->setEditable (false, false, false);
     DryLevelLbl->setColour (TextEditor::textColourId, Colours::black);
@@ -233,7 +233,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
-    
+
     _assignLookAndFeelToAllChildren(customLookAndFeel);
 
     // disable stereo mode if only single output
@@ -580,27 +580,27 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="32 104 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Pre Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <LABEL name="PostGain 1 Label" id="d4ad48771666454" memberName="PostGain1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 136 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Post Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 1 Label" id="33e8e0f78b54327f" memberName="Tweak1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 168 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Tweak" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <LABEL name="Serial Label" id="c969ac5b46238aca" memberName="SerialLbl"
          virtualName="" explicitFocusOrder="0" pos="24 232 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Serial" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="36"/>
+         kerning="0" bold="0" italic="0" justification="36"/>
   <LABEL name="Parallel Label" id="a189167740b46f3f" memberName="ParallelLbl"
          virtualName="" explicitFocusOrder="0" pos="208 232 56 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Parallel" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Master Vol Slider" id="98dbad60d21a006b" memberName="MasterVolSld"
           virtualName="" explicitFocusOrder="0" pos="104 295 240 24" tooltip="Master volume"
           min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
@@ -610,22 +610,22 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="24 295 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Master Vol" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="36"/>
+         kerning="0" bold="0" italic="0" justification="36"/>
   <LABEL name="PreGain 2 Label" id="1b1fcd244dbb837c" memberName="PreGain2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 104 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Pre Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <LABEL name="PostGain 2 Label" id="10dbd505cd27ccc1" memberName="PostGain2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 136 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Post Gain" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 2 Label" id="1ff0730a1fb3a90b" memberName="Tweak2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 168 64 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Tweak" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
+         kerning="0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
           virtualName="" explicitFocusOrder="0" pos="104 264 240 24" tooltip="Adds the unprocessed signal into the output"
           min="0" max="1" int="0.010000000000000000208" style="LinearHorizontal"
@@ -635,7 +635,7 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="24 264 80 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Dry Level" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="36"/>
+         kerning="0" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
               virtualName="" explicitFocusOrder="0" pos="272 232 70 24" tooltip="Allows unit 1 and unit 2 to process the left and right channels independently"
               bgColOff="ffb8b8c4" buttonText="Stereo" connectedEdges="0" needsCallback="1"
