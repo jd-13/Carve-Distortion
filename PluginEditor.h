@@ -24,6 +24,7 @@
 #include "PluginProcessor.h"
 #include "CoreJUCEPlugin/CoreLookAndFeel.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
+#include "General/UpdateChecker.h"
 //[/Headers]
 
 
@@ -66,6 +67,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     CoreLookAndFeel customLookAndFeel;
+    UpdateChecker _updateChecker;
 
     //[/UserVariables]
 

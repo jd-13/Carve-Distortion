@@ -234,6 +234,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor] You can add your own custom stuff here..
     startTimer(200);
 
+    std::cout << "update: " << _updateChecker.checkIsLatestVersion(ProjectInfo::projectName, ProjectInfo::versionString) << std::endl;
+
     _assignLookAndFeelToAllChildren(customLookAndFeel);
 
     // disable stereo mode if only single output
