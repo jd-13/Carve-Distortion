@@ -31,7 +31,7 @@ CarveAudioProcessor::CarveAudioProcessor()
     mCarve.setDryLevel(DRYLEVEL.defaultValue);
     mCarve.setMasterVol(MASTERVOL.defaultValue);
     
-    UIUpdateFlag = true;
+    _UIUpdateFlag = true;
 }
 
 CarveAudioProcessor::~CarveAudioProcessor()
@@ -165,7 +165,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
     }
     
-    UIUpdateFlag = true;
+    _UIUpdateFlag = true;
 }
 
 const String CarveAudioProcessor::getParameterName (int index)
@@ -458,37 +458,9 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
         // Slightly hacky fix to prevent inverted button settings on startup
         setParameter(stereo, getParameter(stereo));
         
-        UIUpdateFlag = true;
+        _UIUpdateFlag = true;
     }
 
-}
-
-String CarveAudioProcessor::floatVectorToString(const std::vector<float>& fData) const {
-    String result {""};
-    
-    if (fData.size() < 1) {
-        return result;
-    }
-    
-    for (int iii {0}; iii < (fData.size() - 1); iii++) {
-        result << String(fData[iii])<<",";
-    }
-    
-    result << String(fData[fData.size() - 1]);
-    
-    return result;
-}
-
-int CarveAudioProcessor::stringToFloatVector(const String sFloatCSV, std::vector<float>& fData, int maxNumFloat) const {
-    StringArray tokenizer;
-    int tokenCount {tokenizer.addTokens(sFloatCSV, ",","")};
-    int resultCount {(maxNumFloat <= tokenCount) ? maxNumFloat : tokenCount};
-    
-    for (int iii {0}; iii < resultCount; iii++) {
-        fData.push_back(tokenizer[iii].getFloatValue());
-    }
-    
-    return ((tokenCount <= maxNumFloat) ? resultCount : -1);
 }
 
 //==============================================================================

@@ -14,13 +14,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Carve.h"
 #include "ParameterData.h"
+#include "CoreJUCEPlugin/CoreAudioProcessor.h"
 #include <memory>
 
 
 //==============================================================================
 /**
 */
-class CarveAudioProcessor  : public AudioProcessor
+class CarveAudioProcessor  : public CoreAudioProcessor
 {
 public:
     //==============================================================================
@@ -88,26 +89,9 @@ public:
         
         totalNumParams
     };
-    
-    bool NeedsUIUpdate() {
-        return UIUpdateFlag;
-    }
-    
-    void RequestUIUpdate() {
-        UIUpdateFlag = true;
-    }
-    
-    void ClearUIUpdate() {
-        UIUpdateFlag = false;
-    }
 
 private:
     Carve mCarve;
-    bool UIUpdateFlag;
-    
-    String floatVectorToString(const std::vector<float>& fData) const;
-    
-    int stringToFloatVector(const String sFloatCSV, std::vector<float>& fData, int maxNumFloat) const;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CarveAudioProcessor)
 };

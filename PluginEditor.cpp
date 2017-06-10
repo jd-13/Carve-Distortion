@@ -456,7 +456,7 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 void CarveAudioProcessorEditor::timerCallback() {
     CarveAudioProcessor* ourProcessor {getProcessor()};
 
-    if (ourProcessor->NeedsUIUpdate()) {
+    if (ourProcessor->needsUIUpdate()) {
 
         // change group titles if in stereo mode
         if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
