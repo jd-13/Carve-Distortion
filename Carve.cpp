@@ -55,7 +55,7 @@ void Carve::Process1in1out(float* inSample, int numSamples) {
     }
     
     // apply filtering to remove noise
-    _filter.ApplyMonoFiltering(inSample, numSamples);
+    _filter.Process1in1out(inSample, numSamples);
 }
 
 void Carve::Process1in2out(float* inLeftSample, float* inRightSample, int numSamples) {
@@ -80,7 +80,7 @@ void Carve::Process1in2out(float* inLeftSample, float* inRightSample, int numSam
     }
     
     // apply filtering to remove noise
-    _filter.ApplyStereoFiltering(inLeftSample, inRightSample, numSamples);
+    _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
 }
 
 void Carve::Process2in2out(float* inLeftSample, float* inRightSample, int numSamples) {
@@ -106,5 +106,5 @@ void Carve::Process2in2out(float* inLeftSample, float* inRightSample, int numSam
     
     
     // apply filtering to remove noise
-    _filter.ApplyStereoFiltering(inLeftSample, inRightSample, numSamples);
+    _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
 }

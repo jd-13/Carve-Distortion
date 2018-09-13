@@ -35,7 +35,7 @@ public:
     Carve();
     ~Carve();
     
-    CarveDSPUnit DSPUnit1, DSPUnit2;
+    WECore::Carve::CarveDSPUnit<double> DSPUnit1, DSPUnit2;
     
     
     /* Process1in1out
@@ -101,7 +101,7 @@ private:
     
     bool    isStereo;
     
-    CarveNoiseFilter _filter;
+    WECore::Carve::NoiseFilter _filter;
     
     
     inline float ProcessSerial(float inSample) {

@@ -21,7 +21,7 @@
 //==============================================================================
 /**
 */
-class CarveAudioProcessor  : public CoreAudioProcessor
+class CarveAudioProcessor  : public WECore::JUCEPlugin::CoreAudioProcessor
 {
 public:
     //==============================================================================

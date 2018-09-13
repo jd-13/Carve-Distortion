@@ -16,15 +16,15 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    mCarve.DSPUnit1.setMode(CarveParameters::MODE.defaultValue);
-    mCarve.DSPUnit1.setPreGain(CarveParameters::PREGAIN.defaultValue);
-    mCarve.DSPUnit1.setPostGain(CarveParameters::POSTGAIN.defaultValue);
-    mCarve.DSPUnit1.setTweak(CarveParameters::TWEAK.defaultValue);
+    mCarve.DSPUnit1.setMode(WECore::Carve::Parameters::MODE.defaultValue);
+    mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
+    mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
+    mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
     
-    mCarve.DSPUnit2.setMode(CarveParameters::MODE.defaultValue);
-    mCarve.DSPUnit2.setPreGain(CarveParameters::PREGAIN.defaultValue);
-    mCarve.DSPUnit2.setPostGain(CarveParameters::POSTGAIN.defaultValue);
-    mCarve.DSPUnit2.setTweak(CarveParameters::TWEAK.defaultValue);
+    mCarve.DSPUnit2.setMode(WECore::Carve::Parameters::MODE.defaultValue);
+    mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
+    mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
+    mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
     
     mCarve.setRouting(ROUTING.defaultValue);
     mCarve.setStereo(STEREO_DEFAULT);
@@ -56,13 +56,13 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit1.getMode();
             
         case preGain1:
-            return CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
+            return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
         
         case postGain1:
-            return CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
+            return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
             
         case tweak1:
-            return CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
+            return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
             
         
             
@@ -71,13 +71,13 @@ float CarveAudioProcessor::getParameter (int index)
             return mCarve.DSPUnit2.getMode();
             
         case preGain2:
-            return CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
+            return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
             
         case postGain2:
-            return CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
+            return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
             
         case tweak2:
-            return CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
+            return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
             
             
             
@@ -109,15 +109,15 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain1:
-            mCarve.DSPUnit1.setPreGain(CarveParameters::PREGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain1:
-            mCarve.DSPUnit1.setPostGain(CarveParameters::POSTGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak1:
-            mCarve.DSPUnit1.setTweak(CarveParameters::TWEAK.NormalisedToInteral(newValue));
+            mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
             break;
             
             
@@ -128,15 +128,15 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case preGain2:
-            mCarve.DSPUnit2.setPreGain(CarveParameters::PREGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
             break;
             
         case postGain2:
-            mCarve.DSPUnit2.setPostGain(CarveParameters::POSTGAIN.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
             
         case tweak2:
-            mCarve.DSPUnit2.setTweak(CarveParameters::TWEAK.NormalisedToInteral(newValue));
+            mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
             break;
             
             
@@ -228,13 +228,13 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit1.getMode());
             
         case preGain1:
-            return String(CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
+            return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
             
         case postGain1:
-            return String(CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
+            return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
             
         case tweak1:
-            return String(CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
+            return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
             
             
             
@@ -243,13 +243,13 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(mCarve.DSPUnit2.getMode());
             
         case preGain2:
-            return String(CarveParameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
+            return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
             
         case postGain2:
-            return String(CarveParameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
+            return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
             
         case tweak2:
-            return String(CarveParameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
+            return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
             
         
             
@@ -258,7 +258,7 @@ const String CarveAudioProcessor::getParameterText (int index)
             return String(ROUTING.InteralToNormalised(mCarve.getRouting()));
             
         case stereo:
-            return String(mCarve.getStereo());
+            return String(static_cast<int>(mCarve.getStereo()));
             
         case dryLevel:
             return String(DRYLEVEL.InteralToNormalised(mCarve.getDryLevel()));
@@ -374,24 +374,27 @@ void CarveAudioProcessor::releaseResources()
 
 void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+    const int totalNumInputChannels  = getTotalNumInputChannels();
+    const int totalNumOutputChannels = getTotalNumOutputChannels();
+    
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
     // I've added this to avoid people getting screaming feedback
     // when they first compile the plugin, but obviously you don't need to
     // this code if your algorithm already fills all the output channels.
-    for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i) {
+    for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i) {
         buffer.clear (i, 0, buffer.getNumSamples());
     }
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    if (getNumOutputChannels() == 1 && getNumOutputChannels() == 1) {
+    if (totalNumOutputChannels == 1 && totalNumOutputChannels == 1) {
         
         float* inSample {buffer.getWritePointer(0)};
         mCarve.Process1in1out(inSample, buffer.getNumSamples());
         
-    } else if (getNumInputChannels() == 1 && getNumOutputChannels() == 2) {
+    } else if (totalNumInputChannels == 1 && totalNumOutputChannels == 2) {
         
         float* inLeftSample {buffer.getWritePointer(0)};
         float* inRightSample {buffer.getWritePointer(1)};

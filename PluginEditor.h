@@ -7,12 +7,12 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.0.0
+  Created with Projucer version: 5.3.2
 
   ------------------------------------------------------------------------------
 
-  The Projucer is part of the JUCE library - "Jules' Utility Class Extensions"
-  Copyright (c) 2015 - ROLI Ltd.
+  The Projucer is part of the JUCE library.
+  Copyright (c) 2017 - ROLI Ltd.
 
   ==============================================================================
 */
@@ -36,11 +36,11 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class CarveAudioProcessorEditor  : public CoreProcessorEditor,
+class CarveAudioProcessorEditor  : public WECore::JUCEPlugin::CoreProcessorEditor,
                                    public Timer,
-                                   public SliderListener,
-                                   public ComboBoxListener,
-                                   public ButtonListener
+                                   public Slider::Listener,
+                                   public ComboBox::Listener,
+                                   public Button::Listener
 {
 public:
     //==============================================================================
@@ -65,36 +65,36 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    CoreLookAndFeel customLookAndFeel;
+    WECore::JUCEPlugin::CoreLookAndFeel customLookAndFeel;
 
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<GroupComponent> MasterGroup;
-    ScopedPointer<GroupComponent> Unit1Group;
-    ScopedPointer<GroupComponent> Unit2Group;
-    ScopedPointer<Slider> PreGain1Sld;
-    ScopedPointer<Slider> PostGain1Sld;
-    ScopedPointer<Slider> Tweak1Sld;
-    ScopedPointer<ComboBox> Mode1Cmb;
-    ScopedPointer<Slider> PreGain2Sld;
-    ScopedPointer<Slider> PostGain2Sld;
-    ScopedPointer<Slider> Tweak2Sld;
-    ScopedPointer<ComboBox> Mode2Cmb;
-    ScopedPointer<Slider> RoutingSld;
-    ScopedPointer<Label> PreGain1Lbl;
-    ScopedPointer<Label> PostGain1Lbl;
-    ScopedPointer<Label> Tweak1Lbl;
-    ScopedPointer<Label> SerialLbl;
-    ScopedPointer<Label> ParallelLbl;
-    ScopedPointer<Slider> MasterVolSld;
-    ScopedPointer<Label> MasterVolLbl;
-    ScopedPointer<Label> PreGain2Lbl;
-    ScopedPointer<Label> PostGain2Lbl;
-    ScopedPointer<Label> Tweak2Lbl;
-    ScopedPointer<Slider> DryLevelSld;
-    ScopedPointer<Label> DryLevelLbl;
-    ScopedPointer<TextButton> StereoBtn;
+    std::unique_ptr<GroupComponent> MasterGroup;
+    std::unique_ptr<GroupComponent> Unit1Group;
+    std::unique_ptr<GroupComponent> Unit2Group;
+    std::unique_ptr<Slider> PreGain1Sld;
+    std::unique_ptr<Slider> PostGain1Sld;
+    std::unique_ptr<Slider> Tweak1Sld;
+    std::unique_ptr<ComboBox> Mode1Cmb;
+    std::unique_ptr<Slider> PreGain2Sld;
+    std::unique_ptr<Slider> PostGain2Sld;
+    std::unique_ptr<Slider> Tweak2Sld;
+    std::unique_ptr<ComboBox> Mode2Cmb;
+    std::unique_ptr<Slider> RoutingSld;
+    std::unique_ptr<Label> PreGain1Lbl;
+    std::unique_ptr<Label> PostGain1Lbl;
+    std::unique_ptr<Label> Tweak1Lbl;
+    std::unique_ptr<Label> SerialLbl;
+    std::unique_ptr<Label> ParallelLbl;
+    std::unique_ptr<Slider> MasterVolSld;
+    std::unique_ptr<Label> MasterVolLbl;
+    std::unique_ptr<Label> PreGain2Lbl;
+    std::unique_ptr<Label> PostGain2Lbl;
+    std::unique_ptr<Label> Tweak2Lbl;
+    std::unique_ptr<Slider> DryLevelSld;
+    std::unique_ptr<Label> DryLevelLbl;
+    std::unique_ptr<TextButton> StereoBtn;
 
 
     //==============================================================================
