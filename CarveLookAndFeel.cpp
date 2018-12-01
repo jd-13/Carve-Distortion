@@ -92,6 +92,12 @@ Font CarveLookAndFeel::getComboBoxFont(ComboBox& /*comboBox*/) {
     return comboFont;
 }
 
+Font CarveLookAndFeel::getPopupMenuFont() {
+    Font comboFont;
+    comboFont.setTypefaceName(_fontName);
+    return comboFont;
+}
+
 void CarveLookAndFeel::drawButtonBackground(Graphics& g,
                                             Button& button,
                                             const Colour& /*backgroundColour*/,
@@ -273,4 +279,46 @@ void CarveLookAndFeel::drawLinearSliderBackground(Graphics& g,
                                 y + height - MARGIN - (LINE_WIDTH / 2),
                                 width,
                                 LINE_WIDTH));
+}
+
+void CarveLookAndFeel::drawPopupMenuItem(Graphics& g,
+                                         const Rectangle<int>& area,
+                                         bool /*isSeparator*/,
+                                         bool /*isActive*/,
+                                         bool isHighlighted,
+                                         bool isTicked,
+                                         bool /*hasSubMenu*/,
+                                         const String& text,
+                                         const String& /*shortcutKeyText*/,
+                                         const Drawable* /*icon*/,
+                                         const Colour* /*textColour*/) {
+
+    Rectangle r = area.reduced(1);
+
+    if (isHighlighted) {
+        g.setColour(findColour(PopupMenu::highlightedBackgroundColourId));
+        g.fillRect(r);
+        
+        g.setColour(findColour(PopupMenu::highlightedTextColourId));
+    } else if (isTicked) {
+        g.setColour(highlightColour.withAlpha(0.2f));
+        g.fillRect(r);
+        
+        g.setColour(findColour(PopupMenu::textColourId));
+    } else {
+        g.setColour(findColour(PopupMenu::textColourId));
+    }
+
+    Font font(getPopupMenuFont());
+
+    const float maxFontHeight {area.getHeight() / 1.3f};
+
+    if (font.getHeight() > maxFontHeight) {
+        font.setHeight(maxFontHeight);
+    }
+
+    g.setFont(font);
+
+    r.removeFromLeft(3);
+    g.drawFittedText (text, r, Justification::centredLeft, 1);
 }

@@ -39,34 +39,36 @@ public:
     void drawComboBox(Graphics& g,
                       int width,
                       int height,
-                      const bool /*isButtonDown*/,
+                      const bool isButtonDown,
                       int buttonX,
                       int buttonY,
                       int buttonW,
                       int buttonH,
                       ComboBox& box) override;
 
-    virtual Font getComboBoxFont(ComboBox& /*comboBox*/) override;
+    virtual Font getComboBoxFont(ComboBox& comboBox) override;
+    
+    virtual Font getPopupMenuFont() override;
     
     virtual void drawButtonBackground(Graphics& g,
                                       Button& button,
-                                      const Colour& /*backgroundColour*/,
-                                      bool /*isMouseOverButton*/,
-                                      bool /*isButtonDown*/) override;
+                                      const Colour& backgroundColour,
+                                      bool isMouseOverButton,
+                                      bool isButtonDown) override;
     
     virtual void drawButtonText(Graphics& g,
                                 TextButton& textButton,
-                                bool /*isMouseOverButton*/,
-                                bool /*isButtonDown*/) override;
+                                bool isMouseOverButton,
+                                bool isButtonDown) override;
     
     virtual void drawRotarySlider(Graphics& g,
-                                  int /*x*/,
-                                  int /*y*/,
+                                  int x,
+                                  int y,
                                   int width,
                                   int height,
-                                  float /*sliderPosProportional*/,
-                                  float /*rotaryStartAngle*/,
-                                  float /*rotaryEndAngle*/,
+                                  float sliderPosProportional,
+                                  float rotaryStartAngle,
+                                  float rotaryEndAngle,
                                   Slider &slider) override;
     
     virtual void drawLinearSliderThumb(Graphics& g,
@@ -85,10 +87,22 @@ public:
                                             int y,
                                             int width,
                                             int height,
-                                            float /*sliderPos*/,
-                                            float /*minSliderPos*/,
-                                            float /*maxSliderPos*/,
+                                            float sliderPos,
+                                            float minSliderPos,
+                                            float maxSliderPos,
                                             const Slider::SliderStyle, Slider& slider) override;
+    
+    virtual void drawPopupMenuItem(Graphics& g,
+                                   const Rectangle<int>& area,
+                                   bool isSeparator,
+                                   bool isActive,
+                                   bool isHighlighted,
+                                   bool isTicked,
+                                   bool hasSubMenu,
+                                   const String& text,
+                                   const String& shortcutKeyText,
+                                   const Drawable* icon,
+                                   const Colour* textColour) override;
     
 private:
     const char* _fontName;

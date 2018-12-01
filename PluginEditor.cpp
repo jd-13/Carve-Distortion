@@ -338,20 +338,25 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     _assignLookAndFeelToAllChildren(customLookAndFeel);
 
     // Wave view colours
-    Wave1View->setColour(CarveWaveViewer::ColourIds::highlightColourId,
-                         highlightColour);
-    Wave2View->setColour(CarveWaveViewer::ColourIds::highlightColourId,
-                         highlightColour);
+    customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
+                                highlightColour);
     
     // Combo box text colours
-    auto setupModeCombo = [](ComboBox& combo) -> void {
-        combo.setColour(ComboBox::ColourIds::textColourId, Colour(0xffc6cd66));
-        combo.setScrollWheelEnabled(true);
-        combo.setJustificationType(Justification::centred);
-    };
-    
-    setupModeCombo(*Mode1Cmb);
-    setupModeCombo(*Mode2Cmb);
+    const Colour lightYellow(0xffc6cd66);
+    const Colour menuDark(0.0f, 0.0f, 0.17f, 1.0f);
+    customLookAndFeel.setColour(ComboBox::ColourIds::textColourId, lightYellow);
+    customLookAndFeel.setColour(PopupMenu::ColourIds::backgroundColourId,
+                                menuDark);
+    customLookAndFeel.setColour(PopupMenu::ColourIds::textColourId, lightYellow);
+    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedBackgroundColourId,
+                                lightYellow);
+    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedTextColourId,
+                                menuDark);
+
+    Mode1Cmb->setScrollWheelEnabled(true);
+    Mode1Cmb->setJustificationType(Justification::centred);
+    Mode2Cmb->setScrollWheelEnabled(true);
+    Mode2Cmb->setJustificationType(Justification::centred);
 
     // Disable stereo mode if only single output
     CarveAudioProcessor* ourProcessor {getProcessor()};

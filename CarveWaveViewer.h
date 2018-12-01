@@ -40,7 +40,7 @@ public:
     
     enum ColourIds
     {
-        highlightColourId = 0x1001200
+        highlightColourId = 0x1201200
     };
     
 private:
