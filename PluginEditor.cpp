@@ -330,20 +330,30 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
 
     //[Constructor] You can add your own custom stuff here..
-    startTimer(200);
+    startTimer(100);
 
-    Colour highlightColour(0.15f, 1.0f, 1.0f, 1.0f);
+    // Set up look and feel
+    const Colour highlightColour(0.15f, 1.0f, 1.0f, 1.0f);
     customLookAndFeel.setHighlightColour(highlightColour);
     _assignLookAndFeelToAllChildren(customLookAndFeel);
 
-
-
+    // Wave view colours
     Wave1View->setColour(CarveWaveViewer::ColourIds::highlightColourId,
                          highlightColour);
     Wave2View->setColour(CarveWaveViewer::ColourIds::highlightColourId,
                          highlightColour);
+    
+    // Combo box text colours
+    auto setupModeCombo = [](ComboBox& combo) -> void {
+        combo.setColour(ComboBox::ColourIds::textColourId, Colour(0xffc6cd66));
+        combo.setScrollWheelEnabled(true);
+        combo.setJustificationType(Justification::centred);
+    };
+    
+    setupModeCombo(*Mode1Cmb);
+    setupModeCombo(*Mode2Cmb);
 
-    // disable stereo mode if only single output
+    // Disable stereo mode if only single output
     CarveAudioProcessor* ourProcessor {getProcessor()};
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
@@ -632,7 +642,7 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
     constexpr float VERT_Y {51};
     constexpr float VERT_LEN {220};
     drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN));
-    
+
     // Horizontal divider
     constexpr float HOR_X {52};
     constexpr float HOR_Y {280};
