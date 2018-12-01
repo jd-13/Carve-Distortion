@@ -35,7 +35,6 @@ void CarveWaveViewer::paint(Graphics &g) {
     for (size_t idx {0}; idx < NUM_SAMPLES; idx++) {
         // Get the sample for this value
         const double sample {_dspUnit.process(-1 + idx * INCREMENT)};
-        std::cout << -1 + idx * INCREMENT << std::endl;
         
         // Scale the sample to the height of this component
         const double sampleX {(static_cast<double>(idx) / NUM_SAMPLES) * getWidth()};
