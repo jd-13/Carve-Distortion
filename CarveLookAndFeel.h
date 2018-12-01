@@ -1,10 +1,26 @@
-//
-//  CarveLookAndFeel.h
-//  Carve
-//
-//  Created by Jack Devlin on 22/11/2018.
-//  Copyright © 2018 White Elephant Audio. All rights reserved.
-//
+/*
+ *    File:       CarveLookAndFeel.h
+ *
+ *    Version:    2.0.0
+ *
+ *    Created:    25/11/2018
+ *
+ *    This file is part of Carve.
+ *
+ *  Carve is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Carve is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Carve.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 #ifndef CarveLookAndFeel_h
 #define CarveLookAndFeel_h
@@ -39,6 +55,56 @@ public:
                    true);
     }
     
+    void drawComboBox(Graphics& g,
+                      int width,
+                      int height,
+                      const bool /*isButtonDown*/,
+                      int buttonX,
+                      int buttonY,
+                      int buttonW,
+                      int buttonH,
+                      ComboBox& box) override {
+        
+        g.setColour(highlightColour);
+        g.drawRoundedRectangle(0, 0, width, height, 10, 2);
+
+        
+        Path p;
+        constexpr float ARROW_MARGIN {4};
+        constexpr float LINE_WIDTH {0.5};
+
+        p.addLineSegment(Line<float>(buttonX + ARROW_MARGIN,
+                                     buttonY + buttonH / 2 - ARROW_MARGIN / 2,
+                                     buttonX + buttonW / 2,
+                                     ARROW_MARGIN),
+                         LINE_WIDTH);
+        p.addLineSegment(Line<float>(buttonX + buttonW - ARROW_MARGIN,
+                                     buttonY + buttonH / 2 - ARROW_MARGIN / 2,
+                                     buttonX + buttonW / 2,
+                                     ARROW_MARGIN),
+                         LINE_WIDTH);
+        
+        p.addLineSegment(Line<float>(buttonX + ARROW_MARGIN,
+                                     buttonY + buttonH / 2 + ARROW_MARGIN / 2,
+                                     buttonX + buttonW / 2,
+                                     buttonY + buttonH - ARROW_MARGIN),
+                         LINE_WIDTH);
+        p.addLineSegment(Line<float>(buttonX + buttonW - ARROW_MARGIN,
+                                     buttonY + buttonH / 2 + ARROW_MARGIN / 2,
+                                     buttonX + buttonW / 2,
+                                     buttonY + buttonH - ARROW_MARGIN),
+                         LINE_WIDTH);
+        
+        g.strokePath(p, PathStrokeType(1));
+    }
+    
+    virtual Font getComboBoxFont(ComboBox& /*comboBox*/) override {
+        Font comboFont;
+        comboFont.setTypefaceName(_fontName);
+        return comboFont
+        ;
+    }
+    
     virtual void drawButtonBackground(Graphics& g,
                                       Button& button,
                                       const Colour& /*backgroundColour*/,
@@ -55,9 +121,6 @@ public:
         Path p;
         PathStrokeType pStroke(1);
         Colour* bc {nullptr};
-        
-        
-        
         
         if (button.isEnabled()) {
             if (button.getToggleState()) {

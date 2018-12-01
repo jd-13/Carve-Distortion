@@ -23,6 +23,7 @@
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
 #include "CarveLookAndFeel.h"
+#include "CarveWaveViewer.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
 //[/Headers]
 
@@ -68,6 +69,8 @@ private:
     CarveLookAndFeel customLookAndFeel;
 
     void _drawDividers(Graphics& g) const;
+    void _drawWaves();
+    void _enableDoubleClickToDefault();
     //[/UserVariables]
 
     //==============================================================================
@@ -96,6 +99,8 @@ private:
     std::unique_ptr<Slider> DryLevelSld;
     std::unique_ptr<Label> DryLevelLbl;
     std::unique_ptr<TextButton> StereoBtn;
+    std::unique_ptr<CarveWaveViewer> Wave1View;
+    std::unique_ptr<CarveWaveViewer> Wave2View;
 
 
     //==============================================================================
