@@ -560,8 +560,7 @@ void CarveAudioProcessorEditor::timerCallback() {
                 preGain.setEnabled(false);
                 postGain.setEnabled(false);
                 tweak.setEnabled(false);
-            } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT ||
-                mode == WECore::Carve::Parameters::MODE.CLIPPER) {
+            } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
                 preGain.setEnabled(true);
                 postGain.setEnabled(true);
                 tweak.setEnabled(false);
