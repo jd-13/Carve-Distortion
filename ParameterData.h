@@ -48,9 +48,9 @@ const String    MODE1_STR = "Mode1",
                 STEREO_STR = "Stereo",
                 DRYLEVEL_STR = "DryLevel",
                 MASTERVOL_STR = "MasterVol",
-                GROUP_UNIT1 = "Unit1",
-                GROUP_LEFT = "Left",
-                GROUP_UNIT2 = "Unit2",
-                GROUP_RIGHT = "Right";
+                GROUP_UNIT1 = "UNIT 1",
+                GROUP_LEFT = "LEFT",
+                GROUP_UNIT2 = "UNIT 2",
+                GROUP_RIGHT = "RIGHT";
 
 #endif  // PARAMETERDATA_H_INCLUDED

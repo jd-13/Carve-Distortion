@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.3.2
+  Created with Projucer version: 5.4.1
 
   ------------------------------------------------------------------------------
 
@@ -22,7 +22,8 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
-#include "CoreJUCEPlugin/CoreLookAndFeel.h"
+#include "CarveLookAndFeel.h"
+#include "CarveWaveViewer.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
 //[/Headers]
 
@@ -65,8 +66,11 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    WECore::JUCEPlugin::CoreLookAndFeel customLookAndFeel;
+    CarveLookAndFeel customLookAndFeel;
 
+    void _drawDividers(Graphics& g) const;
+    void _drawWaves();
+    void _enableDoubleClickToDefault();
     //[/UserVariables]
 
     //==============================================================================
@@ -95,6 +99,8 @@ private:
     std::unique_ptr<Slider> DryLevelSld;
     std::unique_ptr<Label> DryLevelLbl;
     std::unique_ptr<TextButton> StereoBtn;
+    std::unique_ptr<CarveWaveViewer> Wave1View;
+    std::unique_ptr<CarveWaveViewer> Wave2View;
 
 
     //==============================================================================
