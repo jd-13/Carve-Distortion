@@ -1,5 +1,5 @@
 /*
- *    File:       CarveWaveViewer.hpp
+ *    File:       CarveWaveViewer.h
  *
  *    Version:    2.0.0
  *

@@ -28,8 +28,8 @@ void CarveLookAndFeel::drawGroupComponentOutline(Graphics& g,
                                                  int width,
                                                  int height,
                                                  const String& text,
-                                                 const Justification& justification,
-                                                 GroupComponent& group) {
+                                                 const Justification& /*justification*/,
+                                                 GroupComponent& /*group*/) {
     
     constexpr int MARGIN {2};
     
@@ -49,18 +49,16 @@ void CarveLookAndFeel::drawGroupComponentOutline(Graphics& g,
 }
 
 void CarveLookAndFeel::drawComboBox(Graphics& g,
-                                    int width,
-                                    int height,
+                                    int /*width*/,
+                                    int /*height*/,
                                     const bool /*isButtonDown*/,
                                     int buttonX,
                                     int buttonY,
                                     int buttonW,
                                     int buttonH,
-                                    ComboBox& box) {
+                                    ComboBox& /*box*/) {
     
     g.setColour(highlightColour);
-    //g.drawRoundedRectangle(0, 0, width, height, 10, 2);
-    
     
     Path p;
     constexpr float LINE_WIDTH {0.5};
@@ -69,14 +67,14 @@ void CarveLookAndFeel::drawComboBox(Graphics& g,
     const int arrowTipX {buttonX + (buttonW / 2)};
     const int arrowTipY {buttonY + buttonH - arrowMarginY};
     
-    // Left side
+    // Left side of arrow
     p.addLineSegment(Line<float>(buttonX + arrowMarginX,
                                  buttonY + arrowMarginY,
                                  arrowTipX,
                                  arrowTipY),
                      LINE_WIDTH);
     
-    // Right side
+    // Right side of arrow
     p.addLineSegment(Line<float>(buttonX + buttonW - arrowMarginX,
                                  buttonY + arrowMarginY,
                                  arrowTipX,
@@ -98,57 +96,21 @@ Font CarveLookAndFeel::getPopupMenuFont() {
     return comboFont;
 }
 
-void CarveLookAndFeel::drawButtonBackground(Graphics& g,
-                                            Button& button,
-                                            const Colour& /*backgroundColour*/,
-                                            bool /*isMouseOverButton*/,
-                                            bool /*isButtonDown*/) {
-    
-    const int width {button.getWidth()};
-    const int height {button.getHeight()};
-    
-    const float indent {2.0f};
-    const int cornerSize {jmin (roundToInt(width * 0.4f),
-                                roundToInt(height * 0.4f))};
-    
-    Path p;
-    PathStrokeType pStroke(1);
-    Colour* bc {nullptr};
-    
-    if (button.isEnabled()) {
-        if (button.getToggleState()) {
-            bc = &highlightColour;
-        } else {
-            bc = &lightColour;
-        }
-    } else {
-        bc = &darkColour;
-    }
-    
-    p.addRoundedRectangle(indent, indent, width - 2 * indent, height - 2 * indent, static_cast<float>(cornerSize));
-    
-    
-    g.setColour(*bc);
-    g.strokePath(p, pStroke);
-}
-
 void CarveLookAndFeel::drawButtonText(Graphics& g,
                                       TextButton& textButton,
                                       bool /*isMouseOverButton*/,
                                       bool /*isButtonDown*/) {
-    Colour* textColour {nullptr};
     
     if (textButton.isEnabled()) {
-        if (textButton.getToggleState() || textButton.getWidth() < 24) {
-            textColour = &highlightColour;
+        if (textButton.getToggleState()) {
+            g.setColour(highlightColour);
         } else {
-            textColour = &lightColour;
+            g.setColour(lightColour);
         }
     } else {
-        textColour = &darkColour;
+        g.setColour(darkColour);
     }
     
-    g.setColour(*textColour);
     constexpr int MARGIN {0};
     
     Font font;
@@ -179,7 +141,7 @@ void CarveLookAndFeel::drawRotarySlider(Graphics& g,
     constexpr double rangeOfMotion {CoreMath::DOUBLE_TAU - arcGap};
     
     const double sliderNormalisedValue {(slider.getValue() - slider.getMinimum()) /
-        (slider.getMaximum() - slider.getMinimum())};
+                                        (slider.getMaximum() - slider.getMinimum())};
     const double arcEndPoint {sliderNormalisedValue * rangeOfMotion + arcGap / 2};
     
     constexpr double margin {1.5};
@@ -320,5 +282,5 @@ void CarveLookAndFeel::drawPopupMenuItem(Graphics& g,
     g.setFont(font);
 
     r.removeFromLeft(3);
-    g.drawFittedText (text, r, Justification::centredLeft, 1);
+    g.drawFittedText(text, r, Justification::centredLeft, 1);
 }

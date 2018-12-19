@@ -50,12 +50,6 @@ public:
     
     virtual Font getPopupMenuFont() override;
     
-    virtual void drawButtonBackground(Graphics& g,
-                                      Button& button,
-                                      const Colour& backgroundColour,
-                                      bool isMouseOverButton,
-                                      bool isButtonDown) override;
-    
     virtual void drawButtonText(Graphics& g,
                                 TextButton& textButton,
                                 bool isMouseOverButton,
@@ -103,6 +97,8 @@ public:
                                    const String& shortcutKeyText,
                                    const Drawable* icon,
                                    const Colour* textColour) override;
+    
+    const Colour& getHighlightColour() const { return highlightColour; }
     
 private:
     const char* _fontName;

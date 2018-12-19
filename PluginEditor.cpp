@@ -618,15 +618,16 @@ void CarveAudioProcessorEditor::timerCallback() {
 
 void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
 
-    auto drawDivider = [&g](Line<float> line) -> void {
+    auto drawDivider = [&g](Line<float> line, const Colour& lineColour) -> void {
         // Set the gradient
         const float lineXLength {std::abs(line.getStartX() - line.getEndX())};
         const float lineYLength {std::abs(line.getStartY() - line.getEndY())};
 
-        g.setGradientFill(ColourGradient(Colour(0.15f, 1.0f, 0.5f, 1.0f),
+        
+        g.setGradientFill(ColourGradient(lineColour,
                                          line.getStartX() + lineXLength / 2,
                                          line.getStartY() + lineYLength /2,
-                                         Colour(0.15f, 1.0f, 0.5f, 0.1f),
+                                         lineColour.withAlpha(0.1f),
                                          line.getStartX(),
                                          line.getStartY(),
                                          true));
@@ -638,20 +639,21 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
         const std::vector<float> dashLengths(numDashes * 2, dashLength);
 
         g.drawDashedLine(line, &dashLengths[0], 4);
-
     };
 
     // Vertical divider
     constexpr float VERT_X {187};
     constexpr float VERT_Y {51};
     constexpr float VERT_LEN {220};
-    drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN));
+    drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN),
+                customLookAndFeel.getHighlightColour());
 
     // Horizontal divider
     constexpr float HOR_X {52};
     constexpr float HOR_Y {280};
     constexpr float HOR_LEN {270};
-    drawDivider(Line<float>(HOR_X, HOR_Y, HOR_X + HOR_LEN, HOR_Y));
+    drawDivider(Line<float>(HOR_X, HOR_Y, HOR_X + HOR_LEN, HOR_Y),
+                customLookAndFeel.getHighlightColour());
 }
 
 void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
