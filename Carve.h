@@ -101,7 +101,7 @@ private:
     
     bool    isStereo;
     
-    WECore::Carve::NoiseFilter _filter;
+    WECore::Carve::NoiseFilter<float> _filter;
     
     
     inline float ProcessSerial(float inSample) {
