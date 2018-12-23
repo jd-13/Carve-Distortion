@@ -9,8 +9,6 @@ For more details and a free download of the compiled plugin: https://www.whiteel
 
 JUCE: https://www.juce.com/  
 
-A Collection of Useful C++ Classes for Digital Signal Processing: https://github.com/vinniefalco/DSPFilters
-
 WECore: https://github.com/jd-13/WE-Core  
 
 Catch (for tests): https://github.com/philsquared/Catch  
@@ -42,15 +40,6 @@ Right click the source folder, select add existing files.
 Navigate to the directory containing the Carve source which you downloaded earlier, and select the files as shown below.  
 ![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps5.png)  
   
-Right click the project name, select add new group, name the group DSPFilters.
-![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps6.png)  
-  
-Right click the newly created folder, select add existing files.  
-![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps7.png)  
-
-Navigate to the folder containing the DSPFilters library which you will have downloaded earlier, and find the directory as in the screenshot below. Select all of the files in this directory.  
-![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps8.png)  
-  
 Right click the project name, select add new group, name the group Graphics.  
 ![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps9.png)  
   
@@ -59,7 +48,7 @@ Within this repo is a file in Graphics/background.jpeg. Add this file.
 ![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps10.png)  
   
 ### Add include paths
-Click config in the top left, and then select a build configuration from the left pane. In the screenshot below I've selected a debug Xcode build. Add the include paths as shown below, prepending them with the directories you have them in on your system.  
+Click config in the top left, and then select a build configuration from the left pane. In the screenshot below I've selected a debug Xcode build. Add the include paths as shown below, prepending them with the directories you have them in on your system. (Ignore the DSPFilters path, this is no longer required)  
 ![alt tag](https://whiteelephantaudio.com/buildScreenshots/BuildSteps11.png)  
 
 Finally, check the location of the VST SDK is set to the location of the VST SDK on your machine. This is specified in the Preferences menu. Here you can also specify the location of several other SDKs if you wish to do so.  
