@@ -147,8 +147,18 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             break;
             
         case stereo:
-            mCarve.setStereo(newValue < 0.5);
+        { // Scoped because of stereoActive initialization
+            const bool stereoActive {newValue < 0.5};
+            
+            if (getNumOutputChannels() == 1 && stereoActive) {
+                // If we only have one output and this has been activated, this is an error and
+                // needs to be set back to false
+                setParameterNotifyingHost(stereo, 1);
+            } else {
+                mCarve.setStereo(stereoActive);
+            }
             break;
+        }
             
         case dryLevel:
             mCarve.setDryLevel(DRYLEVEL.NormalisedToInteral(newValue));
