@@ -3,7 +3,7 @@ Carve is a two stage wave shaping distortion VST and Audio Unit, with multiple w
 
 For more details and a free download of the compiled plugin: https://www.whiteelephantaudio.com/plugins#Carve
 
-![](https://whiteelephantaudio.com/thumbs/carveV2.4.1Animation.gif)  
+![](https://whiteelephantaudio.com/images/thumbs/originals/carveV2.4.1Animation.gif)  
 
 ## Built using:  
 
