@@ -28,7 +28,7 @@
 
 class CarveLookAndFeel : public WECore::JUCEPlugin::CoreLookAndFeel {
 public:
-    CarveLookAndFeel() : _fontName("Courier New") {}
+    CarveLookAndFeel() {}
     
     virtual void drawGroupComponentOutline(Graphics& g,
                                            int width,
@@ -97,7 +97,4 @@ public:
                                    const String& shortcutKeyText,
                                    const Drawable* icon,
                                    const Colour* textColour) override;
-
-private:
-    const char* _fontName;
 };
