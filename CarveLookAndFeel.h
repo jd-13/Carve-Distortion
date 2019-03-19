@@ -25,45 +25,12 @@
 #pragma once
 
 #include "CoreJUCEPlugin/CoreLookAndFeel.h"
+#include "CoreJUCEPlugin/LookAndFeelMixins/LookAndFeelMixins.h"
 
-class CarveLookAndFeel : public WECore::JUCEPlugin::CoreLookAndFeel {
+class CarveLookAndFeel : public WECore::LookAndFeelMixins::WEV2LookAndFeel {
 public:
-    CarveLookAndFeel() {}
-    
-    virtual void drawGroupComponentOutline(Graphics& g,
-                                           int width,
-                                           int height,
-                                           const String& text,
-                                           const Justification& justification,
-                                           GroupComponent& group) override;
-    void drawComboBox(Graphics& g,
-                      int width,
-                      int height,
-                      const bool isButtonDown,
-                      int buttonX,
-                      int buttonY,
-                      int buttonW,
-                      int buttonH,
-                      ComboBox& box) override;
-
-    virtual Font getComboBoxFont(ComboBox& comboBox) override;
-    
-    virtual Font getPopupMenuFont() override;
-    
-    virtual void drawButtonText(Graphics& g,
-                                TextButton& textButton,
-                                bool isMouseOverButton,
-                                bool isButtonDown) override;
-    
-    virtual void drawRotarySlider(Graphics& g,
-                                  int x,
-                                  int y,
-                                  int width,
-                                  int height,
-                                  float sliderPosProportional,
-                                  float rotaryStartAngle,
-                                  float rotaryEndAngle,
-                                  Slider &slider) override;
+    CarveLookAndFeel() = default;
+    virtual ~CarveLookAndFeel() = default;
     
     virtual void drawLinearSliderThumb(Graphics& g,
                                        int x,
@@ -85,16 +52,4 @@ public:
                                             float minSliderPos,
                                             float maxSliderPos,
                                             const Slider::SliderStyle, Slider& slider) override;
-    
-    virtual void drawPopupMenuItem(Graphics& g,
-                                   const Rectangle<int>& area,
-                                   bool isSeparator,
-                                   bool isActive,
-                                   bool isHighlighted,
-                                   bool isTicked,
-                                   bool hasSubMenu,
-                                   const String& text,
-                                   const String& shortcutKeyText,
-                                   const Drawable* icon,
-                                   const Colour* textColour) override;
 };
