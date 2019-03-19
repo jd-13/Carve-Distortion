@@ -97,9 +97,7 @@ public:
                                    const String& shortcutKeyText,
                                    const Drawable* icon,
                                    const Colour* textColour) override;
-    
-    const Colour& getHighlightColour() const { return highlightColour; }
-    
+
 private:
     const char* _fontName;
 };

@@ -28,7 +28,7 @@
 
 //==============================================================================
 CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter)
-    : CoreProcessorEditor(ownerFilter)
+    : CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -333,24 +333,23 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     startTimer(100);
 
     // Set up look and feel
-    const Colour highlightColour(0.15f, 1.0f, 1.0f, 1.0f);
-    customLookAndFeel.setHighlightColour(highlightColour);
-    _assignLookAndFeelToAllChildren(customLookAndFeel);
+    _customLookAndFeel.setHighlightColour(_highlightColour);
+    _assignLookAndFeelToAllChildren(_customLookAndFeel);
 
     // Wave view colours
-    customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
-                                highlightColour);
-    
+    _customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
+                                 _highlightColour);
+
     // Combo box text colours
     const Colour lightYellow(0xffc6cd66);
     const Colour menuDark(0.0f, 0.0f, 0.17f, 1.0f);
-    customLookAndFeel.setColour(ComboBox::ColourIds::textColourId, lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::backgroundColourId,
-                                menuDark);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::textColourId, lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedBackgroundColourId,
+    _customLookAndFeel.setColour(ComboBox::ColourIds::textColourId, lightYellow);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::backgroundColourId,
+                                 menuDark);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::textColourId, lightYellow);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedBackgroundColourId,
                                 lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedTextColourId,
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedTextColourId,
                                 menuDark);
 
     Mode1Cmb->setScrollWheelEnabled(true);
@@ -623,7 +622,7 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
         const float lineXLength {std::abs(line.getStartX() - line.getEndX())};
         const float lineYLength {std::abs(line.getStartY() - line.getEndY())};
 
-        
+
         g.setGradientFill(ColourGradient(lineColour,
                                          line.getStartX() + lineXLength / 2,
                                          line.getStartY() + lineYLength /2,
@@ -646,14 +645,14 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
     constexpr float VERT_Y {51};
     constexpr float VERT_LEN {220};
     drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN),
-                customLookAndFeel.getHighlightColour());
+                _highlightColour);
 
     // Horizontal divider
     constexpr float HOR_X {52};
     constexpr float HOR_Y {280};
     constexpr float HOR_LEN {270};
     drawDivider(Line<float>(HOR_X, HOR_Y, HOR_X + HOR_LEN, HOR_Y),
-                customLookAndFeel.getHighlightColour());
+                _highlightColour);
 }
 
 void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
@@ -689,7 +688,7 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="CarveAudioProcessorEditor"
                  componentName="" parentClasses="public WECore::JUCEPlugin::CoreProcessorEditor, public Timer"
-                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter)"
+                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.33"
                  fixedSize="1" initialWidth="375" initialHeight="430">
   <BACKGROUND backgroundColour="ff323e44"/>

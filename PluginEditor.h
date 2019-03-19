@@ -66,7 +66,8 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    CarveLookAndFeel customLookAndFeel;
+    CarveLookAndFeel _customLookAndFeel;
+    const Colour _highlightColour;
 
     void _drawDividers(Graphics& g) const;
     void _drawWaves();
