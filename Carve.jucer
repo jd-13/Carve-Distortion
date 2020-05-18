@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.4.1"
+              bundleIdentifier="com.whiteelephantaudio.Carve" includeBinaryInAppConfig="1"
+              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
+              pluginName="Carve" pluginDesc="Carve" pluginManufacturer="White Elephant Audio"
+              pluginManufacturerCode="WEle" pluginCode="Carv" pluginChannelConfigs="{1, 1}, {1, 2}, {2, 2}"
+              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
+              pluginSilenceInIsSilenceOut="1" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="CarveAU" pluginRTASCategory="" aaxIdentifier="com.whiteelephantaudio.Carve"
+              pluginAAXCategory="2" jucerVersion="5.4.1" companyName="White Elephant Audio"
+              companyWebsite="https://www.whiteelephantaudio.com" companyEmail="info@whiteelephantaudio.com"
+              buildAUv3="0" pluginIsMidiEffectPlugin="0" displaySplashScreen="0"
+              reportAppUsage="0" splashScreenColour="Dark" buildStandalone="0"
+              enableIAA="0" pluginFormats="buildAU,buildVST,buildVST3" cppLanguageStandard="17">
+  <MAINGROUP id="S7VN6M" name="Carve">
+    <GROUP id="{AF95D713-03BF-1825-639B-1E3F503E9751}" name="Graphics">
+      <FILE id="aGrxCG" name="background.jpeg" compile="0" resource="1" file="Source/Graphics/background.jpeg"/>
+    </GROUP>
+    <GROUP id="{1D82EECD-49E3-63C2-AC44-DAC668B2B984}" name="Source">
+      <GROUP id="{EE7A1F4D-7418-557B-4A52-E724BF74255B}" name="GUI">
+        <FILE id="VnlMnn" name="CarveLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/CarveLookAndFeel.cpp"/>
+        <FILE id="xB7AGw" name="CarveLookAndFeel.h" compile="0" resource="0"
+              file="Source/CarveLookAndFeel.h"/>
+        <FILE id="wubEEc" name="CarveWaveViewer.cpp" compile="1" resource="0"
+              file="Source/CarveWaveViewer.cpp"/>
+        <FILE id="NDmPDp" name="CarveWaveViewer.h" compile="0" resource="0"
+              file="Source/CarveWaveViewer.h"/>
+        <FILE id="b99geg" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/PluginEditor.cpp"/>
+        <FILE id="PzubSs" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      </GROUP>
+      <FILE id="zzueUZ" name="ParameterData.h" compile="0" resource="0" file="Source/ParameterData.h"/>
+      <FILE id="w8pMaP" name="Carve.h" compile="0" resource="0" file="Source/Carve.h"/>
+      <FILE id="a3fEvA" name="Carve.cpp" compile="1" resource="0" file="Source/Carve.cpp"/>
+      <FILE id="yQtHXu" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="RPJSqP" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" postbuildCommand="" extraCompilerFlags="-Wall -Wextra -Wconversion -Wshadow -Wpedantic"
+               vstFolder="~/SDKs/VST3 SDK" externalLibraries="" extraFrameworks=""
+               customXcodeResourceFolders="">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxArchitecture="64BitIntel" isDebug="0" optimisation="3"
+                       targetName="Carve" cppLanguageStandard="" cppLibType="" linkTimeOptimisation="1"
+                       libraryPath="" headerPath="$(WECORE_SRC)"/>
+        <CONFIGURATION name="Release" osxCompatibility="10.7 SDK" osxArchitecture="Native"
+                       isDebug="0" optimisation="3" targetName="Carve" cppLanguageStandard="c++14"
+                       cppLibType="libc++"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../SDKs/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../SDKs/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vst3Folder="~/SDKs/VST3 SDK"
+                extraCompilerFlags="-Wall -Wextra -Wconversion -Wshadow -Wpedantic"
+                vstFolder="~/SDKs/VST3 SDK">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
+                       targetName="Carve" headerPath="~/WEA/WECore/Source/WECore&#10;~/SDKs/VST_SDK/VST2_SDK"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
+                       targetName="Carve"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="0" name="Debug" headerPath="C:\WEA\WECore\Source\WECore"
+                       optimisation="3"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_opengl" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_cryptography" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_core" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_basics"/>
+      </MODULEPATHS>
+    </VS2017>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+  <LIVE_SETTINGS>
+    <OSX buildEnabled="0"/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>

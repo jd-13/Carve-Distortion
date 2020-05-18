@@ -61,14 +61,13 @@ public:
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
-    void mouseDoubleClick (const MouseEvent& e) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    CarveLookAndFeel customLookAndFeel;
-    bool _wave1EasterEgg, _wave2EasterEgg;
+    CarveLookAndFeel _customLookAndFeel;
+    const Colour _highlightColour;
 
     void _drawDividers(Graphics& g) const;
     void _drawWaves();

@@ -28,7 +28,7 @@
 
 //==============================================================================
 CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter)
-    : CoreProcessorEditor(ownerFilter), _wave1EasterEgg(false), _wave2EasterEgg(false)
+    : CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -333,27 +333,23 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     startTimer(100);
 
     // Set up look and feel
-    const Colour highlightColour(0.15f, 1.0f, 1.0f, 1.0f);
-    customLookAndFeel.setHighlightColour(highlightColour);
-    _assignLookAndFeelToAllChildren(customLookAndFeel);
+    _customLookAndFeel.setHighlightColour(_highlightColour);
+    _assignLookAndFeelToAllChildren(_customLookAndFeel);
 
     // Wave view colours
-    customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
-                                highlightColour);
-
-    Wave1View->addMouseListener(this, false);
-    Wave2View->addMouseListener(this, false);
+    _customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
+                                 _highlightColour);
 
     // Combo box text colours
     const Colour lightYellow(0xffc6cd66);
     const Colour menuDark(0.0f, 0.0f, 0.17f, 1.0f);
-    customLookAndFeel.setColour(ComboBox::ColourIds::textColourId, lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::backgroundColourId,
-                                menuDark);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::textColourId, lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedBackgroundColourId,
+    _customLookAndFeel.setColour(ComboBox::ColourIds::textColourId, lightYellow);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::backgroundColourId,
+                                 menuDark);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::textColourId, lightYellow);
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedBackgroundColourId,
                                 lightYellow);
-    customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedTextColourId,
+    _customLookAndFeel.setColour(PopupMenu::ColourIds::highlightedTextColourId,
                                 menuDark);
 
     Mode1Cmb->setScrollWheelEnabled(true);
@@ -404,6 +400,7 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
 
 
     //[Destructor]. You can add your own custom destruction code here..
+    _removeLookAndFeelFromAllChildren();
     //[/Destructor]
 }
 
@@ -517,36 +514,6 @@ void CarveAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
     }
 
     //[UsercomboBoxChanged_Post]
-    auto setControlsActive = [](int mode,
-                                Slider& preGain,
-                                Slider& postGain,
-                                Slider& tweak) -> void {
-
-        if (mode == WECore::Carve::Parameters::MODE.OFF) {
-            preGain.setEnabled(false);
-            postGain.setEnabled(false);
-            tweak.setEnabled(false);
-        } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT ||
-                   mode == WECore::Carve::Parameters::MODE.CLIPPER) {
-            preGain.setEnabled(true);
-            postGain.setEnabled(true);
-            tweak.setEnabled(false);
-        } else {
-            preGain.setEnabled(true);
-            postGain.setEnabled(true);
-            tweak.setEnabled(true);
-        }
-    };
-
-    setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode1),
-                      *PreGain1Sld,
-                      *PostGain1Sld,
-                      *Tweak1Sld);
-
-    setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode2),
-                      *PreGain2Sld,
-                      *PostGain2Sld,
-                      *Tweak2Sld);
     //[/UsercomboBoxChanged_Post]
 }
 
@@ -567,26 +534,6 @@ void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
-void CarveAudioProcessorEditor::mouseDoubleClick (const MouseEvent& e)
-{
-    //[UserCode_mouseDoubleClick] -- Add your code here...
-    if (e.originalComponent == Wave1View.get()) {
-        _wave1EasterEgg = !_wave1EasterEgg;
-    } else if (e.originalComponent == Wave2View.get()) {
-        _wave2EasterEgg = !_wave2EasterEgg;
-    }
-
-    if (_wave1EasterEgg && _wave2EasterEgg) {
-        // "Sometimes people leave and we don't know why"
-        Wave1View->setColour(CarveWaveViewer::highlightColourId, Colour(200, 0, 0));
-        Wave2View->setColour(CarveWaveViewer::highlightColourId, Colour(0, 0, 200));
-    } else {
-        Wave1View->removeColour(CarveWaveViewer::highlightColourId);
-        Wave2View->removeColour(CarveWaveViewer::highlightColourId);
-    }
-    //[/UserCode_mouseDoubleClick]
-}
-
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -595,17 +542,44 @@ void CarveAudioProcessorEditor::timerCallback() {
 
     if (ourProcessor->needsUIUpdate()) {
 
-        // Change group titles if in stereo mode
-        if (_wave1EasterEgg && _wave2EasterEgg) {
-            Unit1Group->setText("A 1");
-            Unit2Group->setText("A 9");
-        } else if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
+        // change group titles if in stereo mode
+        if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
             Unit1Group->setText(GROUP_LEFT);
             Unit2Group->setText(GROUP_RIGHT);
         } else {
             Unit1Group->setText(GROUP_UNIT1);
             Unit2Group->setText(GROUP_UNIT2);
         }
+
+        auto setControlsActive = [](int mode,
+                                    Slider& preGain,
+                                    Slider& postGain,
+                                    Slider& tweak) -> void {
+
+            if (mode == WECore::Carve::Parameters::MODE.OFF) {
+                preGain.setEnabled(false);
+                postGain.setEnabled(false);
+                tweak.setEnabled(false);
+            } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
+                preGain.setEnabled(true);
+                postGain.setEnabled(true);
+                tweak.setEnabled(false);
+            } else {
+                preGain.setEnabled(true);
+                postGain.setEnabled(true);
+                tweak.setEnabled(true);
+            }
+        };
+
+        setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode1),
+                          *PreGain1Sld,
+                          *PostGain1Sld,
+                          *Tweak1Sld);
+
+        setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode2),
+                          *PreGain2Sld,
+                          *PostGain2Sld,
+                          *Tweak2Sld);
 
         Wave1View->setMode(ourProcessor->getParameter(CarveAudioProcessor::mode1));
         Wave1View->setPreGain(ourProcessor->getParameter(CarveAudioProcessor::preGain1));
@@ -644,15 +618,16 @@ void CarveAudioProcessorEditor::timerCallback() {
 
 void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
 
-    auto drawDivider = [&g](Line<float> line) -> void {
+    auto drawDivider = [&g](Line<float> line, const Colour& lineColour) -> void {
         // Set the gradient
         const float lineXLength {std::abs(line.getStartX() - line.getEndX())};
         const float lineYLength {std::abs(line.getStartY() - line.getEndY())};
 
-        g.setGradientFill(ColourGradient(Colour(0.15f, 1.0f, 0.5f, 1.0f),
+
+        g.setGradientFill(ColourGradient(lineColour,
                                          line.getStartX() + lineXLength / 2,
                                          line.getStartY() + lineYLength /2,
-                                         Colour(0.15f, 1.0f, 0.5f, 0.1f),
+                                         lineColour.withAlpha(0.1f),
                                          line.getStartX(),
                                          line.getStartY(),
                                          true));
@@ -664,20 +639,21 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
         const std::vector<float> dashLengths(numDashes * 2, dashLength);
 
         g.drawDashedLine(line, &dashLengths[0], 4);
-
     };
 
     // Vertical divider
     constexpr float VERT_X {187};
     constexpr float VERT_Y {51};
     constexpr float VERT_LEN {220};
-    drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN));
+    drawDivider(Line<float>(VERT_X, VERT_Y, VERT_X, VERT_Y + VERT_LEN),
+                _highlightColour);
 
     // Horizontal divider
     constexpr float HOR_X {52};
     constexpr float HOR_Y {280};
     constexpr float HOR_LEN {270};
-    drawDivider(Line<float>(HOR_X, HOR_Y, HOR_X + HOR_LEN, HOR_Y));
+    drawDivider(Line<float>(HOR_X, HOR_Y, HOR_X + HOR_LEN, HOR_Y),
+                _highlightColour);
 }
 
 void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
@@ -713,12 +689,9 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="CarveAudioProcessorEditor"
                  componentName="" parentClasses="public WECore::JUCEPlugin::CoreProcessorEditor, public Timer"
-                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter), _wave1EasterEgg(false), _wave2EasterEgg(false)"
+                 constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.33"
                  fixedSize="1" initialWidth="375" initialHeight="430">
-  <METHODS>
-    <METHOD name="mouseDoubleClick (const MouseEvent&amp; e)"/>
-  </METHODS>
   <BACKGROUND backgroundColour="ff323e44"/>
   <GROUPCOMPONENT name="Master Group" id="a0ae877bd426411a" memberName="MasterGroup"
                   virtualName="" explicitFocusOrder="0" pos="16 288 344 120" title="MASTER"
