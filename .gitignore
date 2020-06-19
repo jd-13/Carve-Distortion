@@ -1,5 +1,5 @@
-dark brushed metal texture steel black stock photo scratch wallpaper.jpg
 RotarySlider*
 .DS_Store
-Builds/*
-JuceLibraryCode/*
+Builds
+JuceLibraryCode
+private
