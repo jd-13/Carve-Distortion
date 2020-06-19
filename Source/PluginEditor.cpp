@@ -223,7 +223,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     OutputGainSld.reset (new Slider ("Output Gain Slider"));
     addAndMakeVisible (OutputGainSld.get());
-    OutputGainSld->setTooltip (TRANS("Output Gain"));
+    OutputGainSld->setTooltip (TRANS("Output gain"));
     OutputGainSld->setRange (0, 1, 0.01);
     OutputGainSld->setSliderStyle (Slider::LinearHorizontal);
     OutputGainSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
@@ -772,7 +772,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
-          virtualName="" explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output Gain"
+          virtualName="" explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
