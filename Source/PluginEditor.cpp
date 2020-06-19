@@ -163,7 +163,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     PreGain1Lbl.reset (new Label ("PreGain 1 Label",
                                   TRANS("Pre Gain")));
     addAndMakeVisible (PreGain1Lbl.get());
-    PreGain1Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    PreGain1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     PreGain1Lbl->setJustificationType (Justification::centredLeft);
     PreGain1Lbl->setEditable (false, false, false);
     PreGain1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -176,7 +176,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     PostGain1Lbl.reset (new Label ("PostGain 1 Label",
                                    TRANS("Post Gain")));
     addAndMakeVisible (PostGain1Lbl.get());
-    PostGain1Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    PostGain1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     PostGain1Lbl->setJustificationType (Justification::centredLeft);
     PostGain1Lbl->setEditable (false, false, false);
     PostGain1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -188,7 +188,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Tweak1Lbl.reset (new Label ("Tweak 1 Label",
                                 TRANS("Tweak")));
     addAndMakeVisible (Tweak1Lbl.get());
-    Tweak1Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    Tweak1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     Tweak1Lbl->setJustificationType (Justification::centredLeft);
     Tweak1Lbl->setEditable (false, false, false);
     Tweak1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -200,7 +200,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     SerialLbl.reset (new Label ("Serial Label",
                                 TRANS("Serial")));
     addAndMakeVisible (SerialLbl.get());
-    SerialLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    SerialLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     SerialLbl->setJustificationType (Justification::centred);
     SerialLbl->setEditable (false, false, false);
     SerialLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -212,7 +212,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     ParallelLbl.reset (new Label ("Parallel Label",
                                   TRANS("Parallel")));
     addAndMakeVisible (ParallelLbl.get());
-    ParallelLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    ParallelLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     ParallelLbl->setJustificationType (Justification::centredLeft);
     ParallelLbl->setEditable (false, false, false);
     ParallelLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -234,7 +234,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     OutputGainLbl.reset (new Label ("Output Gain Label",
                                     TRANS("Output Gain")));
     addAndMakeVisible (OutputGainLbl.get());
-    OutputGainLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    OutputGainLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     OutputGainLbl->setJustificationType (Justification::centred);
     OutputGainLbl->setEditable (false, false, false);
     OutputGainLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -246,7 +246,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     PreGain2Lbl.reset (new Label ("PreGain 2 Label",
                                   TRANS("Pre Gain")));
     addAndMakeVisible (PreGain2Lbl.get());
-    PreGain2Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    PreGain2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     PreGain2Lbl->setJustificationType (Justification::centredLeft);
     PreGain2Lbl->setEditable (false, false, false);
     PreGain2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -258,7 +258,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     PostGain2Lbl.reset (new Label ("PostGain 2 Label",
                                    TRANS("Post Gain")));
     addAndMakeVisible (PostGain2Lbl.get());
-    PostGain2Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    PostGain2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     PostGain2Lbl->setJustificationType (Justification::centredLeft);
     PostGain2Lbl->setEditable (false, false, false);
     PostGain2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -270,7 +270,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Tweak2Lbl.reset (new Label ("Tweak 2 Label",
                                 TRANS("Tweak")));
     addAndMakeVisible (Tweak2Lbl.get());
-    Tweak2Lbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    Tweak2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     Tweak2Lbl->setJustificationType (Justification::centredLeft);
     Tweak2Lbl->setEditable (false, false, false);
     Tweak2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -292,7 +292,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     DryLevelLbl.reset (new Label ("Dry Level Label",
                                   TRANS("Dry Level")));
     addAndMakeVisible (DryLevelLbl.get());
-    DryLevelLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    DryLevelLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     DryLevelLbl->setJustificationType (Justification::centred);
     DryLevelLbl->setEditable (false, false, false);
     DryLevelLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
@@ -335,6 +335,9 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     // Set up look and feel
     _customLookAndFeel.setHighlightColour(_highlightColour);
     _assignLookAndFeelToAllChildren(_customLookAndFeel);
+
+    // This is needed for the fonts to be applied
+    CarveLookAndFeel::setDefaultLookAndFeel(&_customLookAndFeel);
 
     // Wave view colours
     _customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
@@ -749,27 +752,27 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="32 176 88 24" textCol="ffc6cd66"
          outlineCol="d83535" edTextCol="ff000000" edBkgCol="0" labelText="Pre Gain"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
-         fontname="Courier New" fontsize="15.0" kerning="0.0" bold="0"
+         fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
          italic="0" justification="33"/>
   <LABEL name="PostGain 1 Label" id="d4ad48771666454" memberName="PostGain1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 208 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Post Gain" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 1 Label" id="33e8e0f78b54327f" memberName="Tweak1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 240 64 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Tweak" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="Serial Label" id="c969ac5b46238aca" memberName="SerialLbl"
          virtualName="" explicitFocusOrder="0" pos="24 312 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Serial" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <LABEL name="Parallel Label" id="a189167740b46f3f" memberName="ParallelLbl"
          virtualName="" explicitFocusOrder="0" pos="200 312 64 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Parallel" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
           virtualName="" explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
@@ -779,22 +782,22 @@ BEGIN_JUCER_METADATA
   <LABEL name="Output Gain Label" id="7ced186274c6d879" memberName="OutputGainLbl"
          virtualName="" explicitFocusOrder="0" pos="24 375 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Output Gain" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <LABEL name="PreGain 2 Label" id="1b1fcd244dbb837c" memberName="PreGain2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 176 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Pre Gain" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="PostGain 2 Label" id="10dbd505cd27ccc1" memberName="PostGain2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 208 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Post Gain" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="Tweak 2 Label" id="1ff0730a1fb3a90b" memberName="Tweak2Lbl"
          virtualName="" explicitFocusOrder="0" pos="208 240 64 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Tweak" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
           virtualName="" explicitFocusOrder="0" pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
@@ -804,7 +807,7 @@ BEGIN_JUCER_METADATA
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
          virtualName="" explicitFocusOrder="0" pos="24 344 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Dry Level" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
               virtualName="" explicitFocusOrder="0" pos="272 312 70 24" tooltip="Allows unit 1 and unit 2 to process the left and right channels independently"

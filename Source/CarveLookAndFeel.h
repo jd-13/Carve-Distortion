@@ -29,9 +29,9 @@
 
 class CarveLookAndFeel : public WECore::LookAndFeelMixins::WEV2LookAndFeel {
 public:
-    CarveLookAndFeel() = default;
+    CarveLookAndFeel();
     virtual ~CarveLookAndFeel() = default;
-    
+
     virtual void drawLinearSliderThumb(Graphics& g,
                                        int x,
                                        int y,
@@ -42,7 +42,7 @@ public:
                                        float maxSliderPos,
                                        const Slider::SliderStyle style,
                                        Slider& slider) override;
-    
+
     virtual void drawLinearSliderBackground(Graphics& g,
                                             int x,
                                             int y,
@@ -52,4 +52,10 @@ public:
                                             float minSliderPos,
                                             float maxSliderPos,
                                             const Slider::SliderStyle, Slider& slider) override;
+
+    virtual Typeface::Ptr getTypefaceForFont(const Font& font) override;
+
+private:
+    Font _regularFont;
+    Font _boldFont;
 };
