@@ -27,7 +27,7 @@
 Carve::Carve() :    DSPUnit1(), DSPUnit2(),
                     routing(ROUTING.defaultValue),
                     dryLevel(DRYLEVEL.defaultValue),
-                    masterVol(MASTERVOL.defaultValue),
+                    outputGain(OUTPUTGAIN.defaultValue),
                     isStereo(STEREO_DEFAULT),
                     _filter(25, 19000) {
 }
@@ -43,28 +43,27 @@ void Carve::reset() {
 }
 
 void Carve::Process1in1out(float* inSample, int numSamples) {
-    
+
     // do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
         float sample {inSample[iii]};
-    
+
         sample = ProcessSerial(sample) * (1 - routing) + ProcessParallel(sample) * routing;
-        
-        // dry level and master vol
-        ProcessMaster(sample, &(inSample[iii]));
+
+        ProcessRouting(sample, &(inSample[iii]));
     }
-    
+
     // apply filtering to remove noise
     _filter.Process1in1out(inSample, numSamples);
 }
 
 void Carve::Process1in2out(float* inLeftSample, float* inRightSample, int numSamples) {
-    
+
     // do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
         float leftSample {inLeftSample[iii]};
         float rightSample {inRightSample[iii]};
-        
+
         // stereo mode processing
         if (isStereo) {
             leftSample = DSPUnit1.process(leftSample);
@@ -73,23 +72,22 @@ void Carve::Process1in2out(float* inLeftSample, float* inRightSample, int numSam
             leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
             rightSample = leftSample;
         }
-        
-        // dry level and master vol
-        ProcessMaster(leftSample, &inLeftSample[iii]);
-        ProcessMaster(rightSample, &inRightSample[iii]);
+
+        ProcessRouting(leftSample, &inLeftSample[iii]);
+        ProcessRouting(rightSample, &inRightSample[iii]);
     }
-    
+
     // apply filtering to remove noise
     _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
 }
 
 void Carve::Process2in2out(float* inLeftSample, float* inRightSample, int numSamples) {
-    
+
     // do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
         float leftSample {inLeftSample[iii]};
         float rightSample {inRightSample[iii]};
-        
+
         // stereo mode processing
         if (isStereo) {
             leftSample = DSPUnit1.process(leftSample);
@@ -98,13 +96,12 @@ void Carve::Process2in2out(float* inLeftSample, float* inRightSample, int numSam
             leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
             rightSample = ProcessSerial(rightSample) * (1 - routing) + ProcessParallel(rightSample) * routing;
         }
-        
-        // dry level and master vol
-        ProcessMaster(leftSample, &inLeftSample[iii]);
-        ProcessMaster(rightSample, &inRightSample[iii]);
+
+        ProcessRouting(leftSample, &inLeftSample[iii]);
+        ProcessRouting(rightSample, &inRightSample[iii]);
     }
-    
-    
+
+
     // apply filtering to remove noise
     _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
 }

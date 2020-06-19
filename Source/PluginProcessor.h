@@ -69,24 +69,24 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
+
     // Custom methods/variables
     enum Parameters {
         mode1 = 0,
         preGain1,
         postGain1,
         tweak1,
-        
+
         mode2,
         preGain2,
         postGain2,
         tweak2,
-        
+
         routing,
         stereo,
         dryLevel,
-        masterVol,
-        
+        outputGain,
+
         totalNumParams
     };
 

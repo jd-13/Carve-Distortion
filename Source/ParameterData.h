@@ -30,7 +30,7 @@
 
 const ParameterDefinition::RangedParameter<float>   ROUTING(0, 1, 0), // 0 = SERIAL, 1 = PARALLEL
                                                     DRYLEVEL(0, 2, 0),
-                                                    MASTERVOL(0, 2, 1);
+                                                    OUTPUTGAIN(0, 2, 1);
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,
@@ -47,7 +47,7 @@ const String    MODE1_STR = "Mode1",
                 ROUTING_STR = "Routing",
                 STEREO_STR = "Stereo",
                 DRYLEVEL_STR = "DryLevel",
-                MASTERVOL_STR = "MasterVol",
+                OUTPUTGAIN_STR = "OutputGain",
                 GROUP_UNIT1 = "UNIT 1",
                 GROUP_LEFT = "LEFT",
                 GROUP_UNIT2 = "UNIT 2",

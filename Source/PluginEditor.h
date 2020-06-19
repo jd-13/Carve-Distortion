@@ -75,7 +75,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    std::unique_ptr<GroupComponent> MasterGroup;
+    std::unique_ptr<GroupComponent> RoutingGroup;
     std::unique_ptr<GroupComponent> Unit1Group;
     std::unique_ptr<GroupComponent> Unit2Group;
     std::unique_ptr<Slider> PreGain1Sld;
@@ -92,8 +92,8 @@ private:
     std::unique_ptr<Label> Tweak1Lbl;
     std::unique_ptr<Label> SerialLbl;
     std::unique_ptr<Label> ParallelLbl;
-    std::unique_ptr<Slider> MasterVolSld;
-    std::unique_ptr<Label> MasterVolLbl;
+    std::unique_ptr<Slider> OutputGainSld;
+    std::unique_ptr<Label> OutputGainLbl;
     std::unique_ptr<Label> PreGain2Lbl;
     std::unique_ptr<Label> PostGain2Lbl;
     std::unique_ptr<Label> Tweak2Lbl;

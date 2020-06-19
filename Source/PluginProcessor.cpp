@@ -20,17 +20,17 @@ CarveAudioProcessor::CarveAudioProcessor()
     mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
     mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
     mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
-    
+
     mCarve.DSPUnit2.setMode(WECore::Carve::Parameters::MODE.defaultValue);
     mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
     mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
     mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
-    
+
     mCarve.setRouting(ROUTING.defaultValue);
     mCarve.setStereo(STEREO_DEFAULT);
     mCarve.setDryLevel(DRYLEVEL.defaultValue);
-    mCarve.setMasterVol(MASTERVOL.defaultValue);
-    
+    mCarve.setOutputGain(OUTPUTGAIN.defaultValue);
+
     _UIUpdateFlag = true;
 }
 
@@ -54,48 +54,48 @@ float CarveAudioProcessor::getParameter (int index)
     switch (index) {
         case mode1:
             return mCarve.DSPUnit1.getMode();
-            
+
         case preGain1:
             return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
-        
+
         case postGain1:
             return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
-            
+
         case tweak1:
             return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
-            
-        
-            
-            
+
+
+
+
         case mode2:
             return mCarve.DSPUnit2.getMode();
-            
+
         case preGain2:
             return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
-            
+
         case postGain2:
             return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
-            
+
         case tweak2:
             return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
-            
-            
-            
-            
+
+
+
+
         case routing:
             return ROUTING.InteralToNormalised(mCarve.getRouting());
-            
+
         case stereo:
             return mCarve.getStereo();
-            
+
         case dryLevel:
             return DRYLEVEL.InteralToNormalised(mCarve.getDryLevel());
-            
-        case masterVol:
-            return MASTERVOL.InteralToNormalised(mCarve.getMasterVol());
-            
-            
-            
+
+        case outputGain:
+            return OUTPUTGAIN.InteralToNormalised(mCarve.getOutputGain());
+
+
+
         default:
             return 0.0f;
     }
@@ -107,49 +107,49 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
         case mode1:
             mCarve.DSPUnit1.setMode(static_cast<int>(round(newValue)));
             break;
-            
+
         case preGain1:
             mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
             break;
-            
+
         case postGain1:
             mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
-            
+
         case tweak1:
             mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
             break;
-            
-            
-            
-            
+
+
+
+
         case mode2:
             mCarve.DSPUnit2.setMode(static_cast<int>(round(newValue)));
             break;
-            
+
         case preGain2:
             mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
             break;
-            
+
         case postGain2:
             mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
             break;
-            
+
         case tweak2:
             mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
             break;
-            
-            
-            
-            
+
+
+
+
         case routing:
             mCarve.setRouting(ROUTING.NormalisedToInteral(newValue));
             break;
-            
+
         case stereo:
         { // Scoped because of stereoActive initialization
             const bool stereoActive {newValue < 0.5};
-            
+
             if (getNumOutputChannels() == 1 && stereoActive) {
                 // If we only have one output and this has been activated, this is an error and
                 // needs to be set back to false
@@ -159,22 +159,22 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
             }
             break;
         }
-            
+
         case dryLevel:
             mCarve.setDryLevel(DRYLEVEL.NormalisedToInteral(newValue));
             break;
-            
-        case masterVol:
-            mCarve.setMasterVol(MASTERVOL.NormalisedToInteral(newValue));
+
+        case outputGain:
+            mCarve.setOutputGain(OUTPUTGAIN.NormalisedToInteral(newValue));
             break;
-            
-            
-            
-            
+
+
+
+
         default:
             break;
     }
-    
+
     _UIUpdateFlag = true;
 }
 
@@ -183,49 +183,49 @@ const String CarveAudioProcessor::getParameterName (int index)
     switch (index) {
         case mode1:
             return MODE1_STR;
-            
+
         case preGain1:
             return PREGAIN1_STR;
-            
+
         case postGain1:
             return POSTGAIN1_STR;
-            
+
         case tweak1:
             return TWEAK1_STR;
-            
-            
-            
-            
+
+
+
+
         case mode2:
             return MODE2_STR;
-            
+
         case preGain2:
             return PREGAIN2_STR;
-            
+
         case postGain2:
             return POSTGAIN2_STR;
-            
+
         case tweak2:
             return TWEAK2_STR;
-            
-            
-            
-            
+
+
+
+
         case routing:
             return ROUTING_STR;
-            
+
         case stereo:
             return STEREO_STR;
-            
+
         case dryLevel:
             return DRYLEVEL_STR;
-            
-        case masterVol:
-            return MASTERVOL_STR;
-            
-            
-            
-            
+
+        case outputGain:
+            return OUTPUTGAIN_STR;
+
+
+
+
         default:
             return String::empty;
     }
@@ -236,49 +236,49 @@ const String CarveAudioProcessor::getParameterText (int index)
     switch (index) {
         case mode1:
             return String(mCarve.DSPUnit1.getMode());
-            
+
         case preGain1:
             return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
-            
+
         case postGain1:
             return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
-            
+
         case tweak1:
             return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
-            
-            
-            
-            
+
+
+
+
         case mode2:
             return String(mCarve.DSPUnit2.getMode());
-            
+
         case preGain2:
             return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
-            
+
         case postGain2:
             return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
-            
+
         case tweak2:
             return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
-            
-        
-            
-            
+
+
+
+
         case routing:
             return String(ROUTING.InteralToNormalised(mCarve.getRouting()));
-            
+
         case stereo:
             return String(static_cast<int>(mCarve.getStereo()));
-            
+
         case dryLevel:
             return String(DRYLEVEL.InteralToNormalised(mCarve.getDryLevel()));
-            
-        case masterVol:
-            return String(MASTERVOL.InteralToNormalised(mCarve.getMasterVol()));
-            
-            
-            
-            
+
+        case outputGain:
+            return String(OUTPUTGAIN.InteralToNormalised(mCarve.getOutputGain()));
+
+
+
+
         default:
             return String::empty;
     }
@@ -288,10 +288,10 @@ bool CarveAudioProcessor::isParameterAutomatable(int parameterIndex) const {
     switch (parameterIndex) {
         case mode1:
             return false;
-            
+
         case mode2:
             return false;
-            
+
         default:
             return true;
     }
@@ -386,7 +386,7 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 {
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
-    
+
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -400,22 +400,22 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     if (totalNumOutputChannels == 1 && totalNumOutputChannels == 1) {
-        
+
         float* inSample {buffer.getWritePointer(0)};
         mCarve.Process1in1out(inSample, buffer.getNumSamples());
-        
+
     } else if (totalNumInputChannels == 1 && totalNumOutputChannels == 2) {
-        
+
         float* inLeftSample {buffer.getWritePointer(0)};
         float* inRightSample {buffer.getWritePointer(1)};
-        
+
         mCarve.Process1in2out(inLeftSample, inRightSample, buffer.getNumSamples());
-        
+
     } else {
-        
+
         float* inLeftSample {buffer.getWritePointer(0)};
         float* inRightSample {buffer.getWritePointer(1)};
-        
+
         mCarve.Process2in2out(inLeftSample, inRightSample, buffer.getNumSamples());
     }
 }
@@ -441,10 +441,10 @@ void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
     for (int iii {0}; iii < totalNumParams; iii++) {
         userParams.push_back(getParameter(iii));
     }
-    
+
     XmlElement root("Root");
     XmlElement *el = root.createNewChildElement("AllUserParam");
-    
+
     el->addTextElement(String(floatVectorToString(userParams)));
     copyXmlToBinary(root, destData);
 }
@@ -455,7 +455,7 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
     // whose contents will have been created by the getStateInformation() call.
     std::unique_ptr<XmlElement> pRoot(getXmlFromBinary(data, sizeInBytes));
     std::vector<float> tmpUserParam;
-    
+
     if (pRoot != NULL) {
         forEachXmlChildElement((*pRoot), pChild) {
             if (pChild->hasTagName("AllUserParam")) {
@@ -467,10 +467,10 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
                 }
             }
         }
-        
+
         // Slightly hacky fix to prevent inverted button settings on startup
         setParameter(stereo, getParameter(stereo));
-        
+
         _UIUpdateFlag = true;
     }
 

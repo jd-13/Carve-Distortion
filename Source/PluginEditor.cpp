@@ -33,12 +33,12 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    MasterGroup.reset (new GroupComponent ("Master Group",
-                                           TRANS("MASTER")));
-    addAndMakeVisible (MasterGroup.get());
-    MasterGroup->setTextLabelPosition (Justification::centred);
+    RoutingGroup.reset (new GroupComponent ("Routing Group",
+                                            TRANS("ROUTING")));
+    addAndMakeVisible (RoutingGroup.get());
+    RoutingGroup->setTextLabelPosition (Justification::centred);
 
-    MasterGroup->setBounds (16, 288, 344, 120);
+    RoutingGroup->setBounds (16, 288, 344, 120);
 
     Unit1Group.reset (new GroupComponent ("Unit 1 Group",
                                           TRANS("UNIT 1")));
@@ -158,7 +158,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     RoutingSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     RoutingSld->addListener (this);
 
-    RoutingSld->setBounds (104, 312, 96, 24);
+    RoutingSld->setBounds (112, 312, 88, 24);
 
     PreGain1Lbl.reset (new Label ("PreGain 1 Label",
                                   TRANS("Pre Gain")));
@@ -207,7 +207,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     SerialLbl->setColour (TextEditor::textColourId, Colours::black);
     SerialLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    SerialLbl->setBounds (24, 312, 80, 24);
+    SerialLbl->setBounds (24, 312, 88, 24);
 
     ParallelLbl.reset (new Label ("Parallel Label",
                                   TRANS("Parallel")));
@@ -221,27 +221,27 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     ParallelLbl->setBounds (200, 312, 64, 24);
 
-    MasterVolSld.reset (new Slider ("Master Vol Slider"));
-    addAndMakeVisible (MasterVolSld.get());
-    MasterVolSld->setTooltip (TRANS("Master volume"));
-    MasterVolSld->setRange (0, 1, 0.01);
-    MasterVolSld->setSliderStyle (Slider::LinearHorizontal);
-    MasterVolSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    MasterVolSld->addListener (this);
+    OutputGainSld.reset (new Slider ("Output Gain Slider"));
+    addAndMakeVisible (OutputGainSld.get());
+    OutputGainSld->setTooltip (TRANS("Output Gain"));
+    OutputGainSld->setRange (0, 1, 0.01);
+    OutputGainSld->setSliderStyle (Slider::LinearHorizontal);
+    OutputGainSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    OutputGainSld->addListener (this);
 
-    MasterVolSld->setBounds (104, 375, 240, 24);
+    OutputGainSld->setBounds (112, 375, 232, 24);
 
-    MasterVolLbl.reset (new Label ("Master Vol Label",
-                                   TRANS("Master Vol")));
-    addAndMakeVisible (MasterVolLbl.get());
-    MasterVolLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    MasterVolLbl->setJustificationType (Justification::centred);
-    MasterVolLbl->setEditable (false, false, false);
-    MasterVolLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    MasterVolLbl->setColour (TextEditor::textColourId, Colours::black);
-    MasterVolLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    OutputGainLbl.reset (new Label ("Output Gain Label",
+                                    TRANS("Output Gain")));
+    addAndMakeVisible (OutputGainLbl.get());
+    OutputGainLbl->setFont (Font ("Courier New", 15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    OutputGainLbl->setJustificationType (Justification::centred);
+    OutputGainLbl->setEditable (false, false, false);
+    OutputGainLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
+    OutputGainLbl->setColour (TextEditor::textColourId, Colours::black);
+    OutputGainLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    MasterVolLbl->setBounds (24, 375, 80, 24);
+    OutputGainLbl->setBounds (24, 375, 88, 24);
 
     PreGain2Lbl.reset (new Label ("PreGain 2 Label",
                                   TRANS("Pre Gain")));
@@ -287,7 +287,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     DryLevelSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DryLevelSld->addListener (this);
 
-    DryLevelSld->setBounds (104, 344, 240, 24);
+    DryLevelSld->setBounds (112, 344, 232, 24);
 
     DryLevelLbl.reset (new Label ("Dry Level Label",
                                   TRANS("Dry Level")));
@@ -299,7 +299,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     DryLevelLbl->setColour (TextEditor::textColourId, Colours::black);
     DryLevelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    DryLevelLbl->setBounds (24, 344, 80, 24);
+    DryLevelLbl->setBounds (24, 344, 88, 24);
 
     StereoBtn.reset (new TextButton ("Stereo Button"));
     addAndMakeVisible (StereoBtn.get());
@@ -370,7 +370,7 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    MasterGroup = nullptr;
+    RoutingGroup = nullptr;
     Unit1Group = nullptr;
     Unit2Group = nullptr;
     PreGain1Sld = nullptr;
@@ -387,8 +387,8 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     Tweak1Lbl = nullptr;
     SerialLbl = nullptr;
     ParallelLbl = nullptr;
-    MasterVolSld = nullptr;
-    MasterVolLbl = nullptr;
+    OutputGainSld = nullptr;
+    OutputGainLbl = nullptr;
     PreGain2Lbl = nullptr;
     PostGain2Lbl = nullptr;
     Tweak2Lbl = nullptr;
@@ -477,11 +477,11 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
         ourProcessor->setParameter(CarveAudioProcessor::routing, static_cast<float>(RoutingSld->getValue()));
         //[/UserSliderCode_RoutingSld]
     }
-    else if (sliderThatWasMoved == MasterVolSld.get())
+    else if (sliderThatWasMoved == OutputGainSld.get())
     {
-        //[UserSliderCode_MasterVolSld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::masterVol, static_cast<float>(MasterVolSld->getValue()));
-        //[/UserSliderCode_MasterVolSld]
+        //[UserSliderCode_OutputGainSld] -- add your slider handling code here..
+        ourProcessor->setParameter(CarveAudioProcessor::outputGain, static_cast<float>(OutputGainSld->getValue()));
+        //[/UserSliderCode_OutputGainSld]
     }
     else if (sliderThatWasMoved == DryLevelSld.get())
     {
@@ -611,7 +611,7 @@ void CarveAudioProcessorEditor::timerCallback() {
         RoutingSld->setEnabled(!ourProcessor->getParameter(CarveAudioProcessor::stereo));   // disable routing if in stereo mode
         StereoBtn->setToggleState(ourProcessor->getParameter(CarveAudioProcessor::stereo), dontSendNotification);
         DryLevelSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::dryLevel), dontSendNotification);
-        MasterVolSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::masterVol), dontSendNotification);
+        OutputGainSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::outputGain), dontSendNotification);
 
     }
 }
@@ -673,7 +673,7 @@ void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
 
     RoutingSld->setDoubleClickReturnValue(true, ROUTING.InteralToNormalised(ROUTING.defaultValue));
     DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
-    MasterVolSld->setDoubleClickReturnValue(true, MASTERVOL.InteralToNormalised(MASTERVOL.defaultValue));
+    OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.InteralToNormalised(OUTPUTGAIN.defaultValue));
 }
 //[/MiscUserCode]
 
@@ -693,8 +693,8 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.33"
                  fixedSize="1" initialWidth="375" initialHeight="430">
   <BACKGROUND backgroundColour="ff323e44"/>
-  <GROUPCOMPONENT name="Master Group" id="a0ae877bd426411a" memberName="MasterGroup"
-                  virtualName="" explicitFocusOrder="0" pos="16 288 344 120" title="MASTER"
+  <GROUPCOMPONENT name="Routing Group" id="a0ae877bd426411a" memberName="RoutingGroup"
+                  virtualName="" explicitFocusOrder="0" pos="16 288 344 120" title="ROUTING"
                   textpos="36"/>
   <GROUPCOMPONENT name="Unit 1 Group" id="540af1b8b630cc1f" memberName="Unit1Group"
                   virtualName="" explicitFocusOrder="0" pos="16 48 168 232" title="UNIT 1"
@@ -741,7 +741,7 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
-          virtualName="" explicitFocusOrder="0" pos="104 312 96 24" tooltip="Routing of the signal between the two distortion units"
+          virtualName="" explicitFocusOrder="0" pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
@@ -762,7 +762,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="Serial Label" id="c969ac5b46238aca" memberName="SerialLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 312 80 24" textCol="ffc6cd66"
+         virtualName="" explicitFocusOrder="0" pos="24 312 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Serial" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
@@ -771,14 +771,14 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="Parallel" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
-  <SLIDER name="Master Vol Slider" id="98dbad60d21a006b" memberName="MasterVolSld"
-          virtualName="" explicitFocusOrder="0" pos="104 375 240 24" tooltip="Master volume"
+  <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
+          virtualName="" explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output Gain"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
-  <LABEL name="Master Vol Label" id="7ced186274c6d879" memberName="MasterVolLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 375 80 24" textCol="ffc6cd66"
-         edTextCol="ff000000" edBkgCol="0" labelText="Master Vol" editableSingleClick="0"
+  <LABEL name="Output Gain Label" id="7ced186274c6d879" memberName="OutputGainLbl"
+         virtualName="" explicitFocusOrder="0" pos="24 375 88 24" textCol="ffc6cd66"
+         edTextCol="ff000000" edBkgCol="0" labelText="Output Gain" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <LABEL name="PreGain 2 Label" id="1b1fcd244dbb837c" memberName="PreGain2Lbl"
@@ -797,12 +797,12 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
-          virtualName="" explicitFocusOrder="0" pos="104 344 240 24" tooltip="Adds the unprocessed signal into the output"
+          virtualName="" explicitFocusOrder="0" pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
-         virtualName="" explicitFocusOrder="0" pos="24 344 80 24" textCol="ffc6cd66"
+         virtualName="" explicitFocusOrder="0" pos="24 344 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Dry Level" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Courier New"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
