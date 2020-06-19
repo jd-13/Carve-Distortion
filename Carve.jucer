@@ -47,7 +47,7 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxArchitecture="64BitIntel" isDebug="0" optimisation="3"
                        targetName="Carve" cppLanguageStandard="" cppLibType="" linkTimeOptimisation="1"
-                       libraryPath="" headerPath="$(WECORE_SRC)"/>
+                       libraryPath="" headerPath="../../../WECore/Source/WECore"/>
         <CONFIGURATION name="Release" osxCompatibility="10.7 SDK" osxArchitecture="Native"
                        isDebug="0" optimisation="3" targetName="Carve" cppLanguageStandard="c++14"
                        cppLibType="libc++"/>
