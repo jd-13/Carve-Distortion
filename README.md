@@ -22,4 +22,4 @@ before it will build successfully:
 
 1. Update the header search paths to point to the location of WECore on your machine
 2. Download the font [Montserrat](https://fonts.google.com/specimen/Montserrat) and place the
-regular ttf file in Source/Graphics
+regular and bold ttf files in Source/Graphics
