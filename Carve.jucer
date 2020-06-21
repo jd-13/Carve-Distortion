@@ -15,11 +15,11 @@
               enableIAA="0" pluginFormats="buildAU,buildVST,buildVST3" cppLanguageStandard="17">
   <MAINGROUP id="S7VN6M" name="Carve">
     <GROUP id="{AF95D713-03BF-1825-639B-1E3F503E9751}" name="Graphics">
-      <FILE id="DQeb2W" name="AnonymousPro-Bold.ttf" compile="0" resource="1"
-            file="Source/Graphics/AnonymousPro-Bold.ttf"/>
-      <FILE id="xc5olW" name="AnonymousPro-Regular.ttf" compile="0" resource="1"
-            file="Source/Graphics/AnonymousPro-Regular.ttf"/>
       <FILE id="aGrxCG" name="background.jpeg" compile="0" resource="1" file="Source/Graphics/background.jpeg"/>
+      <FILE id="SlFcc1" name="Montserrat-Bold.ttf" compile="0" resource="1"
+            file="Source/Graphics/Montserrat-Bold.ttf"/>
+      <FILE id="FGEJJg" name="Montserrat-Regular.ttf" compile="0" resource="1"
+            file="Source/Graphics/Montserrat-Regular.ttf"/>
     </GROUP>
     <GROUP id="{1D82EECD-49E3-63C2-AC44-DAC668B2B984}" name="Source">
       <GROUP id="{EE7A1F4D-7418-557B-4A52-E724BF74255B}" name="GUI">

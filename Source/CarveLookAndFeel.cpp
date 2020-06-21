@@ -25,10 +25,11 @@
 #include "CarveLookAndFeel.h"
 
 CarveLookAndFeel::CarveLookAndFeel() {
-    _regularFont = Font(Typeface::createSystemTypefaceFor(BinaryData::AnonymousProRegular_ttf,
-                                                          BinaryData::AnonymousProRegular_ttfSize));
-    _boldFont = Font(Typeface::createSystemTypefaceFor(BinaryData::AnonymousProBold_ttf,
-                                                       BinaryData::AnonymousProBold_ttfSize));
+    _regularFont = Font(Typeface::createSystemTypefaceFor(BinaryData::MontserratRegular_ttf,
+                                                          BinaryData::MontserratRegular_ttfSize));
+    _boldFont = Font(Typeface::createSystemTypefaceFor(BinaryData::MontserratBold_ttf,
+                                                       BinaryData::MontserratBold_ttfSize));
+
     jassert(_regularFont.getTypefaceName().isNotEmpty());
     jassert(_boldFont.getTypefaceName().isNotEmpty());
 }
