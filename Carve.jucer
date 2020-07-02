@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.4.1"
               bundleIdentifier="com.whiteelephantaudio.Carve" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
+              buildVST="0" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Carve" pluginDesc="Carve" pluginManufacturer="White Elephant Audio"
               pluginManufacturerCode="WEle" pluginCode="Carv" pluginChannelConfigs="{1, 1}, {1, 2}, {2, 2}"
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
@@ -12,7 +12,7 @@
               companyWebsite="https://www.whiteelephantaudio.com" companyEmail="info@whiteelephantaudio.com"
               buildAUv3="0" pluginIsMidiEffectPlugin="0" displaySplashScreen="0"
               reportAppUsage="0" splashScreenColour="Dark" buildStandalone="0"
-              enableIAA="0" pluginFormats="buildAU,buildVST,buildVST3" cppLanguageStandard="17">
+              enableIAA="0" pluginFormats="buildAU,buildVST3" cppLanguageStandard="17">
   <MAINGROUP id="S7VN6M" name="Carve">
     <GROUP id="{AF95D713-03BF-1825-639B-1E3F503E9751}" name="Graphics">
       <FILE id="aGrxCG" name="background.jpeg" compile="0" resource="1" file="Source/Graphics/background.jpeg"/>
