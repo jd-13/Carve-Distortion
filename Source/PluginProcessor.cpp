@@ -227,7 +227,7 @@ const String CarveAudioProcessor::getParameterName (int index)
 
 
         default:
-            return String::empty;
+            return String();
     }
 }
 
@@ -280,7 +280,7 @@ const String CarveAudioProcessor::getParameterText (int index)
 
 
         default:
-            return String::empty;
+            return String();
     }
 }
 
