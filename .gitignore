@@ -1,6 +1,9 @@
 RotarySlider*
 .DS_Store
 Builds
-JuceLibraryCode
+JuceLibraryCode/Binary*
+JuceLibraryCode/include*
+JuceLibraryCode/JuceHeader.h
+JuceLibraryCode/ReadMe.txt
 private
 Source/Graphics/Montserrat-*.ttf
