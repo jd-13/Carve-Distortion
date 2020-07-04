@@ -25,6 +25,7 @@
 #include "CarveLookAndFeel.h"
 #include "CarveWaveViewer.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
+#include "CoreJUCEPlugin/LabelReadoutSlider.h"
 //[/Headers]
 
 
@@ -72,32 +73,34 @@ private:
     void _drawDividers(Graphics& g) const;
     void _drawWaves();
     void _enableDoubleClickToDefault();
+    void _startSliderReadouts();
+    void _stopSliderReadouts();
     //[/UserVariables]
 
     //==============================================================================
     std::unique_ptr<GroupComponent> RoutingGroup;
     std::unique_ptr<GroupComponent> Unit1Group;
     std::unique_ptr<GroupComponent> Unit2Group;
-    std::unique_ptr<Slider> PreGain1Sld;
-    std::unique_ptr<Slider> PostGain1Sld;
-    std::unique_ptr<Slider> Tweak1Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PreGain1Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PostGain1Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> Tweak1Sld;
     std::unique_ptr<ComboBox> Mode1Cmb;
-    std::unique_ptr<Slider> PreGain2Sld;
-    std::unique_ptr<Slider> PostGain2Sld;
-    std::unique_ptr<Slider> Tweak2Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PreGain2Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PostGain2Sld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> Tweak2Sld;
     std::unique_ptr<ComboBox> Mode2Cmb;
-    std::unique_ptr<Slider> RoutingSld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> RoutingSld;
     std::unique_ptr<Label> PreGain1Lbl;
     std::unique_ptr<Label> PostGain1Lbl;
     std::unique_ptr<Label> Tweak1Lbl;
     std::unique_ptr<Label> SerialLbl;
     std::unique_ptr<Label> ParallelLbl;
-    std::unique_ptr<Slider> OutputGainSld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> OutputGainSld;
     std::unique_ptr<Label> OutputGainLbl;
     std::unique_ptr<Label> PreGain2Lbl;
     std::unique_ptr<Label> PostGain2Lbl;
     std::unique_ptr<Label> Tweak2Lbl;
-    std::unique_ptr<Slider> DryLevelSld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> DryLevelSld;
     std::unique_ptr<Label> DryLevelLbl;
     std::unique_ptr<TextButton> StereoBtn;
     std::unique_ptr<CarveWaveViewer> Wave1View;

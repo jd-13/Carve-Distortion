@@ -54,7 +54,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Unit2Group->setBounds (192, 48, 168, 232);
 
-    PreGain1Sld.reset (new Slider ("PreGain 1 Slider"));
+    PreGain1Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("PreGain 1 Slider"));
     addAndMakeVisible (PreGain1Sld.get());
     PreGain1Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain1Sld->setRange (0, 1, 0.01);
@@ -64,7 +64,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     PreGain1Sld->setBounds (128, 176, 32, 24);
 
-    PostGain1Sld.reset (new Slider ("PostGain 1 Slider"));
+    PostGain1Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("PostGain 1 Slider"));
     addAndMakeVisible (PostGain1Sld.get());
     PostGain1Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain1Sld->setRange (0, 1, 0.01);
@@ -74,7 +74,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     PostGain1Sld->setBounds (128, 208, 32, 24);
 
-    Tweak1Sld.reset (new Slider ("Tweak 1 Slider"));
+    Tweak1Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("Tweak 1 Slider"));
     addAndMakeVisible (Tweak1Sld.get());
     Tweak1Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak1Sld->setRange (0, 1, 0.01);
@@ -102,7 +102,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Mode1Cmb->setBounds (24, 136, 150, 24);
 
-    PreGain2Sld.reset (new Slider ("PreGain 2 Slider"));
+    PreGain2Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("PreGain 2 Slider"));
     addAndMakeVisible (PreGain2Sld.get());
     PreGain2Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain2Sld->setRange (0, 1, 0.01);
@@ -112,7 +112,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     PreGain2Sld->setBounds (304, 176, 32, 24);
 
-    PostGain2Sld.reset (new Slider ("PostGain 2 Slider"));
+    PostGain2Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("PostGain 2 Slider"));
     addAndMakeVisible (PostGain2Sld.get());
     PostGain2Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain2Sld->setRange (0, 1, 0.01);
@@ -122,7 +122,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     PostGain2Sld->setBounds (304, 208, 32, 24);
 
-    Tweak2Sld.reset (new Slider ("Tweak 2 Slider"));
+    Tweak2Sld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("Tweak 2 Slider"));
     addAndMakeVisible (Tweak2Sld.get());
     Tweak2Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak2Sld->setRange (0, 1, 0.01);
@@ -150,7 +150,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Mode2Cmb->setBounds (200, 136, 150, 24);
 
-    RoutingSld.reset (new Slider ("Routing Slider"));
+    RoutingSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Routing Slider"));
     addAndMakeVisible (RoutingSld.get());
     RoutingSld->setTooltip (TRANS("Routing of the signal between the two distortion units"));
     RoutingSld->setRange (0, 1, 0.01);
@@ -221,7 +221,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     ParallelLbl->setBounds (200, 312, 64, 24);
 
-    OutputGainSld.reset (new Slider ("Output Gain Slider"));
+    OutputGainSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Output Gain Slider"));
     addAndMakeVisible (OutputGainSld.get());
     OutputGainSld->setTooltip (TRANS("Output gain"));
     OutputGainSld->setRange (0, 1, 0.01);
@@ -279,7 +279,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Tweak2Lbl->setBounds (208, 240, 64, 24);
 
-    DryLevelSld.reset (new Slider ("Dry Level Slider"));
+    DryLevelSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Dry Level Slider"));
     addAndMakeVisible (DryLevelSld.get());
     DryLevelSld->setTooltip (TRANS("Adds the unprocessed signal into the output"));
     DryLevelSld->setRange (0, 1, 0.01);
@@ -365,12 +365,15 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     StereoBtn->setEnabled(ourProcessor->getNumOutputChannels() == 2);
 
     _enableDoubleClickToDefault();
+
+    _startSliderReadouts();
     //[/Constructor]
 }
 
 CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+    _stopSliderReadouts();
     //[/Destructor_pre]
 
     RoutingGroup = nullptr;
@@ -678,6 +681,35 @@ void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
     DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
     OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.InteralToNormalised(OUTPUTGAIN.defaultValue));
 }
+
+void CarveAudioProcessorEditor::_startSliderReadouts() {
+    PreGain1Sld->start(PreGain1Lbl.get(), PreGain1Lbl->getText(), &WECore::Carve::Parameters::PREGAIN);
+    PostGain1Sld->start(PostGain1Lbl.get(), PostGain1Lbl->getText(), &WECore::Carve::Parameters::POSTGAIN);
+    Tweak1Sld->start(Tweak1Lbl.get(), Tweak1Lbl->getText(), &WECore::Carve::Parameters::TWEAK);
+
+    PreGain2Sld->start(PreGain2Lbl.get(), PreGain2Lbl->getText(), &WECore::Carve::Parameters::PREGAIN);
+    PostGain2Sld->start(PostGain2Lbl.get(), PostGain2Lbl->getText(), &WECore::Carve::Parameters::POSTGAIN);
+    Tweak2Sld->start(Tweak2Lbl.get(), Tweak2Lbl->getText(), &WECore::Carve::Parameters::TWEAK);
+
+    RoutingSld->start(SerialLbl.get(), SerialLbl->getText(), &ROUTING);
+    OutputGainSld->start(OutputGainLbl.get(), OutputGainLbl->getText(), &OUTPUTGAIN);
+    DryLevelSld->start(DryLevelLbl.get(), DryLevelLbl->getText(), &DRYLEVEL);
+
+}
+
+void CarveAudioProcessorEditor::_stopSliderReadouts() {
+    PreGain1Sld->stop();
+    PostGain1Sld->stop();
+    Tweak1Sld->stop();
+
+    PreGain2Sld->stop();
+    PostGain2Sld->stop();
+    Tweak2Sld->stop();
+
+    RoutingSld->stop();
+    OutputGainSld->stop();
+    DryLevelSld->stop();
+}
 //[/MiscUserCode]
 
 
@@ -706,17 +738,20 @@ BEGIN_JUCER_METADATA
                   virtualName="" explicitFocusOrder="0" pos="192 48 168 232" title="UNIT 2"
                   textpos="36"/>
   <SLIDER name="PreGain 1 Slider" id="f32c9f6afaac55bd" memberName="PreGain1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 176 32 24" tooltip="Gain applied to the signal before processing"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="128 176 32 24" tooltip="Gain applied to the signal before processing"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 208 32 24" tooltip="Gain applied to the signal after processing"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="128 208 32 24" tooltip="Gain applied to the signal after processing"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
-          virtualName="" explicitFocusOrder="0" pos="128 240 32 24" tooltip="Morphs the wave shape applied to the signal"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="128 240 32 24" tooltip="Morphs the wave shape applied to the signal"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
@@ -725,17 +760,20 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 176 32 24" tooltip="Gain applied to the signal before processing"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="304 176 32 24" tooltip="Gain applied to the signal before processing"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 208 32 24" tooltip="Gain applied to the signal after processing"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="304 208 32 24" tooltip="Gain applied to the signal after processing"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
-          virtualName="" explicitFocusOrder="0" pos="304 240 32 24" tooltip="Morphs the wave shape applied to the signal"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<double>" explicitFocusOrder="0"
+          pos="304 240 32 24" tooltip="Morphs the wave shape applied to the signal"
           min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
@@ -744,7 +782,8 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
-          virtualName="" explicitFocusOrder="0" pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<float>" explicitFocusOrder="0"
+          pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
@@ -775,10 +814,11 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
-          virtualName="" explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<float>" explicitFocusOrder="0"
+          pos="112 375 232 24" tooltip="Output gain" min="0.0" max="1.0"
+          int="0.01000000000000000021" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <LABEL name="Output Gain Label" id="7ced186274c6d879" memberName="OutputGainLbl"
          virtualName="" explicitFocusOrder="0" pos="24 375 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Output Gain" editableSingleClick="0"
@@ -800,7 +840,8 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
-          virtualName="" explicitFocusOrder="0" pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider<float>" explicitFocusOrder="0"
+          pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
