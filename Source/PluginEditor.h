@@ -24,6 +24,7 @@
 #include "PluginProcessor.h"
 #include "CarveLookAndFeel.h"
 #include "CarveWaveViewer.h"
+#include "CarveDualLabelReadoutSlider.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
 #include "CoreJUCEPlugin/LabelReadoutSlider.h"
 //[/Headers]
@@ -89,7 +90,7 @@ private:
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PostGain2Sld;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> Tweak2Sld;
     std::unique_ptr<ComboBox> Mode2Cmb;
-    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> RoutingSld;
+    std::unique_ptr<CarveDualLabelReadoutSlider> RoutingSld;
     std::unique_ptr<Label> PreGain1Lbl;
     std::unique_ptr<Label> PostGain1Lbl;
     std::unique_ptr<Label> Tweak1Lbl;

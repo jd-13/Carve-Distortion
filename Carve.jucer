@@ -23,6 +23,10 @@
     </GROUP>
     <GROUP id="{1D82EECD-49E3-63C2-AC44-DAC668B2B984}" name="Source">
       <GROUP id="{EE7A1F4D-7418-557B-4A52-E724BF74255B}" name="GUI">
+        <FILE id="s8HlIl" name="CarveDualLabelReadoutSlider.cpp" compile="1"
+              resource="0" file="Source/CarveDualLabelReadoutSlider.cpp"/>
+        <FILE id="ulmMh8" name="CarveDualLabelReadoutSlider.h" compile="0"
+              resource="0" file="Source/CarveDualLabelReadoutSlider.h"/>
         <FILE id="VnlMnn" name="CarveLookAndFeel.cpp" compile="1" resource="0"
               file="Source/CarveLookAndFeel.cpp"/>
         <FILE id="xB7AGw" name="CarveLookAndFeel.h" compile="0" resource="0"

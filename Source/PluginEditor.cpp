@@ -150,7 +150,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Mode2Cmb->setBounds (200, 136, 150, 24);
 
-    RoutingSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Routing Slider"));
+    RoutingSld.reset (new CarveDualLabelReadoutSlider ("Routing Slider"));
     addAndMakeVisible (RoutingSld.get());
     RoutingSld->setTooltip (TRANS("Routing of the signal between the two distortion units"));
     RoutingSld->setRange (0, 1, 0.01);
@@ -691,7 +691,9 @@ void CarveAudioProcessorEditor::_startSliderReadouts() {
     PostGain2Sld->start(PostGain2Lbl.get(), PostGain2Lbl->getText(), &WECore::Carve::Parameters::POSTGAIN);
     Tweak2Sld->start(Tweak2Lbl.get(), Tweak2Lbl->getText(), &WECore::Carve::Parameters::TWEAK);
 
-    RoutingSld->start(SerialLbl.get(), SerialLbl->getText(), &ROUTING);
+    RoutingSld->start(std::make_pair(SerialLbl.get(), SerialLbl->getText()),
+                      std::make_pair(ParallelLbl.get(), ParallelLbl->getText()),
+                      &ROUTING);
     OutputGainSld->start(OutputGainLbl.get(), OutputGainLbl->getText(), &OUTPUTGAIN);
     DryLevelSld->start(DryLevelLbl.get(), DryLevelLbl->getText(), &DRYLEVEL);
 
@@ -782,8 +784,8 @@ BEGIN_JUCER_METADATA
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
-          virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;float&gt;"
-          explicitFocusOrder="0" pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
+          virtualName="CarveDualLabelReadoutSlider" explicitFocusOrder="0"
+          pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
           min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
