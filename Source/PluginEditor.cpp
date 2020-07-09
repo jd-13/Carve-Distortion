@@ -7,12 +7,12 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.4.1
+  Created with Projucer version: 6.0.1
 
   ------------------------------------------------------------------------------
 
   The Projucer is part of the JUCE library.
-  Copyright (c) 2017 - ROLI Ltd.
+  Copyright (c) 2020 - Raw Material Software Limited.
 
   ==============================================================================
 */
@@ -33,24 +33,24 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    RoutingGroup.reset (new GroupComponent ("Routing Group",
-                                            TRANS("ROUTING")));
+    RoutingGroup.reset (new juce::GroupComponent ("Routing Group",
+                                                  TRANS("ROUTING")));
     addAndMakeVisible (RoutingGroup.get());
-    RoutingGroup->setTextLabelPosition (Justification::centred);
+    RoutingGroup->setTextLabelPosition (juce::Justification::centred);
 
     RoutingGroup->setBounds (16, 288, 344, 120);
 
-    Unit1Group.reset (new GroupComponent ("Unit 1 Group",
-                                          TRANS("UNIT 1")));
+    Unit1Group.reset (new juce::GroupComponent ("Unit 1 Group",
+                                                TRANS("UNIT 1")));
     addAndMakeVisible (Unit1Group.get());
-    Unit1Group->setTextLabelPosition (Justification::centred);
+    Unit1Group->setTextLabelPosition (juce::Justification::centred);
 
     Unit1Group->setBounds (16, 48, 168, 232);
 
-    Unit2Group.reset (new GroupComponent ("Unit 2 Group",
-                                          TRANS("UNIT 2")));
+    Unit2Group.reset (new juce::GroupComponent ("Unit 2 Group",
+                                                TRANS("UNIT 2")));
     addAndMakeVisible (Unit2Group.get());
-    Unit2Group->setTextLabelPosition (Justification::centred);
+    Unit2Group->setTextLabelPosition (juce::Justification::centred);
 
     Unit2Group->setBounds (192, 48, 168, 232);
 
@@ -58,8 +58,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (PreGain1Sld.get());
     PreGain1Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain1Sld->setRange (0, 1, 0.01);
-    PreGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    PreGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    PreGain1Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    PreGain1Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     PreGain1Sld->addListener (this);
 
     PreGain1Sld->setBounds (128, 176, 32, 24);
@@ -68,8 +68,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (PostGain1Sld.get());
     PostGain1Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain1Sld->setRange (0, 1, 0.01);
-    PostGain1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    PostGain1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    PostGain1Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    PostGain1Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     PostGain1Sld->addListener (this);
 
     PostGain1Sld->setBounds (128, 208, 32, 24);
@@ -78,18 +78,18 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (Tweak1Sld.get());
     Tweak1Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak1Sld->setRange (0, 1, 0.01);
-    Tweak1Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    Tweak1Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    Tweak1Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    Tweak1Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     Tweak1Sld->addListener (this);
 
     Tweak1Sld->setBounds (128, 240, 32, 24);
 
-    Mode1Cmb.reset (new ComboBox ("Mode 1 Combo Box"));
+    Mode1Cmb.reset (new juce::ComboBox ("Mode 1 Combo Box"));
     addAndMakeVisible (Mode1Cmb.get());
     Mode1Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode1Cmb->setEditableText (false);
-    Mode1Cmb->setJustificationType (Justification::centredLeft);
-    Mode1Cmb->setTextWhenNothingSelected (String());
+    Mode1Cmb->setJustificationType (juce::Justification::centredLeft);
+    Mode1Cmb->setTextWhenNothingSelected (juce::String());
     Mode1Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     Mode1Cmb->addItem (TRANS("Off"), 1);
     Mode1Cmb->addItem (TRANS("Sine"), 2);
@@ -106,8 +106,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (PreGain2Sld.get());
     PreGain2Sld->setTooltip (TRANS("Gain applied to the signal before processing"));
     PreGain2Sld->setRange (0, 1, 0.01);
-    PreGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    PreGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    PreGain2Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    PreGain2Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     PreGain2Sld->addListener (this);
 
     PreGain2Sld->setBounds (304, 176, 32, 24);
@@ -116,8 +116,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (PostGain2Sld.get());
     PostGain2Sld->setTooltip (TRANS("Gain applied to the signal after processing"));
     PostGain2Sld->setRange (0, 1, 0.01);
-    PostGain2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    PostGain2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    PostGain2Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    PostGain2Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     PostGain2Sld->addListener (this);
 
     PostGain2Sld->setBounds (304, 208, 32, 24);
@@ -126,18 +126,18 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (Tweak2Sld.get());
     Tweak2Sld->setTooltip (TRANS("Morphs the wave shape applied to the signal"));
     Tweak2Sld->setRange (0, 1, 0.01);
-    Tweak2Sld->setSliderStyle (Slider::RotaryVerticalDrag);
-    Tweak2Sld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    Tweak2Sld->setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    Tweak2Sld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     Tweak2Sld->addListener (this);
 
     Tweak2Sld->setBounds (304, 240, 32, 24);
 
-    Mode2Cmb.reset (new ComboBox ("Mode 2 Combo Box"));
+    Mode2Cmb.reset (new juce::ComboBox ("Mode 2 Combo Box"));
     addAndMakeVisible (Mode2Cmb.get());
     Mode2Cmb->setTooltip (TRANS("Wave shape applied to the signal"));
     Mode2Cmb->setEditableText (false);
-    Mode2Cmb->setJustificationType (Justification::centredLeft);
-    Mode2Cmb->setTextWhenNothingSelected (String());
+    Mode2Cmb->setJustificationType (juce::Justification::centredLeft);
+    Mode2Cmb->setTextWhenNothingSelected (juce::String());
     Mode2Cmb->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     Mode2Cmb->addItem (TRANS("Off"), 1);
     Mode2Cmb->addItem (TRANS("Sine"), 2);
@@ -154,70 +154,70 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (RoutingSld.get());
     RoutingSld->setTooltip (TRANS("Routing of the signal between the two distortion units"));
     RoutingSld->setRange (0, 1, 0.01);
-    RoutingSld->setSliderStyle (Slider::LinearHorizontal);
-    RoutingSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    RoutingSld->setSliderStyle (juce::Slider::LinearHorizontal);
+    RoutingSld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     RoutingSld->addListener (this);
 
     RoutingSld->setBounds (112, 312, 88, 24);
 
-    PreGain1Lbl.reset (new Label ("PreGain 1 Label",
-                                  TRANS("Pre Gain")));
+    PreGain1Lbl.reset (new juce::Label ("PreGain 1 Label",
+                                        TRANS("Pre Gain")));
     addAndMakeVisible (PreGain1Lbl.get());
-    PreGain1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    PreGain1Lbl->setJustificationType (Justification::centredLeft);
+    PreGain1Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    PreGain1Lbl->setJustificationType (juce::Justification::centredLeft);
     PreGain1Lbl->setEditable (false, false, false);
-    PreGain1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    PreGain1Lbl->setColour (Label::outlineColourId, Colour (0x00d83535));
-    PreGain1Lbl->setColour (TextEditor::textColourId, Colours::black);
-    PreGain1Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    PreGain1Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    PreGain1Lbl->setColour (juce::Label::outlineColourId, juce::Colour (0x00d83535));
+    PreGain1Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    PreGain1Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     PreGain1Lbl->setBounds (32, 176, 88, 24);
 
-    PostGain1Lbl.reset (new Label ("PostGain 1 Label",
-                                   TRANS("Post Gain")));
+    PostGain1Lbl.reset (new juce::Label ("PostGain 1 Label",
+                                         TRANS("Post Gain")));
     addAndMakeVisible (PostGain1Lbl.get());
-    PostGain1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    PostGain1Lbl->setJustificationType (Justification::centredLeft);
+    PostGain1Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    PostGain1Lbl->setJustificationType (juce::Justification::centredLeft);
     PostGain1Lbl->setEditable (false, false, false);
-    PostGain1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    PostGain1Lbl->setColour (TextEditor::textColourId, Colours::black);
-    PostGain1Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    PostGain1Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    PostGain1Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    PostGain1Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     PostGain1Lbl->setBounds (32, 208, 88, 24);
 
-    Tweak1Lbl.reset (new Label ("Tweak 1 Label",
-                                TRANS("Tweak")));
+    Tweak1Lbl.reset (new juce::Label ("Tweak 1 Label",
+                                      TRANS("Tweak")));
     addAndMakeVisible (Tweak1Lbl.get());
-    Tweak1Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    Tweak1Lbl->setJustificationType (Justification::centredLeft);
+    Tweak1Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    Tweak1Lbl->setJustificationType (juce::Justification::centredLeft);
     Tweak1Lbl->setEditable (false, false, false);
-    Tweak1Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    Tweak1Lbl->setColour (TextEditor::textColourId, Colours::black);
-    Tweak1Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    Tweak1Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    Tweak1Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    Tweak1Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     Tweak1Lbl->setBounds (32, 240, 64, 24);
 
-    SerialLbl.reset (new Label ("Serial Label",
-                                TRANS("Serial")));
+    SerialLbl.reset (new juce::Label ("Serial Label",
+                                      TRANS("Serial")));
     addAndMakeVisible (SerialLbl.get());
-    SerialLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    SerialLbl->setJustificationType (Justification::centred);
+    SerialLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    SerialLbl->setJustificationType (juce::Justification::centred);
     SerialLbl->setEditable (false, false, false);
-    SerialLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    SerialLbl->setColour (TextEditor::textColourId, Colours::black);
-    SerialLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    SerialLbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    SerialLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    SerialLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     SerialLbl->setBounds (24, 312, 88, 24);
 
-    ParallelLbl.reset (new Label ("Parallel Label",
-                                  TRANS("Parallel")));
+    ParallelLbl.reset (new juce::Label ("Parallel Label",
+                                        TRANS("Parallel")));
     addAndMakeVisible (ParallelLbl.get());
-    ParallelLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    ParallelLbl->setJustificationType (Justification::centredLeft);
+    ParallelLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    ParallelLbl->setJustificationType (juce::Justification::centredLeft);
     ParallelLbl->setEditable (false, false, false);
-    ParallelLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    ParallelLbl->setColour (TextEditor::textColourId, Colours::black);
-    ParallelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    ParallelLbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    ParallelLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    ParallelLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     ParallelLbl->setBounds (200, 312, 64, 24);
 
@@ -225,57 +225,57 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (OutputGainSld.get());
     OutputGainSld->setTooltip (TRANS("Output gain"));
     OutputGainSld->setRange (0, 1, 0.01);
-    OutputGainSld->setSliderStyle (Slider::LinearHorizontal);
-    OutputGainSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    OutputGainSld->setSliderStyle (juce::Slider::LinearHorizontal);
+    OutputGainSld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     OutputGainSld->addListener (this);
 
     OutputGainSld->setBounds (112, 375, 232, 24);
 
-    OutputGainLbl.reset (new Label ("Output Gain Label",
-                                    TRANS("Output Gain")));
+    OutputGainLbl.reset (new juce::Label ("Output Gain Label",
+                                          TRANS("Output Gain")));
     addAndMakeVisible (OutputGainLbl.get());
-    OutputGainLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    OutputGainLbl->setJustificationType (Justification::centred);
+    OutputGainLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    OutputGainLbl->setJustificationType (juce::Justification::centred);
     OutputGainLbl->setEditable (false, false, false);
-    OutputGainLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    OutputGainLbl->setColour (TextEditor::textColourId, Colours::black);
-    OutputGainLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    OutputGainLbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    OutputGainLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    OutputGainLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     OutputGainLbl->setBounds (24, 375, 88, 24);
 
-    PreGain2Lbl.reset (new Label ("PreGain 2 Label",
-                                  TRANS("Pre Gain")));
+    PreGain2Lbl.reset (new juce::Label ("PreGain 2 Label",
+                                        TRANS("Pre Gain")));
     addAndMakeVisible (PreGain2Lbl.get());
-    PreGain2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    PreGain2Lbl->setJustificationType (Justification::centredLeft);
+    PreGain2Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    PreGain2Lbl->setJustificationType (juce::Justification::centredLeft);
     PreGain2Lbl->setEditable (false, false, false);
-    PreGain2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    PreGain2Lbl->setColour (TextEditor::textColourId, Colours::black);
-    PreGain2Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    PreGain2Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    PreGain2Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    PreGain2Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     PreGain2Lbl->setBounds (208, 176, 88, 24);
 
-    PostGain2Lbl.reset (new Label ("PostGain 2 Label",
-                                   TRANS("Post Gain")));
+    PostGain2Lbl.reset (new juce::Label ("PostGain 2 Label",
+                                         TRANS("Post Gain")));
     addAndMakeVisible (PostGain2Lbl.get());
-    PostGain2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    PostGain2Lbl->setJustificationType (Justification::centredLeft);
+    PostGain2Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    PostGain2Lbl->setJustificationType (juce::Justification::centredLeft);
     PostGain2Lbl->setEditable (false, false, false);
-    PostGain2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    PostGain2Lbl->setColour (TextEditor::textColourId, Colours::black);
-    PostGain2Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    PostGain2Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    PostGain2Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    PostGain2Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     PostGain2Lbl->setBounds (208, 208, 88, 24);
 
-    Tweak2Lbl.reset (new Label ("Tweak 2 Label",
-                                TRANS("Tweak")));
+    Tweak2Lbl.reset (new juce::Label ("Tweak 2 Label",
+                                      TRANS("Tweak")));
     addAndMakeVisible (Tweak2Lbl.get());
-    Tweak2Lbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    Tweak2Lbl->setJustificationType (Justification::centredLeft);
+    Tweak2Lbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    Tweak2Lbl->setJustificationType (juce::Justification::centredLeft);
     Tweak2Lbl->setEditable (false, false, false);
-    Tweak2Lbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    Tweak2Lbl->setColour (TextEditor::textColourId, Colours::black);
-    Tweak2Lbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    Tweak2Lbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    Tweak2Lbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    Tweak2Lbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     Tweak2Lbl->setBounds (208, 240, 64, 24);
 
@@ -283,30 +283,30 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     addAndMakeVisible (DryLevelSld.get());
     DryLevelSld->setTooltip (TRANS("Adds the unprocessed signal into the output"));
     DryLevelSld->setRange (0, 1, 0.01);
-    DryLevelSld->setSliderStyle (Slider::LinearHorizontal);
-    DryLevelSld->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    DryLevelSld->setSliderStyle (juce::Slider::LinearHorizontal);
+    DryLevelSld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
     DryLevelSld->addListener (this);
 
     DryLevelSld->setBounds (112, 344, 232, 24);
 
-    DryLevelLbl.reset (new Label ("Dry Level Label",
-                                  TRANS("Dry Level")));
+    DryLevelLbl.reset (new juce::Label ("Dry Level Label",
+                                        TRANS("Dry Level")));
     addAndMakeVisible (DryLevelLbl.get());
-    DryLevelLbl->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
-    DryLevelLbl->setJustificationType (Justification::centred);
+    DryLevelLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    DryLevelLbl->setJustificationType (juce::Justification::centred);
     DryLevelLbl->setEditable (false, false, false);
-    DryLevelLbl->setColour (Label::textColourId, Colour (0xffc6cd66));
-    DryLevelLbl->setColour (TextEditor::textColourId, Colours::black);
-    DryLevelLbl->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    DryLevelLbl->setColour (juce::Label::textColourId, juce::Colour (0xffc6cd66));
+    DryLevelLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    DryLevelLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
     DryLevelLbl->setBounds (24, 344, 88, 24);
 
-    StereoBtn.reset (new TextButton ("Stereo Button"));
+    StereoBtn.reset (new juce::TextButton ("Stereo Button"));
     addAndMakeVisible (StereoBtn.get());
     StereoBtn->setTooltip (TRANS("Allows unit 1 and unit 2 to process the left and right channels independently"));
     StereoBtn->setButtonText (TRANS("Stereo"));
     StereoBtn->addListener (this);
-    StereoBtn->setColour (TextButton::buttonColourId, Colour (0xffb8b8c4));
+    StereoBtn->setColour (juce::TextButton::buttonColourId, juce::Colour (0xffb8b8c4));
 
     StereoBtn->setBounds (272, 312, 70, 24);
 
@@ -411,12 +411,12 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
 }
 
 //==============================================================================
-void CarveAudioProcessorEditor::paint (Graphics& g)
+void CarveAudioProcessorEditor::paint (juce::Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff323e44));
+    g.fillAll (juce::Colour (0xff323e44));
 
     //[UserPaint] Add your own custom painting code here..
     Image bg = ImageCache::getFromMemory(BinaryData::background_jpeg, BinaryData::background_jpegSize);
@@ -435,7 +435,7 @@ void CarveAudioProcessorEditor::resized()
     //[/UserResized]
 }
 
-void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
+void CarveAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
     CarveAudioProcessor* ourProcessor {getProcessor()};
@@ -500,7 +500,7 @@ void CarveAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     //[/UsersliderValueChanged_Post]
 }
 
-void CarveAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+void CarveAudioProcessorEditor::comboBoxChanged (juce::ComboBox* comboBoxThatHasChanged)
 {
     //[UsercomboBoxChanged_Pre]
     CarveAudioProcessor* ourProcessor {getProcessor()};
@@ -523,7 +523,7 @@ void CarveAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
     //[/UsercomboBoxChanged_Post]
 }
 
-void CarveAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
+void CarveAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
     CarveAudioProcessor* ourProcessor {getProcessor()};
@@ -727,7 +727,7 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="CarveAudioProcessorEditor"
                  componentName="" parentClasses="public WECore::JUCEPlugin::CoreProcessorEditor, public Timer"
                  constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)"
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.33"
+                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="375" initialHeight="430">
   <BACKGROUND backgroundColour="ff323e44"/>
   <GROUPCOMPONENT name="Routing Group" id="a0ae877bd426411a" memberName="RoutingGroup"
@@ -742,21 +742,21 @@ BEGIN_JUCER_METADATA
   <SLIDER name="PreGain 1 Slider" id="f32c9f6afaac55bd" memberName="PreGain1Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="128 176 32 24" tooltip="Gain applied to the signal before processing"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <SLIDER name="PostGain 1 Slider" id="6c5a77936be07efe" memberName="PostGain1Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="128 208 32 24" tooltip="Gain applied to the signal after processing"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <SLIDER name="Tweak 1 Slider" id="94990f0dcf6af35d" memberName="Tweak1Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="128 240 32 24" tooltip="Morphs the wave shape applied to the signal"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <COMBOBOX name="Mode 1 Combo Box" id="823a631a257df62e" memberName="Mode1Cmb"
             virtualName="" explicitFocusOrder="0" pos="24 136 150 24" tooltip="Wave shape applied to the signal"
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
@@ -764,21 +764,21 @@ BEGIN_JUCER_METADATA
   <SLIDER name="PreGain 2 Slider" id="11f2eb8d84599245" memberName="PreGain2Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="304 176 32 24" tooltip="Gain applied to the signal before processing"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <SLIDER name="PostGain 2 Slider" id="aa9e67169e105a0" memberName="PostGain2Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="304 208 32 24" tooltip="Gain applied to the signal after processing"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <SLIDER name="Tweak 2 Slider" id="63c918fd331adc1c" memberName="Tweak2Sld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="304 240 32 24" tooltip="Morphs the wave shape applied to the signal"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <COMBOBOX name="Mode 2 Combo Box" id="13e9b245e523351d" memberName="Mode2Cmb"
             virtualName="" explicitFocusOrder="0" pos="200 136 150 24" tooltip="Wave shape applied to the signal"
             editable="0" layout="33" items="Off&#10;Sine&#10;Parabolic Soft&#10;Parabolic Hard&#10;Asymmetric Sine&#10;Exponent&#10;Clipper"
@@ -786,9 +786,9 @@ BEGIN_JUCER_METADATA
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
           virtualName="CarveDualLabelReadoutSlider" explicitFocusOrder="0"
           pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <LABEL name="PreGain 1 Label" id="23c42a895f3ddaf2" memberName="PreGain1Lbl"
          virtualName="" explicitFocusOrder="0" pos="32 176 88 24" textCol="ffc6cd66"
          outlineCol="d83535" edTextCol="ff000000" edBkgCol="0" labelText="Pre Gain"
@@ -818,9 +818,9 @@ BEGIN_JUCER_METADATA
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;float&gt;"
           explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <LABEL name="Output Gain Label" id="7ced186274c6d879" memberName="OutputGainLbl"
          virtualName="" explicitFocusOrder="0" pos="24 375 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Output Gain" editableSingleClick="0"
@@ -844,9 +844,9 @@ BEGIN_JUCER_METADATA
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;float&gt;"
           explicitFocusOrder="0" pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
-          min="0.0" max="1.0" int="0.01000000000000000021" style="LinearHorizontal"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+          min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
   <LABEL name="Dry Level Label" id="877aa0a163a23de7" memberName="DryLevelLbl"
          virtualName="" explicitFocusOrder="0" pos="24 344 88 24" textCol="ffc6cd66"
          edTextCol="ff000000" edBkgCol="0" labelText="Dry Level" editableSingleClick="0"
@@ -871,3 +871,4 @@ END_JUCER_METADATA
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
+

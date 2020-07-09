@@ -7,12 +7,12 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.4.1
+  Created with Projucer version: 6.0.1
 
   ------------------------------------------------------------------------------
 
   The Projucer is part of the JUCE library.
-  Copyright (c) 2017 - ROLI Ltd.
+  Copyright (c) 2020 - Raw Material Software Limited.
 
   ==============================================================================
 */
@@ -41,14 +41,14 @@
 */
 class CarveAudioProcessorEditor  : public WECore::JUCEPlugin::CoreProcessorEditor,
                                    public Timer,
-                                   public Slider::Listener,
-                                   public ComboBox::Listener,
-                                   public Button::Listener
+                                   public juce::Slider::Listener,
+                                   public juce::ComboBox::Listener,
+                                   public juce::Button::Listener
 {
 public:
     //==============================================================================
     CarveAudioProcessorEditor (CarveAudioProcessor& ownerFilter);
-    ~CarveAudioProcessorEditor();
+    ~CarveAudioProcessorEditor() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
@@ -58,11 +58,11 @@ public:
     }
     //[/UserMethods]
 
-    void paint (Graphics& g) override;
+    void paint (juce::Graphics& g) override;
     void resized() override;
-    void sliderValueChanged (Slider* sliderThatWasMoved) override;
-    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
+    void sliderValueChanged (juce::Slider* sliderThatWasMoved) override;
+    void comboBoxChanged (juce::ComboBox* comboBoxThatHasChanged) override;
+    void buttonClicked (juce::Button* buttonThatWasClicked) override;
 
 
 
@@ -79,31 +79,31 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    std::unique_ptr<GroupComponent> RoutingGroup;
-    std::unique_ptr<GroupComponent> Unit1Group;
-    std::unique_ptr<GroupComponent> Unit2Group;
+    std::unique_ptr<juce::GroupComponent> RoutingGroup;
+    std::unique_ptr<juce::GroupComponent> Unit1Group;
+    std::unique_ptr<juce::GroupComponent> Unit2Group;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PreGain1Sld;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PostGain1Sld;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> Tweak1Sld;
-    std::unique_ptr<ComboBox> Mode1Cmb;
+    std::unique_ptr<juce::ComboBox> Mode1Cmb;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PreGain2Sld;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> PostGain2Sld;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> Tweak2Sld;
-    std::unique_ptr<ComboBox> Mode2Cmb;
+    std::unique_ptr<juce::ComboBox> Mode2Cmb;
     std::unique_ptr<CarveDualLabelReadoutSlider> RoutingSld;
-    std::unique_ptr<Label> PreGain1Lbl;
-    std::unique_ptr<Label> PostGain1Lbl;
-    std::unique_ptr<Label> Tweak1Lbl;
-    std::unique_ptr<Label> SerialLbl;
-    std::unique_ptr<Label> ParallelLbl;
+    std::unique_ptr<juce::Label> PreGain1Lbl;
+    std::unique_ptr<juce::Label> PostGain1Lbl;
+    std::unique_ptr<juce::Label> Tweak1Lbl;
+    std::unique_ptr<juce::Label> SerialLbl;
+    std::unique_ptr<juce::Label> ParallelLbl;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> OutputGainSld;
-    std::unique_ptr<Label> OutputGainLbl;
-    std::unique_ptr<Label> PreGain2Lbl;
-    std::unique_ptr<Label> PostGain2Lbl;
-    std::unique_ptr<Label> Tweak2Lbl;
+    std::unique_ptr<juce::Label> OutputGainLbl;
+    std::unique_ptr<juce::Label> PreGain2Lbl;
+    std::unique_ptr<juce::Label> PostGain2Lbl;
+    std::unique_ptr<juce::Label> Tweak2Lbl;
     std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> DryLevelSld;
-    std::unique_ptr<Label> DryLevelLbl;
-    std::unique_ptr<TextButton> StereoBtn;
+    std::unique_ptr<juce::Label> DryLevelLbl;
+    std::unique_ptr<juce::TextButton> StereoBtn;
     std::unique_ptr<CarveWaveViewer> Wave1View;
     std::unique_ptr<CarveWaveViewer> Wave2View;
 
@@ -114,3 +114,4 @@ private:
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
+

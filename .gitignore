@@ -3,7 +3,7 @@ RotarySlider*
 Builds
 JuceLibraryCode/Binary*
 JuceLibraryCode/include*
-JuceLibraryCode/JuceHeader.h
+JuceLibraryCode/Juce*.h
 JuceLibraryCode/ReadMe.txt
 private
 Source/Graphics/Montserrat-*.ttf
