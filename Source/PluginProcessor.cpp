@@ -16,21 +16,6 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    mCarve.DSPUnit1.setMode(WECore::Carve::Parameters::MODE.defaultValue);
-    mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
-    mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
-    mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
-
-    mCarve.DSPUnit2.setMode(WECore::Carve::Parameters::MODE.defaultValue);
-    mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.defaultValue);
-    mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.defaultValue);
-    mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.defaultValue);
-
-    mCarve.setRouting(ROUTING.defaultValue);
-    mCarve.setStereo(STEREO_DEFAULT);
-    mCarve.setDryLevel(DRYLEVEL.defaultValue);
-    mCarve.setOutputGain(OUTPUTGAIN.defaultValue);
-
     _UIUpdateFlag = true;
 }
 
