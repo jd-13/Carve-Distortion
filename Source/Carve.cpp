@@ -24,12 +24,11 @@
 
 #include "Carve.h"
 
-Carve::Carve() :    DSPUnit1(), DSPUnit2(),
-                    routing(ROUTING.defaultValue),
-                    dryLevel(DRYLEVEL.defaultValue),
-                    outputGain(OUTPUTGAIN.defaultValue),
-                    isStereo(STEREO_DEFAULT),
-                    _filter(25, 19000) {
+Carve::Carve() : routing(ROUTING.defaultValue),
+                 dryLevel(DRYLEVEL.defaultValue),
+                 outputGain(OUTPUTGAIN.defaultValue),
+                 isStereo(STEREO_DEFAULT),
+                 _filter(25, 19000) {
 }
 
 Carve::~Carve(){}
