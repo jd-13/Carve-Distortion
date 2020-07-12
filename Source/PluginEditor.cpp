@@ -532,7 +532,7 @@ void CarveAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicke
     if (buttonThatWasClicked == StereoBtn.get())
     {
         //[UserButtonCode_StereoBtn] -- add your button handler code here..
-        ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(StereoBtn->getToggleState()));
+        ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(!StereoBtn->getToggleState()));
         //[/UserButtonCode_StereoBtn]
     }
 

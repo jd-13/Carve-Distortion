@@ -133,7 +133,7 @@ void CarveAudioProcessor::setParameter (int index, float newValue)
 
         case stereo:
         { // Scoped because of stereoActive initialization
-            const bool stereoActive {newValue < 0.5};
+            const bool stereoActive {newValue > 0.5};
 
             if (getNumOutputChannels() == 1 && stereoActive) {
                 // If we only have one output and this has been activated, this is an error and
@@ -452,9 +452,6 @@ void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes
                 }
             }
         }
-
-        // Slightly hacky fix to prevent inverted button settings on startup
-        setParameter(stereo, getParameter(stereo));
 
         _UIUpdateFlag = true;
     }
