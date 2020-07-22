@@ -330,8 +330,6 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
 
     //[Constructor] You can add your own custom stuff here..
-    startTimer(100);
-
     // Set up look and feel
     _customLookAndFeel.setHighlightColour(_highlightColour);
     _assignLookAndFeelToAllChildren(_customLookAndFeel);
@@ -367,6 +365,9 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     _enableDoubleClickToDefault();
 
     _startSliderReadouts();
+
+    // Call this manually once to make sure the UI reflects the parameters' states correctly
+    _onParameterUpdate();
     //[/Constructor]
 }
 
@@ -444,55 +445,55 @@ void CarveAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasM
     if (sliderThatWasMoved == PreGain1Sld.get())
     {
         //[UserSliderCode_PreGain1Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::preGain1, static_cast<float>(PreGain1Sld->getValue()));
+        ourProcessor->setPreGain1(PreGain1Sld->getValue());
         //[/UserSliderCode_PreGain1Sld]
     }
     else if (sliderThatWasMoved == PostGain1Sld.get())
     {
         //[UserSliderCode_PostGain1Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::postGain1, static_cast<float>(PostGain1Sld->getValue()));
+        ourProcessor->setPostGain1(PostGain1Sld->getValue());
         //[/UserSliderCode_PostGain1Sld]
     }
     else if (sliderThatWasMoved == Tweak1Sld.get())
     {
         //[UserSliderCode_Tweak1Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::tweak1, static_cast<float>(Tweak1Sld->getValue()));
+        ourProcessor->setTweak1(Tweak1Sld->getValue());
         //[/UserSliderCode_Tweak1Sld]
     }
     else if (sliderThatWasMoved == PreGain2Sld.get())
     {
         //[UserSliderCode_PreGain2Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::preGain2, static_cast<float>(PreGain2Sld->getValue()));
+        ourProcessor->setPreGain2(PreGain2Sld->getValue());
         //[/UserSliderCode_PreGain2Sld]
     }
     else if (sliderThatWasMoved == PostGain2Sld.get())
     {
         //[UserSliderCode_PostGain2Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::postGain2, static_cast<float>(PostGain2Sld->getValue()));
+        ourProcessor->setPostGain2(PostGain2Sld->getValue());
         //[/UserSliderCode_PostGain2Sld]
     }
     else if (sliderThatWasMoved == Tweak2Sld.get())
     {
         //[UserSliderCode_Tweak2Sld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::tweak2, static_cast<float>(Tweak2Sld->getValue()));
+        ourProcessor->setTweak2(Tweak2Sld->getValue());
         //[/UserSliderCode_Tweak2Sld]
     }
     else if (sliderThatWasMoved == RoutingSld.get())
     {
         //[UserSliderCode_RoutingSld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::routing, static_cast<float>(RoutingSld->getValue()));
+        ourProcessor->setRouting(RoutingSld->getValue());
         //[/UserSliderCode_RoutingSld]
     }
     else if (sliderThatWasMoved == OutputGainSld.get())
     {
         //[UserSliderCode_OutputGainSld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::outputGain, static_cast<float>(OutputGainSld->getValue()));
+        ourProcessor->setOutputGain(OutputGainSld->getValue());
         //[/UserSliderCode_OutputGainSld]
     }
     else if (sliderThatWasMoved == DryLevelSld.get())
     {
         //[UserSliderCode_DryLevelSld] -- add your slider handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::dryLevel, static_cast<float>(DryLevelSld->getValue()));
+        ourProcessor->setDryLevel(DryLevelSld->getValue());
         //[/UserSliderCode_DryLevelSld]
     }
 
@@ -509,13 +510,13 @@ void CarveAudioProcessorEditor::comboBoxChanged (juce::ComboBox* comboBoxThatHas
     if (comboBoxThatHasChanged == Mode1Cmb.get())
     {
         //[UserComboBoxCode_Mode1Cmb] -- add your combo box handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::mode1, static_cast<float>(Mode1Cmb->getSelectedId()));
+        ourProcessor->setMode1(Mode1Cmb->getSelectedId());
         //[/UserComboBoxCode_Mode1Cmb]
     }
     else if (comboBoxThatHasChanged == Mode2Cmb.get())
     {
         //[UserComboBoxCode_Mode2Cmb] -- add your combo box handling code here..
-        ourProcessor->setParameter(CarveAudioProcessor::mode2, static_cast<float>(Mode2Cmb->getSelectedId()));
+        ourProcessor->setMode2(Mode2Cmb->getSelectedId());
         //[/UserComboBoxCode_Mode2Cmb]
     }
 
@@ -532,7 +533,7 @@ void CarveAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicke
     if (buttonThatWasClicked == StereoBtn.get())
     {
         //[UserButtonCode_StereoBtn] -- add your button handler code here..
-        ourProcessor->setParameter(CarveAudioProcessor::stereo, static_cast<float>(!StereoBtn->getToggleState()));
+        ourProcessor->setStereo(!StereoBtn->getToggleState());
         //[/UserButtonCode_StereoBtn]
     }
 
@@ -543,83 +544,116 @@ void CarveAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicke
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void CarveAudioProcessorEditor::timerCallback() {
+void CarveAudioProcessorEditor::sliderDragStarted(Slider* slider) {
     CarveAudioProcessor* ourProcessor {getProcessor()};
 
-    if (ourProcessor->needsUIUpdate()) {
-
-        // change group titles if in stereo mode
-        if (ourProcessor->getParameter(CarveAudioProcessor::stereo)) {
-            Unit1Group->setText(GROUP_LEFT);
-            Unit2Group->setText(GROUP_RIGHT);
-        } else {
-            Unit1Group->setText(GROUP_UNIT1);
-            Unit2Group->setText(GROUP_UNIT2);
-        }
-
-        auto setControlsActive = [](int mode,
-                                    Slider& preGain,
-                                    Slider& postGain,
-                                    Slider& tweak) -> void {
-
-            if (mode == WECore::Carve::Parameters::MODE.OFF) {
-                preGain.setEnabled(false);
-                postGain.setEnabled(false);
-                tweak.setEnabled(false);
-            } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
-                preGain.setEnabled(true);
-                postGain.setEnabled(true);
-                tweak.setEnabled(false);
-            } else {
-                preGain.setEnabled(true);
-                postGain.setEnabled(true);
-                tweak.setEnabled(true);
-            }
-        };
-
-        setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode1),
-                          *PreGain1Sld,
-                          *PostGain1Sld,
-                          *Tweak1Sld);
-
-        setControlsActive(ourProcessor->getParameter(CarveAudioProcessor::mode2),
-                          *PreGain2Sld,
-                          *PostGain2Sld,
-                          *Tweak2Sld);
-
-        Wave1View->setMode(ourProcessor->getParameter(CarveAudioProcessor::mode1));
-        Wave1View->setPreGain(ourProcessor->getParameter(CarveAudioProcessor::preGain1));
-        Wave1View->setPostGain(ourProcessor->getParameter(CarveAudioProcessor::postGain1));
-        Wave1View->setTweak(ourProcessor->getParameter(CarveAudioProcessor::tweak1));
-        Wave1View->repaint();
-
-        Wave2View->setMode(ourProcessor->getParameter(CarveAudioProcessor::mode2));
-        Wave2View->setPreGain(ourProcessor->getParameter(CarveAudioProcessor::preGain2));
-        Wave2View->setPostGain(ourProcessor->getParameter(CarveAudioProcessor::postGain2));
-        Wave2View->setTweak(ourProcessor->getParameter(CarveAudioProcessor::tweak2));
-        Wave2View->repaint();
-
-        Mode1Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode1), dontSendNotification);
-        PreGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain1), dontSendNotification);
-        PostGain1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::postGain1), dontSendNotification);
-        Tweak1Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::tweak1), dontSendNotification);
-
-
-
-        Mode2Cmb->setSelectedId(ourProcessor->getParameter(CarveAudioProcessor::mode2), dontSendNotification);
-        PreGain2Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::preGain2), dontSendNotification);
-        PostGain2Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::postGain2), dontSendNotification);
-        Tweak2Sld->setValue(ourProcessor->getParameter(CarveAudioProcessor::tweak2), dontSendNotification);
-
-
-
-        RoutingSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::routing), dontSendNotification);
-        RoutingSld->setEnabled(!ourProcessor->getParameter(CarveAudioProcessor::stereo));   // disable routing if in stereo mode
-        StereoBtn->setToggleState(ourProcessor->getParameter(CarveAudioProcessor::stereo), dontSendNotification);
-        DryLevelSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::dryLevel), dontSendNotification);
-        OutputGainSld->setValue(ourProcessor->getParameter(CarveAudioProcessor::outputGain), dontSendNotification);
-
+    if (slider == PreGain1Sld.get()) {
+        ourProcessor->preGain1->beginChangeGesture();
+    } else if (slider == PostGain1Sld.get()) {
+        ourProcessor->postGain1->beginChangeGesture();
+    } else if (slider == Tweak1Sld.get()) {
+        ourProcessor->tweak1->beginChangeGesture();
+    } else if (slider == PreGain2Sld.get()) {
+        ourProcessor->preGain2->beginChangeGesture();
+    } else if (slider == PostGain2Sld.get()) {
+        ourProcessor->postGain2->beginChangeGesture();
+    } else if (slider == Tweak2Sld.get()) {
+        ourProcessor->tweak2->beginChangeGesture();
+    } else if (slider == RoutingSld.get()) {
+        ourProcessor->routing->beginChangeGesture();
+    } else if (slider == DryLevelSld.get()) {
+        ourProcessor->dryLevel->beginChangeGesture();
+    } else if (slider == OutputGainSld.get()) {
+        ourProcessor->outputGain->beginChangeGesture();
     }
+}
+
+void CarveAudioProcessorEditor::sliderDragEnded(Slider* slider) {
+    CarveAudioProcessor* ourProcessor {getProcessor()};
+
+    if (slider == PreGain1Sld.get()) {
+        ourProcessor->preGain1->endChangeGesture();
+    } else if (slider == PostGain1Sld.get()) {
+        ourProcessor->postGain1->endChangeGesture();
+    } else if (slider == Tweak1Sld.get()) {
+        ourProcessor->tweak1->endChangeGesture();
+    } else if (slider == PreGain2Sld.get()) {
+        ourProcessor->preGain2->endChangeGesture();
+    } else if (slider == PostGain2Sld.get()) {
+        ourProcessor->postGain2->endChangeGesture();
+    } else if (slider == Tweak2Sld.get()) {
+        ourProcessor->tweak2->endChangeGesture();
+    } else if (slider == RoutingSld.get()) {
+        ourProcessor->routing->endChangeGesture();
+    } else if (slider == DryLevelSld.get()) {
+        ourProcessor->dryLevel->endChangeGesture();
+    } else if (slider == OutputGainSld.get()) {
+        ourProcessor->outputGain->endChangeGesture();
+    }
+}
+
+void CarveAudioProcessorEditor::_onParameterUpdate() {
+    CarveAudioProcessor* ourProcessor {getProcessor()};
+
+    // Change group titles if in stereo mode
+    if (ourProcessor->stereo->get()) {
+        Unit1Group->setText(GROUP_LEFT);
+        Unit2Group->setText(GROUP_RIGHT);
+    } else {
+        Unit1Group->setText(GROUP_UNIT1);
+        Unit2Group->setText(GROUP_UNIT2);
+    }
+
+    auto setControlsActive = [](int mode,
+                                Slider& preGain,
+                                Slider& postGain,
+                                Slider& tweak) -> void {
+
+        if (mode == WECore::Carve::Parameters::MODE.OFF) {
+            preGain.setEnabled(false);
+            postGain.setEnabled(false);
+            tweak.setEnabled(false);
+        } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
+            preGain.setEnabled(true);
+            postGain.setEnabled(true);
+            tweak.setEnabled(false);
+        } else {
+            preGain.setEnabled(true);
+            postGain.setEnabled(true);
+            tweak.setEnabled(true);
+        }
+    };
+
+    setControlsActive(ourProcessor->mode1->get(), *PreGain1Sld, *PostGain1Sld, *Tweak1Sld);
+    setControlsActive(ourProcessor->mode2->get(), *PreGain2Sld, *PostGain2Sld, *Tweak2Sld);
+
+    Wave1View->setMode(ourProcessor->mode1->get());
+    Wave1View->setPreGain(ourProcessor->preGain1->get());
+    Wave1View->setPostGain(ourProcessor->postGain1->get());
+    Wave1View->setTweak(ourProcessor->tweak1->get());
+    Wave1View->repaint();
+
+    Wave2View->setMode(ourProcessor->mode2->get());
+    Wave2View->setPreGain(ourProcessor->preGain2->get());
+    Wave2View->setPostGain(ourProcessor->postGain2->get());
+    Wave2View->setTweak(ourProcessor->tweak2->get());
+    Wave2View->repaint();
+
+    Mode1Cmb->setSelectedId(ourProcessor->mode1->get(), dontSendNotification);
+    PreGain1Sld->setValue(ourProcessor->preGain1->get(), dontSendNotification);
+    PostGain1Sld->setValue(ourProcessor->postGain1->get(), dontSendNotification);
+    Tweak1Sld->setValue(ourProcessor->tweak1->get(), dontSendNotification);
+
+    Mode2Cmb->setSelectedId(ourProcessor->mode2->get(), dontSendNotification);
+    PreGain2Sld->setValue(ourProcessor->preGain2->get(), dontSendNotification);
+    PostGain2Sld->setValue(ourProcessor->postGain2->get(), dontSendNotification);
+    Tweak2Sld->setValue(ourProcessor->tweak2->get(), dontSendNotification);
+
+    RoutingSld->setValue(ourProcessor->routing->get(), dontSendNotification);
+    RoutingSld->setEnabled(!ourProcessor->stereo->get());   // disable routing if in stereo mode
+    StereoBtn->setToggleState(ourProcessor->stereo->get(), dontSendNotification);
+    DryLevelSld->setValue(ourProcessor->dryLevel->get(), dontSendNotification);
+    OutputGainSld->setValue(ourProcessor->outputGain->get(), dontSendNotification);
 }
 
 void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
@@ -664,22 +698,22 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
 
 void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
     PreGain1Sld->setDoubleClickReturnValue(true,
-                                           WECore::Carve::Parameters::PREGAIN.InteralToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
+                                           WECore::Carve::Parameters::PREGAIN.InternalToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
     PostGain1Sld->setDoubleClickReturnValue(true,
-                                            WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
+                                            WECore::Carve::Parameters::POSTGAIN.InternalToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
     Tweak1Sld->setDoubleClickReturnValue(true,
-                                         WECore::Carve::Parameters::TWEAK.InteralToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
+                                         WECore::Carve::Parameters::TWEAK.InternalToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
 
     PreGain2Sld->setDoubleClickReturnValue(true,
-                                           WECore::Carve::Parameters::PREGAIN.InteralToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
+                                           WECore::Carve::Parameters::PREGAIN.InternalToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
     PostGain2Sld->setDoubleClickReturnValue(true,
-                                            WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
+                                            WECore::Carve::Parameters::POSTGAIN.InternalToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
     Tweak2Sld->setDoubleClickReturnValue(true,
-                                         WECore::Carve::Parameters::TWEAK.InteralToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
+                                         WECore::Carve::Parameters::TWEAK.InternalToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
 
-    RoutingSld->setDoubleClickReturnValue(true, ROUTING.InteralToNormalised(ROUTING.defaultValue));
-    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InteralToNormalised(DRYLEVEL.defaultValue));
-    OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.InteralToNormalised(OUTPUTGAIN.defaultValue));
+    RoutingSld->setDoubleClickReturnValue(true, ROUTING.InternalToNormalised(ROUTING.defaultValue));
+    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InternalToNormalised(DRYLEVEL.defaultValue));
+    OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.InternalToNormalised(OUTPUTGAIN.defaultValue));
 }
 
 void CarveAudioProcessorEditor::_startSliderReadouts() {

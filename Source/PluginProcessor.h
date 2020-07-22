@@ -41,14 +41,6 @@ public:
     //==============================================================================
     const String getName() const override;
 
-    int getNumParameters() override;
-    float getParameter (int index) override;
-    void setParameter (int index, float newValue) override;
-    bool isParameterAutomatable(int parameterIndex) const override;
-
-    const String getParameterName (int index) override;
-    const String getParameterText (int index) override;
-
     const String getInputChannelName (int channelIndex) const override;
     const String getOutputChannelName (int channelIndex) const override;
     bool isInputChannelStereoPair (int index) const override;
@@ -67,28 +59,51 @@ public:
     void changeProgramName (int index, const String& newName) override;
 
     //==============================================================================
-    void getStateInformation (MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    /**
+     * Parameter setters.
+     *
+     * For float parameters a value in the normalised 0 to 1 range is expected.
+     *
+     * For int parameters are used to represent menu items, the integer value in the real range of
+     * the parameter (eg. 0 to 4) is expected.
+     *
+     * For bool parameters they can only be true or false anyway.
+     *
+     * These do not call the ChangeBroadcaster as the UI will already know about these changes since
+     * it is the only one calling these methods.
+     */
+    /** @{ */
+    void setMode1(int val);
+    void setPreGain1(float val);
+    void setPostGain1(float val);
+    void setTweak1(float val);
 
-    // Custom methods/variables
-    enum Parameters {
-        mode1 = 0,
-        preGain1,
-        postGain1,
-        tweak1,
+    void setMode2(int val);
+    void setPreGain2(float val);
+    void setPostGain2(float val);
+    void setTweak2(float val);
 
-        mode2,
-        preGain2,
-        postGain2,
-        tweak2,
+    void setRouting(float val);
+    void setStereo(bool val);
+    void setDryLevel(float val);
+    void setOutputGain(float val);
+    /** @} */
 
-        routing,
-        stereo,
-        dryLevel,
-        outputGain,
+    // Parameters (public for beginChangeGesture/endChangeGesture/get)
+    AudioParameterInt* mode1;
+    AudioParameterFloat* preGain1;
+    AudioParameterFloat* postGain1;
+    AudioParameterFloat* tweak1;
 
-        totalNumParams
-    };
+    AudioParameterInt* mode2;
+    AudioParameterFloat* preGain2;
+    AudioParameterFloat* postGain2;
+    AudioParameterFloat* tweak2;
+
+    AudioParameterFloat* routing;
+    AudioParameterBool* stereo;
+    AudioParameterFloat* dryLevel;
+    AudioParameterFloat* outputGain;
 
 private:
     Carve mCarve;

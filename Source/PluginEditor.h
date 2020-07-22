@@ -40,7 +40,6 @@
                                                                     //[/Comments]
 */
 class CarveAudioProcessorEditor  : public WECore::JUCEPlugin::CoreProcessorEditor,
-                                   public Timer,
                                    public juce::Slider::Listener,
                                    public juce::ComboBox::Listener,
                                    public juce::Button::Listener
@@ -52,10 +51,11 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback() override;
     CarveAudioProcessor* getProcessor() const {
         return static_cast<CarveAudioProcessor*>(getAudioProcessor());
     }
+    void sliderDragStarted(Slider* slider) override;
+    void sliderDragEnded(Slider* slider) override;
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;
@@ -71,6 +71,7 @@ private:
     CarveLookAndFeel _customLookAndFeel;
     const Colour _highlightColour;
 
+    virtual void _onParameterUpdate() override;
     void _drawDividers(Graphics& g) const;
     void _drawWaves();
     void _enableDoubleClickToDefault();

@@ -16,7 +16,22 @@
 //==============================================================================
 CarveAudioProcessor::CarveAudioProcessor()
 {
-    _UIUpdateFlag = true;
+    namespace CP = WECore::Carve::Parameters;
+
+    registerParameter(mode1, MODE1_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode1(val); });
+    registerParameter(preGain1, PREGAIN1_STR, CP::PREGAIN.defaultValue, [&](float val) { setPreGain1(val); });
+    registerParameter(postGain1, POSTGAIN1_STR, CP::POSTGAIN.defaultValue, [&](float val) { setPostGain1(val); });
+    registerParameter(tweak1, TWEAK1_STR, CP::TWEAK.defaultValue, [&](float val) { setTweak1(val); });
+
+    registerParameter(mode2, MODE2_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode2(val); });
+    registerParameter(preGain2, PREGAIN2_STR, CP::PREGAIN.defaultValue, [&](float val) { setPreGain2(val); });
+    registerParameter(postGain2, POSTGAIN2_STR, CP::POSTGAIN.defaultValue, [&](float val) { setPostGain2(val); });
+    registerParameter(tweak2, TWEAK2_STR, CP::TWEAK.defaultValue, [&](float val) { setTweak2(val); });
+
+    registerParameter(routing, ROUTING_STR, ROUTING.defaultValue, [&](float val) { setRouting(val); });
+    registerParameter(stereo, STEREO_STR, STEREO_DEFAULT, [&](bool val) { setStereo(val); });
+    registerParameter(dryLevel, DRYLEVEL_STR, DRYLEVEL.defaultValue, [&](float val) { setDryLevel(val); });
+    registerParameter(outputGain, OUTPUTGAIN_STR, OUTPUTGAIN.defaultValue, [&](float val) { setOutputGain(val); });
 }
 
 CarveAudioProcessor::~CarveAudioProcessor()
@@ -28,260 +43,6 @@ const String CarveAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
-
-int CarveAudioProcessor::getNumParameters()
-{
-    return totalNumParams;
-}
-
-float CarveAudioProcessor::getParameter (int index)
-{
-    switch (index) {
-        case mode1:
-            return mCarve.DSPUnit1.getMode();
-
-        case preGain1:
-            return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain());
-
-        case postGain1:
-            return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain());
-
-        case tweak1:
-            return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak());
-
-
-
-
-        case mode2:
-            return mCarve.DSPUnit2.getMode();
-
-        case preGain2:
-            return WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain());
-
-        case postGain2:
-            return WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain());
-
-        case tweak2:
-            return WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak());
-
-
-
-
-        case routing:
-            return ROUTING.InteralToNormalised(mCarve.getRouting());
-
-        case stereo:
-            return mCarve.getStereo();
-
-        case dryLevel:
-            return DRYLEVEL.InteralToNormalised(mCarve.getDryLevel());
-
-        case outputGain:
-            return OUTPUTGAIN.InteralToNormalised(mCarve.getOutputGain());
-
-
-
-        default:
-            return 0.0f;
-    }
-}
-
-void CarveAudioProcessor::setParameter (int index, float newValue)
-{
-    switch (index) {
-        case mode1:
-            mCarve.DSPUnit1.setMode(static_cast<int>(round(newValue)));
-            break;
-
-        case preGain1:
-            mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
-            break;
-
-        case postGain1:
-            mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
-            break;
-
-        case tweak1:
-            mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
-            break;
-
-
-
-
-        case mode2:
-            mCarve.DSPUnit2.setMode(static_cast<int>(round(newValue)));
-            break;
-
-        case preGain2:
-            mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInteral(newValue));
-            break;
-
-        case postGain2:
-            mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInteral(newValue));
-            break;
-
-        case tweak2:
-            mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInteral(newValue));
-            break;
-
-
-
-
-        case routing:
-            mCarve.setRouting(ROUTING.NormalisedToInteral(newValue));
-            break;
-
-        case stereo:
-        { // Scoped because of stereoActive initialization
-            const bool stereoActive {newValue > 0.5};
-
-            if (getNumOutputChannels() == 1 && stereoActive) {
-                // If we only have one output and this has been activated, this is an error and
-                // needs to be set back to false
-                setParameterNotifyingHost(stereo, 1);
-            } else {
-                mCarve.setStereo(stereoActive);
-            }
-            break;
-        }
-
-        case dryLevel:
-            mCarve.setDryLevel(DRYLEVEL.NormalisedToInteral(newValue));
-            break;
-
-        case outputGain:
-            mCarve.setOutputGain(OUTPUTGAIN.NormalisedToInteral(newValue));
-            break;
-
-
-
-
-        default:
-            break;
-    }
-
-    _UIUpdateFlag = true;
-}
-
-const String CarveAudioProcessor::getParameterName (int index)
-{
-    switch (index) {
-        case mode1:
-            return MODE1_STR;
-
-        case preGain1:
-            return PREGAIN1_STR;
-
-        case postGain1:
-            return POSTGAIN1_STR;
-
-        case tweak1:
-            return TWEAK1_STR;
-
-
-
-
-        case mode2:
-            return MODE2_STR;
-
-        case preGain2:
-            return PREGAIN2_STR;
-
-        case postGain2:
-            return POSTGAIN2_STR;
-
-        case tweak2:
-            return TWEAK2_STR;
-
-
-
-
-        case routing:
-            return ROUTING_STR;
-
-        case stereo:
-            return STEREO_STR;
-
-        case dryLevel:
-            return DRYLEVEL_STR;
-
-        case outputGain:
-            return OUTPUTGAIN_STR;
-
-
-
-
-        default:
-            return String();
-    }
-}
-
-const String CarveAudioProcessor::getParameterText (int index)
-{
-    switch (index) {
-        case mode1:
-            return String(mCarve.DSPUnit1.getMode());
-
-        case preGain1:
-            return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit1.getPreGain()));
-
-        case postGain1:
-            return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit1.getPostGain()));
-
-        case tweak1:
-            return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit1.getTweak()));
-
-
-
-
-        case mode2:
-            return String(mCarve.DSPUnit2.getMode());
-
-        case preGain2:
-            return String(WECore::Carve::Parameters::PREGAIN.InteralToNormalised(mCarve.DSPUnit2.getPreGain()));
-
-        case postGain2:
-            return String(WECore::Carve::Parameters::POSTGAIN.InteralToNormalised(mCarve.DSPUnit2.getPostGain()));
-
-        case tweak2:
-            return String(WECore::Carve::Parameters::TWEAK.InteralToNormalised(mCarve.DSPUnit2.getTweak()));
-
-
-
-
-        case routing:
-            return String(ROUTING.InteralToNormalised(mCarve.getRouting()));
-
-        case stereo:
-            return String(static_cast<int>(mCarve.getStereo()));
-
-        case dryLevel:
-            return String(DRYLEVEL.InteralToNormalised(mCarve.getDryLevel()));
-
-        case outputGain:
-            return String(OUTPUTGAIN.InteralToNormalised(mCarve.getOutputGain()));
-
-
-
-
-        default:
-            return String();
-    }
-}
-
-bool CarveAudioProcessor::isParameterAutomatable(int parameterIndex) const {
-    switch (parameterIndex) {
-        case mode1:
-            return false;
-
-        case mode2:
-            return false;
-
-        default:
-            return true;
-    }
-}
-
 
 const String CarveAudioProcessor::getInputChannelName (int channelIndex) const
 {
@@ -417,45 +178,69 @@ AudioProcessorEditor* CarveAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void CarveAudioProcessor::getStateInformation (MemoryBlock& destData)
-{
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
-    std::vector<float> userParams;
-    for (int iii {0}; iii < totalNumParams; iii++) {
-        userParams.push_back(getParameter(iii));
-    }
-
-    XmlElement root("Root");
-    XmlElement *el = root.createNewChildElement("AllUserParam");
-
-    el->addTextElement(String(floatVectorToString(userParams)));
-    copyXmlToBinary(root, destData);
+void CarveAudioProcessor::setMode1(int val) {
+    mCarve.DSPUnit1.setMode(val);
+    mode1->setValueNotifyingHost(mode1->getNormalisableRange().convertTo0to1(val));
 }
 
-void CarveAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
-    std::unique_ptr<XmlElement> pRoot(getXmlFromBinary(data, sizeInBytes));
-    std::vector<float> tmpUserParam;
+void CarveAudioProcessor::setPreGain1(float val) {
+    mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInternal(val));
+    preGain1->setValueNotifyingHost(val);
+}
 
-    if (pRoot != NULL) {
-        forEachXmlChildElement((*pRoot), pChild) {
-            if (pChild->hasTagName("AllUserParam")) {
-                String sFloatCSV = pChild->getAllSubText();
-                if (stringToFloatVector(sFloatCSV, tmpUserParam, totalNumParams) == totalNumParams) {
-                    for (int iii {0}; iii < totalNumParams; iii++) {
-                        setParameter(iii, tmpUserParam[iii]);
-                    }
-                }
-            }
-        }
+void CarveAudioProcessor::setPostGain1(float val) {
+    mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInternal(val));
+    postGain1->setValueNotifyingHost(val);
+}
 
-        _UIUpdateFlag = true;
+void CarveAudioProcessor::setTweak1(float val) {
+    mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInternal(val));
+    tweak1->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setMode2(int val) {
+    mCarve.DSPUnit2.setMode(val);
+    mode2->setValueNotifyingHost(mode2->getNormalisableRange().convertTo0to1(val));
+}
+
+void CarveAudioProcessor::setPreGain2(float val) {
+    mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInternal(val));
+    preGain2->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setPostGain2(float val) {
+    mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInternal(val));
+    postGain2->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setTweak2(float val) {
+    mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInternal(val));
+    tweak2->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setRouting(float val) {
+    mCarve.setRouting(ROUTING.NormalisedToInternal(val));
+    routing->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setStereo(bool val) {
+    if (getNumOutputChannels() == 1) {
+        mCarve.setStereo(false);
+        stereo->setValueNotifyingHost(false);
+    } else {
+        mCarve.setStereo(val);
+        stereo->setValueNotifyingHost(val);
     }
+}
 
+void CarveAudioProcessor::setDryLevel(float val) {
+    mCarve.setDryLevel(DRYLEVEL.NormalisedToInternal(val));
+    dryLevel->setValueNotifyingHost(val);
+}
+
+void CarveAudioProcessor::setOutputGain(float val) {
+    mCarve.setOutputGain(OUTPUTGAIN.NormalisedToInternal(val));
+    outputGain->setValueNotifyingHost(val);
 }
 
 //==============================================================================
