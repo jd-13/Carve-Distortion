@@ -44,7 +44,7 @@ void CarveDualLabelReadoutSlider::stop() {
 
 void CarveDualLabelReadoutSlider::_updateLabel() {
     if (_isRunning) {
-        String valueString(_parameter->NormalisedToInteral(getValue()), 2);
+        String valueString(_parameter->NormalisedToInternal(getValue()), 2);
         _label1.first->setText(valueString, dontSendNotification);
         _label2.first->setText(valueString, dontSendNotification);
     }
