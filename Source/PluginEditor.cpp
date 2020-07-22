@@ -604,28 +604,45 @@ void CarveAudioProcessorEditor::_onParameterUpdate() {
         Unit2Group->setText(GROUP_UNIT2);
     }
 
-    auto setControlsActive = [](int mode,
-                                Slider& preGain,
-                                Slider& postGain,
-                                Slider& tweak) -> void {
-
-        if (mode == WECore::Carve::Parameters::MODE.OFF) {
-            preGain.setEnabled(false);
-            postGain.setEnabled(false);
-            tweak.setEnabled(false);
-        } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
-            preGain.setEnabled(true);
-            postGain.setEnabled(true);
-            tweak.setEnabled(false);
-        } else {
-            preGain.setEnabled(true);
-            postGain.setEnabled(true);
-            tweak.setEnabled(true);
-        }
+    auto setLabelColour = [](Slider& slider, Label& label) -> void {
+        const Colour labelColour = slider.findColour(slider.isEnabled() ?
+            Slider::rotarySliderFillColourId : Slider::rotarySliderOutlineColourId);
+        label.setColour(Label::textColourId, labelColour);
     };
 
-    setControlsActive(ourProcessor->mode1->get(), *PreGain1Sld, *PostGain1Sld, *Tweak1Sld);
-    setControlsActive(ourProcessor->mode2->get(), *PreGain2Sld, *PostGain2Sld, *Tweak2Sld);
+    auto setControlsActive = [&setLabelColour](int mode,
+                                               Slider& preGainSld,
+                                               Slider& postGainSld,
+                                               Slider& tweakSld,
+                                               Label& preGainLbl,
+                                               Label& postGainLbl,
+                                               Label& tweakLbl) -> void {
+
+        if (mode == WECore::Carve::Parameters::MODE.OFF) {
+            preGainSld.setEnabled(false);
+            postGainSld.setEnabled(false);
+            tweakSld.setEnabled(false);
+        } else if (mode == WECore::Carve::Parameters::MODE.EXPONENT) {
+            preGainSld.setEnabled(true);
+            postGainSld.setEnabled(true);
+            tweakSld.setEnabled(false);
+        } else {
+            preGainSld.setEnabled(true);
+            postGainSld.setEnabled(true);
+            tweakSld.setEnabled(true);
+        }
+
+        setLabelColour(preGainSld, preGainLbl);
+        setLabelColour(postGainSld, postGainLbl);
+        setLabelColour(tweakSld, tweakLbl);
+    };
+
+    setControlsActive(ourProcessor->mode1->get(),
+                      *PreGain1Sld, *PostGain1Sld, *Tweak1Sld,
+                      *PreGain1Lbl, *PostGain1Lbl, *Tweak1Lbl);
+    setControlsActive(ourProcessor->mode2->get(),
+                      *PreGain2Sld, *PostGain2Sld, *Tweak2Sld,
+                      *PreGain2Lbl, *PostGain2Lbl, *Tweak2Lbl);
 
     Wave1View->setMode(ourProcessor->mode1->get());
     Wave1View->setPreGain(ourProcessor->preGain1->get());
