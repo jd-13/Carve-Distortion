@@ -44,9 +44,11 @@ void CarveDualLabelReadoutSlider::stop() {
 
 void CarveDualLabelReadoutSlider::_updateLabel() {
     if (_isRunning) {
-        String valueString(_parameter->NormalisedToInternal(getValue()), 2);
-        _label1.first->setText(valueString, dontSendNotification);
-        _label2.first->setText(valueString, dontSendNotification);
+        constexpr int DECIMAL_PLACES {2};
+        const float value {_parameter->NormalisedToInternal(getValue())};
+
+        _label1.first->setText(String(1 - value, DECIMAL_PLACES), dontSendNotification);
+        _label2.first->setText(String(value, DECIMAL_PLACES), dontSendNotification);
     }
 }
 
