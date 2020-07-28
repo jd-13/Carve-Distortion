@@ -776,7 +776,7 @@ void CarveAudioProcessorEditor::_stopSliderReadouts() {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="CarveAudioProcessorEditor"
-                 componentName="" parentClasses="public WECore::JUCEPlugin::CoreProcessorEditor, public Timer"
+                 componentName="" parentClasses="public WECore::JUCEPlugin::CoreProcessorEditor"
                  constructorParams="CarveAudioProcessor&amp; ownerFilter" variableInitialisers="CoreProcessorEditor(ownerFilter), _highlightColour(0.15f, 1.0f, 1.0f, 1.0f)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="375" initialHeight="430">
