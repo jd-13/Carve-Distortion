@@ -28,9 +28,9 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "General/ParameterDefinition.h"
 
-const ParameterDefinition::RangedParameter<float>   ROUTING(0, 1, 0), // 0 = SERIAL, 1 = PARALLEL
-                                                    DRYLEVEL(0, 2, 0),
-                                                    OUTPUTGAIN(0, 2, 1);
+const ParameterDefinition::RangedParameter<double> ROUTING(0, 1, 0), // 0 = SERIAL, 1 = PARALLEL
+                                                   DRYLEVEL(0, 2, 0),
+                                                   OUTPUTGAIN(0, 2, 1);
 
 const bool  STEREO_OFF = false,
             STEREO_ON = true,

@@ -221,7 +221,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     ParallelLbl->setBounds (200, 312, 64, 24);
 
-    OutputGainSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Output Gain Slider"));
+    OutputGainSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("Output Gain Slider"));
     addAndMakeVisible (OutputGainSld.get());
     OutputGainSld->setTooltip (TRANS("Output gain"));
     OutputGainSld->setRange (0, 1, 0.01);
@@ -279,7 +279,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     Tweak2Lbl->setBounds (208, 240, 64, 24);
 
-    DryLevelSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<float> ("Dry Level Slider"));
+    DryLevelSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("Dry Level Slider"));
     addAndMakeVisible (DryLevelSld.get());
     DryLevelSld->setTooltip (TRANS("Adds the unprocessed signal into the output"));
     DryLevelSld->setRange (0, 1, 0.01);
@@ -867,7 +867,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
-          virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;float&gt;"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
           min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
@@ -893,7 +893,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Dry Level Slider" id="7d8198da2503bb12" memberName="DryLevelSld"
-          virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;float&gt;"
+          virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
           explicitFocusOrder="0" pos="112 344 232 24" tooltip="Adds the unprocessed signal into the output"
           min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"

@@ -31,10 +31,10 @@ CarveDualLabelReadoutSlider::CarveDualLabelReadoutSlider(const String& component
 
 void CarveDualLabelReadoutSlider::start(LabelWrapper label1,
                                         LabelWrapper label2,
-                                        const ParameterDefinition::RangedParameter<float>* parameter) {
+                                        const ParameterDefinition::RangedParameter<double>* parameter) {
     _label1 = label1;
     _label2 = label2;
-    _parameter = const_cast<ParameterDefinition::RangedParameter<float>*>(parameter);
+    _parameter = parameter;
     _isRunning = true;
 }
 
@@ -45,7 +45,7 @@ void CarveDualLabelReadoutSlider::stop() {
 void CarveDualLabelReadoutSlider::_updateLabel() {
     if (_isRunning) {
         constexpr int DECIMAL_PLACES {2};
-        const float value {_parameter->NormalisedToInternal(getValue())};
+        const double value {_parameter->NormalisedToInternal(getValue())};
 
         _label1.first->setText(String(1 - value, DECIMAL_PLACES), dontSendNotification);
         _label2.first->setText(String(value, DECIMAL_PLACES), dontSendNotification);

@@ -35,14 +35,14 @@ public:
 
     void start(LabelWrapper label1,
                LabelWrapper label2,
-               const ParameterDefinition::RangedParameter<float>* parameter);
+               const ParameterDefinition::RangedParameter<double>* parameter);
 
     void stop();
 
 private:
     LabelWrapper _label1;
     LabelWrapper _label2;
-    ParameterDefinition::RangedParameter<float>* _parameter;
+    const ParameterDefinition::RangedParameter<double>* _parameter;
     bool _isRunning;
 
     void _updateLabel() override;

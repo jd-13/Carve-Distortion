@@ -97,12 +97,12 @@ private:
     std::unique_ptr<juce::Label> Tweak1Lbl;
     std::unique_ptr<juce::Label> SerialLbl;
     std::unique_ptr<juce::Label> ParallelLbl;
-    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> OutputGainSld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> OutputGainSld;
     std::unique_ptr<juce::Label> OutputGainLbl;
     std::unique_ptr<juce::Label> PreGain2Lbl;
     std::unique_ptr<juce::Label> PostGain2Lbl;
     std::unique_ptr<juce::Label> Tweak2Lbl;
-    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<float>> DryLevelSld;
+    std::unique_ptr<WECore::JUCEPlugin::LabelReadoutSlider<double>> DryLevelSld;
     std::unique_ptr<juce::Label> DryLevelLbl;
     std::unique_ptr<juce::TextButton> StereoBtn;
     std::unique_ptr<CarveWaveViewer> Wave1View;
