@@ -43,64 +43,73 @@ void Carve::reset() {
 
 void Carve::Process1in1out(float* inSample, int numSamples) {
 
-    // do the waveshaping one sample at a time
+    // Do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
-        float sample {inSample[iii]};
-
-        sample = ProcessSerial(sample) * (1 - routing) + ProcessParallel(sample) * routing;
-
-        ProcessRouting(sample, &(inSample[iii]));
+        inSample[iii] = _process1ChannelMonoMode(inSample[iii]);
     }
 
-    // apply filtering to remove noise
+    // Apply filtering to remove noise
     _filter.Process1in1out(inSample, numSamples);
 }
 
 void Carve::Process1in2out(float* inLeftSample, float* inRightSample, int numSamples) {
 
-    // do the waveshaping one sample at a time
+    // Do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
-        float leftSample {inLeftSample[iii]};
-        float rightSample {inRightSample[iii]};
-
-        // stereo mode processing
         if (isStereo) {
-            leftSample = DSPUnit1.process(leftSample);
-            rightSample = DSPUnit2.process(leftSample);
-        } else { // non stereo mode processing
-            leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
-            rightSample = leftSample;
-        }
+            // Stereo mode processing
 
-        ProcessRouting(leftSample, &inLeftSample[iii]);
-        ProcessRouting(rightSample, &inRightSample[iii]);
+            // Do the right sample first as we need an unmodified copy of the left sample to process
+            // it once for each channel
+            inRightSample[iii] = _process1ChannelStereoMode(inLeftSample[iii], DSPUnit2);
+            inLeftSample[iii] = _process1ChannelStereoMode(inLeftSample[iii], DSPUnit1);
+        } else {
+            // Non stereo mode processing
+            inLeftSample[iii] = _process1ChannelMonoMode(inLeftSample[iii]);
+            inRightSample[iii] = inLeftSample[iii];
+        }
     }
 
-    // apply filtering to remove noise
+    // Apply filtering to remove noise
     _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
 }
 
 void Carve::Process2in2out(float* inLeftSample, float* inRightSample, int numSamples) {
 
-    // do the waveshaping one sample at a time
+    // Do the waveshaping one sample at a time
     for (int iii {0}; iii < numSamples; iii++) {
-        float leftSample {inLeftSample[iii]};
-        float rightSample {inRightSample[iii]};
-
-        // stereo mode processing
         if (isStereo) {
-            leftSample = DSPUnit1.process(leftSample);
-            rightSample = DSPUnit2.process(rightSample);
-        } else { // non stereo mode processing
-            leftSample = ProcessSerial(leftSample) * (1 - routing) + ProcessParallel(leftSample) * routing;
-            rightSample = ProcessSerial(rightSample) * (1 - routing) + ProcessParallel(rightSample) * routing;
+            // Stereo mode processing
+            inLeftSample[iii] = _process1ChannelStereoMode(inLeftSample[iii], DSPUnit1);
+            inRightSample[iii] = _process1ChannelStereoMode(inRightSample[iii], DSPUnit2);
+        } else {
+            // Non stereo mode processing
+            inLeftSample[iii] = _process1ChannelMonoMode(inLeftSample[iii]);
+            inRightSample[iii] = _process1ChannelMonoMode(inRightSample[iii]);
         }
-
-        ProcessRouting(leftSample, &inLeftSample[iii]);
-        ProcessRouting(rightSample, &inRightSample[iii]);
     }
 
-
-    // apply filtering to remove noise
+    // Apply filtering to remove noise
     _filter.Process2in2out(inLeftSample, inRightSample, numSamples);
+}
+
+double Carve::_processGainAndDry(double processedSample, double drySample) {
+    return (processedSample + (dryLevel * drySample)) * outputGain;
+}
+
+double Carve::_process1ChannelMonoMode(double inSample) {
+    auto processSerial = [this](double inSample) {
+        return (DSPUnit2.process(DSPUnit1.process(inSample))) * (1 - routing);
+    };
+
+    auto processParallel = [this](double inSample) {
+        return (DSPUnit1.process(inSample) + DSPUnit2.process(inSample)) * routing;
+    };
+
+    const double processedSample = processSerial(inSample) + processParallel(inSample);
+    return _processGainAndDry(processedSample, inSample);
+}
+
+double Carve::_process1ChannelStereoMode(double inSample, WECore::Carve::CarveDSPUnit<double>& dspUnit) {
+    return _processGainAndDry(dspUnit.process(inSample), inSample);
 }

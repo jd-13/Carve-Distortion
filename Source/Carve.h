@@ -72,30 +72,19 @@ public:
 
     void reset();
 
-
-    float getRouting() const { return routing; }
-
+    double getRouting() const { return routing; }
     bool getStereo() const { return isStereo; }
+    double getDryLevel() const { return dryLevel; }
+    double getOutputGain() const { return outputGain; }
 
-    float getDryLevel() const { return dryLevel; }
-
-    float getOutputGain() const { return outputGain; }
-
-
-
-    void setRouting(float val) { routing = ROUTING.BoundsCheck(val); }
-
+    void setRouting(double val) { routing = ROUTING.BoundsCheck(val); }
     void setStereo(bool val) { isStereo = val; }
-
-    void setDryLevel(float val) { dryLevel = DRYLEVEL.BoundsCheck(val); }
-
-    void setOutputGain(float val) { outputGain = OUTPUTGAIN.BoundsCheck(val); }
-
+    void setDryLevel(double val) { dryLevel = DRYLEVEL.BoundsCheck(val); }
+    void setOutputGain(double val) { outputGain = OUTPUTGAIN.BoundsCheck(val); }
     void setSampleRate(double sampleRate);
 
-
 private:
-    float   routing,
+    double  routing,
             dryLevel,
             outputGain;
 
@@ -103,19 +92,10 @@ private:
 
     WECore::Carve::NoiseFilter<float> _filter;
 
-    inline float ProcessSerial(float inSample) {
-        return DSPUnit2.process(DSPUnit1.process(inSample));
-    }
+    double _processGainAndDry(double processedSample, double drySample);
 
-    inline float ProcessParallel(float inSample) {
-        return DSPUnit1.process(inSample) + DSPUnit2.process(inSample);
-    }
-
-    inline void ProcessRouting(float sample, float* inSample) {
-        *inSample = (sample + (dryLevel * *inSample)) * outputGain;
-    }
+    double _process1ChannelMonoMode(double inSample);
+    double _process1ChannelStereoMode(double inSample, WECore::Carve::CarveDSPUnit<double>& dspUnit);
 };
-
-
 
 #endif  // CARVE_H_INCLUDED
