@@ -7,7 +7,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null 2>&1 && pwd )"
 # Download WE-Core
 WECORE_HOME="$(cd $SCRIPT_DIR/.. > /dev/null 2>&1 && pwd)"
 WECORE_SRC="$WECORE_HOME/WECore"
-git checkout https://github.com/jd-13/WE-Core ../WECore
+git checkout https://github.com/jd-13/WE-Core $SCRIPT_DIR/../WECore
 
 # Generate the makefile
 $JUCE_PATH/Projucer --resave $SCRIPT_DIR/../Carve.jucer
