@@ -9,6 +9,9 @@ WECORE_HOME="$(cd $SCRIPT_DIR/.. > /dev/null 2>&1 && pwd)"
 WECORE_SRC="$WECORE_HOME/WECore"
 git clone https://github.com/jd-13/WE-Core $SCRIPT_DIR/../WECore
 
+# Set JUCE module paths
+sed -i 's#../JUCE/modules#$JUCE_PATH/modules#g' $SCRIPT_DIR/../Builds/LinuxMakefile/Makefile
+
 # Generate the makefile
 $JUCE_PATH/Projucer --resave $SCRIPT_DIR/../Carve.jucer
 
