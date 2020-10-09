@@ -10,7 +10,7 @@ WECORE_SRC="$WECORE_HOME/WECore"
 git clone https://github.com/jd-13/WE-Core $SCRIPT_DIR/../WECore
 
 # Generate the makefile
-/home/SDKs/JUCE/Projucer --resave $SCRIPT_DIR/../Carve.jucer
+/home/JUCE/Projucer --resave $SCRIPT_DIR/../Carve.jucer
 
 # Update the include paths
 sed -i 's#-I$(HOME)/WEA/WECore/WECore#-I../../WECore/WECore#g' $SCRIPT_DIR/../Builds/LinuxMakefile/Makefile
