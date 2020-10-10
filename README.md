@@ -1,3 +1,7 @@
+[![CI Main](https://github.com/jd-13/Carve-Distortion/workflows/CI%20Main/badge.svg)](https://github.com/jd-13/Carve-Distortion/actions?query=workflow%3A%22CI+Main%22)
+![](https://img.shields.io/badge/C%2B%2B-17-informational)
+![](https://img.shields.io/badge/license-GPLv2-informational)
+
 # Carve-Distortion
 Carve is a two stage wave shaping distortion VST and Audio Unit, with multiple wave shapes and serial/parallel/stereo routing options.
 
