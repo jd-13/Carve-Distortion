@@ -11,7 +11,7 @@ JUCE: https://www.juce.com/
 
 WECore: https://github.com/jd-13/WE-Core  
 
-Catch (for tests): https://github.com/philsquared/Catch  
+Catch2 (for tests): https://github.com/catchorg/Catch2  
 
 VST SDK:  https://www.steinberg.net/en/company/developers.html
 
