@@ -28,6 +28,6 @@ ECHO "=== Generating project ==="
 %SCRIPT_DIR%..\JUCE\Projucer --resave %SCRIPT_DIR%..\Carve.jucer
 
 ECHO "=== Starting build ==="
-cd %SCRIPT_DIR%\..\Builds\VisualStudio2019
+cd %SCRIPT_DIR%..\Builds\VisualStudio2019
 msbuild -version
 msbuild Carve.sln /p:Configuration=Debug /p:Platform=x64
