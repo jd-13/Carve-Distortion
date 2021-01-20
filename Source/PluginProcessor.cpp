@@ -18,20 +18,22 @@ CarveAudioProcessor::CarveAudioProcessor()
 {
     namespace CP = WECore::Carve::Parameters;
 
+    constexpr float PRECISION {0.01f};
+
     registerParameter(mode1, MODE1_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode1(val); });
-    registerParameter(preGain1, PREGAIN1_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, [&](float val) { setPreGain1(val); });
-    registerParameter(postGain1, POSTGAIN1_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, [&](float val) { setPostGain1(val); });
-    registerParameter(tweak1, TWEAK1_STR, &CP::TWEAK, CP::TWEAK.defaultValue, [&](float val) { setTweak1(val); });
+    registerParameter(preGain1, PREGAIN1_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION, [&](float val) { setPreGain1(val); });
+    registerParameter(postGain1, POSTGAIN1_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION, [&](float val) { setPostGain1(val); });
+    registerParameter(tweak1, TWEAK1_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION, [&](float val) { setTweak1(val); });
 
     registerParameter(mode2, MODE2_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode2(val); });
-    registerParameter(preGain2, PREGAIN2_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, [&](float val) { setPreGain2(val); });
-    registerParameter(postGain2, POSTGAIN2_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, [&](float val) { setPostGain2(val); });
-    registerParameter(tweak2, TWEAK2_STR, &CP::TWEAK, CP::TWEAK.defaultValue, [&](float val) { setTweak2(val); });
+    registerParameter(preGain2, PREGAIN2_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION, [&](float val) { setPreGain2(val); });
+    registerParameter(postGain2, POSTGAIN2_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION, [&](float val) { setPostGain2(val); });
+    registerParameter(tweak2, TWEAK2_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION, [&](float val) { setTweak2(val); });
 
-    registerParameter(routing, ROUTING_STR, &ROUTING, ROUTING.defaultValue, [&](float val) { setRouting(val); });
+    registerParameter(routing, ROUTING_STR, &ROUTING, ROUTING.defaultValue, PRECISION, [&](float val) { setRouting(val); });
     registerParameter(stereo, STEREO_STR, STEREO_DEFAULT, [&](bool val) { setStereo(val); });
-    registerParameter(dryLevel, DRYLEVEL_STR, &DRYLEVEL, DRYLEVEL.defaultValue, [&](float val) { setDryLevel(val); });
-    registerParameter(outputGain, OUTPUTGAIN_STR, &OUTPUTGAIN, OUTPUTGAIN.defaultValue, [&](float val) { setOutputGain(val); });
+    registerParameter(dryLevel, DRYLEVEL_STR, &DRYLEVEL, DRYLEVEL.defaultValue, PRECISION, [&](float val) { setDryLevel(val); });
+    registerParameter(outputGain, OUTPUTGAIN_STR, &OUTPUTGAIN, OUTPUTGAIN.defaultValue, PRECISION, [&](float val) { setOutputGain(val); });
 }
 
 CarveAudioProcessor::~CarveAudioProcessor()
