@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/license-GPLv3-informational)
 
 # Carve-Distortion
-Carve is a two stage wave shaping distortion VST and Audio Unit, with multiple wave shapes and serial/parallel/stereo routing options.
+Carve is a two stage wave shaping distortion VST3 and Audio Unit, with multiple wave shapes and serial/parallel/stereo routing options.
 
 For more details and a free download of the compiled plugin: https://www.whiteelephantaudio.com/plugins/carve
 
