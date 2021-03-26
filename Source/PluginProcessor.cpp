@@ -245,6 +245,45 @@ void CarveAudioProcessor::setOutputGain(float val) {
     outputGain->setValueNotifyingHost(val);
 }
 
+std::vector<juce::String> CarveAudioProcessor::_provideParamNamesForMigration() {
+    return std::vector<juce::String> {
+        MODE1_STR,
+        PREGAIN1_STR,
+        POSTGAIN1_STR,
+        TWEAK1_STR,
+
+        MODE2_STR,
+        PREGAIN2_STR,
+        POSTGAIN2_STR,
+        TWEAK2_STR,
+
+        ROUTING_STR,
+        STEREO_STR,
+        DRYLEVEL_STR,
+        OUTPUTGAIN_STR
+    };
+}
+
+void CarveAudioProcessor::_migrateParamValues(std::vector<float>& paramValues) {
+
+    namespace CP = WECore::Carve::Parameters;
+
+    if (paramValues.size() == 12) {
+        paramValues[1] = CP::PREGAIN.NormalisedToInternal(paramValues[1]);
+        paramValues[2] = CP::POSTGAIN.NormalisedToInternal(paramValues[2]);
+        paramValues[3] = CP::TWEAK.NormalisedToInternal(paramValues[3]);
+
+        paramValues[5] = CP::PREGAIN.NormalisedToInternal(paramValues[5]);
+        paramValues[6] = CP::POSTGAIN.NormalisedToInternal(paramValues[6]);
+        paramValues[7] = CP::TWEAK.NormalisedToInternal(paramValues[7]);
+
+        paramValues[8] = ROUTING.NormalisedToInternal(paramValues[8]);
+        paramValues[10] = DRYLEVEL.NormalisedToInternal(paramValues[10]);
+        paramValues[11] = OUTPUTGAIN.NormalisedToInternal(paramValues[11]);
+    }
+}
+
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
