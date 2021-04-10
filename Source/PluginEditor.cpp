@@ -366,6 +366,8 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     _startSliderReadouts();
 
+    _setSliderRanges();
+
     // Call this manually once to make sure the UI reflects the parameters' states correctly
     _onParameterUpdate();
     //[/Constructor]
@@ -445,55 +447,55 @@ void CarveAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasM
     if (sliderThatWasMoved == PreGain1Sld.get())
     {
         //[UserSliderCode_PreGain1Sld] -- add your slider handling code here..
-        ourProcessor->setPreGain1(PreGain1Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->preGain1, PreGain1Sld->getValue());
         //[/UserSliderCode_PreGain1Sld]
     }
     else if (sliderThatWasMoved == PostGain1Sld.get())
     {
         //[UserSliderCode_PostGain1Sld] -- add your slider handling code here..
-        ourProcessor->setPostGain1(PostGain1Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->postGain1, PostGain1Sld->getValue());
         //[/UserSliderCode_PostGain1Sld]
     }
     else if (sliderThatWasMoved == Tweak1Sld.get())
     {
         //[UserSliderCode_Tweak1Sld] -- add your slider handling code here..
-        ourProcessor->setTweak1(Tweak1Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->tweak1, Tweak1Sld->getValue());
         //[/UserSliderCode_Tweak1Sld]
     }
     else if (sliderThatWasMoved == PreGain2Sld.get())
     {
         //[UserSliderCode_PreGain2Sld] -- add your slider handling code here..
-        ourProcessor->setPreGain2(PreGain2Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->preGain2, PreGain2Sld->getValue());
         //[/UserSliderCode_PreGain2Sld]
     }
     else if (sliderThatWasMoved == PostGain2Sld.get())
     {
         //[UserSliderCode_PostGain2Sld] -- add your slider handling code here..
-        ourProcessor->setPostGain2(PostGain2Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->postGain2, PostGain2Sld->getValue());
         //[/UserSliderCode_PostGain2Sld]
     }
     else if (sliderThatWasMoved == Tweak2Sld.get())
     {
         //[UserSliderCode_Tweak2Sld] -- add your slider handling code here..
-        ourProcessor->setTweak2(Tweak2Sld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->tweak2, Tweak2Sld->getValue());
         //[/UserSliderCode_Tweak2Sld]
     }
     else if (sliderThatWasMoved == RoutingSld.get())
     {
         //[UserSliderCode_RoutingSld] -- add your slider handling code here..
-        ourProcessor->setRouting(RoutingSld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->routing, RoutingSld->getValue());
         //[/UserSliderCode_RoutingSld]
     }
     else if (sliderThatWasMoved == OutputGainSld.get())
     {
         //[UserSliderCode_OutputGainSld] -- add your slider handling code here..
-        ourProcessor->setOutputGain(OutputGainSld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->outputGain, OutputGainSld->getValue());
         //[/UserSliderCode_OutputGainSld]
     }
     else if (sliderThatWasMoved == DryLevelSld.get())
     {
         //[UserSliderCode_DryLevelSld] -- add your slider handling code here..
-        ourProcessor->setDryLevel(DryLevelSld->getValue());
+        ourProcessor->setParameterValueInternal(ourProcessor->dryLevel, DryLevelSld->getValue());
         //[/UserSliderCode_DryLevelSld]
     }
 
@@ -510,13 +512,13 @@ void CarveAudioProcessorEditor::comboBoxChanged (juce::ComboBox* comboBoxThatHas
     if (comboBoxThatHasChanged == Mode1Cmb.get())
     {
         //[UserComboBoxCode_Mode1Cmb] -- add your combo box handling code here..
-        ourProcessor->setMode1(Mode1Cmb->getSelectedId());
+        ourProcessor->setParameterValueInternal(ourProcessor->mode1, Mode1Cmb->getSelectedId());
         //[/UserComboBoxCode_Mode1Cmb]
     }
     else if (comboBoxThatHasChanged == Mode2Cmb.get())
     {
         //[UserComboBoxCode_Mode2Cmb] -- add your combo box handling code here..
-        ourProcessor->setMode2(Mode2Cmb->getSelectedId());
+        ourProcessor->setParameterValueInternal(ourProcessor->mode2, Mode2Cmb->getSelectedId());
         //[/UserComboBoxCode_Mode2Cmb]
     }
 
@@ -734,20 +736,18 @@ void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
 }
 
 void CarveAudioProcessorEditor::_startSliderReadouts() {
-    PreGain1Sld->start(PreGain1Lbl.get(), PreGain1Lbl->getText(), &WECore::Carve::Parameters::PREGAIN);
-    PostGain1Sld->start(PostGain1Lbl.get(), PostGain1Lbl->getText(), &WECore::Carve::Parameters::POSTGAIN);
-    Tweak1Sld->start(Tweak1Lbl.get(), Tweak1Lbl->getText(), &WECore::Carve::Parameters::TWEAK);
+    PreGain1Sld->start(PreGain1Lbl.get(), PreGain1Lbl->getText());
+    PostGain1Sld->start(PostGain1Lbl.get(), PostGain1Lbl->getText());
+    Tweak1Sld->start(Tweak1Lbl.get(), Tweak1Lbl->getText());
 
-    PreGain2Sld->start(PreGain2Lbl.get(), PreGain2Lbl->getText(), &WECore::Carve::Parameters::PREGAIN);
-    PostGain2Sld->start(PostGain2Lbl.get(), PostGain2Lbl->getText(), &WECore::Carve::Parameters::POSTGAIN);
-    Tweak2Sld->start(Tweak2Lbl.get(), Tweak2Lbl->getText(), &WECore::Carve::Parameters::TWEAK);
+    PreGain2Sld->start(PreGain2Lbl.get(), PreGain2Lbl->getText());
+    PostGain2Sld->start(PostGain2Lbl.get(), PostGain2Lbl->getText());
+    Tweak2Sld->start(Tweak2Lbl.get(), Tweak2Lbl->getText());
 
     RoutingSld->start(std::make_pair(SerialLbl.get(), SerialLbl->getText()),
-                      std::make_pair(ParallelLbl.get(), ParallelLbl->getText()),
-                      &ROUTING);
-    OutputGainSld->start(OutputGainLbl.get(), OutputGainLbl->getText(), &OUTPUTGAIN);
-    DryLevelSld->start(DryLevelLbl.get(), DryLevelLbl->getText(), &DRYLEVEL);
-
+                      std::make_pair(ParallelLbl.get(), ParallelLbl->getText()));
+    OutputGainSld->start(OutputGainLbl.get(), OutputGainLbl->getText());
+    DryLevelSld->start(DryLevelLbl.get(), DryLevelLbl->getText());
 }
 
 void CarveAudioProcessorEditor::_stopSliderReadouts() {
@@ -763,6 +763,24 @@ void CarveAudioProcessorEditor::_stopSliderReadouts() {
     OutputGainSld->stop();
     DryLevelSld->stop();
 }
+
+void CarveAudioProcessorEditor::_setSliderRanges() {
+    namespace CP = WECore::Carve::Parameters;
+    constexpr double INTERVAL {0.01};
+
+    PreGain1Sld->setRange(CP::PREGAIN.minValue, CP::PREGAIN.maxValue, INTERVAL);
+    PostGain1Sld->setRange(CP::POSTGAIN.minValue, CP::POSTGAIN.maxValue, INTERVAL);
+    Tweak1Sld->setRange(CP::TWEAK.minValue, CP::TWEAK.maxValue, INTERVAL);
+
+    PreGain2Sld->setRange(CP::PREGAIN.minValue, CP::PREGAIN.maxValue, INTERVAL);
+    PostGain2Sld->setRange(CP::POSTGAIN.minValue, CP::POSTGAIN.maxValue, INTERVAL);
+    Tweak2Sld->setRange(CP::TWEAK.minValue, CP::TWEAK.maxValue, INTERVAL);
+
+    RoutingSld->setRange(ROUTING.minValue, ROUTING.maxValue, INTERVAL);
+    OutputGainSld->setRange(OUTPUTGAIN.minValue, OUTPUTGAIN.maxValue, INTERVAL);
+    DryLevelSld->setRange(DRYLEVEL.minValue, DRYLEVEL.maxValue, INTERVAL);
+}
+
 //[/MiscUserCode]
 
 

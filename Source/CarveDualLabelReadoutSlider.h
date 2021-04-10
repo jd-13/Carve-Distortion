@@ -33,16 +33,13 @@ class CarveDualLabelReadoutSlider : public WECore::JUCEPlugin::SliderLabelUpdate
 public:
     explicit CarveDualLabelReadoutSlider(const String& componentName);
 
-    void start(LabelWrapper label1,
-               LabelWrapper label2,
-               const ParameterDefinition::RangedParameter<double>* parameter);
+    void start(LabelWrapper label1, LabelWrapper label2);
 
     void stop();
 
 private:
     LabelWrapper _label1;
     LabelWrapper _label2;
-    const ParameterDefinition::RangedParameter<double>* _parameter;
     bool _isRunning;
 
     void _updateLabel() override;

@@ -20,20 +20,20 @@ CarveAudioProcessor::CarveAudioProcessor()
 
     constexpr float PRECISION {0.01f};
 
-    registerParameter(mode1, MODE1_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode1(val); });
-    registerParameter(preGain1, PREGAIN1_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION, [&](float val) { setPreGain1(val); });
-    registerParameter(postGain1, POSTGAIN1_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION, [&](float val) { setPostGain1(val); });
-    registerParameter(tweak1, TWEAK1_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION, [&](float val) { setTweak1(val); });
+    registerParameter(mode1, MODE1_STR, &CP::MODE, CP::MODE.defaultValue);
+    registerParameter(preGain1, PREGAIN1_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION);
+    registerParameter(postGain1, POSTGAIN1_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION);
+    registerParameter(tweak1, TWEAK1_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION);
 
-    registerParameter(mode2, MODE2_STR, &CP::MODE, CP::MODE.defaultValue, [&](int val) { setMode2(val); });
-    registerParameter(preGain2, PREGAIN2_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION, [&](float val) { setPreGain2(val); });
-    registerParameter(postGain2, POSTGAIN2_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION, [&](float val) { setPostGain2(val); });
-    registerParameter(tweak2, TWEAK2_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION, [&](float val) { setTweak2(val); });
+    registerParameter(mode2, MODE2_STR, &CP::MODE, CP::MODE.defaultValue);
+    registerParameter(preGain2, PREGAIN2_STR, &CP::PREGAIN, CP::PREGAIN.defaultValue, PRECISION);
+    registerParameter(postGain2, POSTGAIN2_STR, &CP::POSTGAIN, CP::POSTGAIN.defaultValue, PRECISION);
+    registerParameter(tweak2, TWEAK2_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION);
 
-    registerParameter(routing, ROUTING_STR, &ROUTING, ROUTING.defaultValue, PRECISION, [&](float val) { setRouting(val); });
+    registerParameter(routing, ROUTING_STR, &ROUTING, ROUTING.defaultValue, PRECISION);
     registerParameter(stereo, STEREO_STR, STEREO_DEFAULT, [&](bool val) { setStereo(val); });
-    registerParameter(dryLevel, DRYLEVEL_STR, &DRYLEVEL, DRYLEVEL.defaultValue, PRECISION, [&](float val) { setDryLevel(val); });
-    registerParameter(outputGain, OUTPUTGAIN_STR, &OUTPUTGAIN, OUTPUTGAIN.defaultValue, PRECISION, [&](float val) { setOutputGain(val); });
+    registerParameter(dryLevel, DRYLEVEL_STR, &DRYLEVEL, DRYLEVEL.defaultValue, PRECISION);
+    registerParameter(outputGain, OUTPUTGAIN_STR, &OUTPUTGAIN, OUTPUTGAIN.defaultValue, PRECISION);
 }
 
 CarveAudioProcessor::~CarveAudioProcessor()
@@ -180,51 +180,6 @@ AudioProcessorEditor* CarveAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void CarveAudioProcessor::setMode1(int val) {
-    mCarve.DSPUnit1.setMode(val);
-    mode1->setValueNotifyingHost(mode1->getNormalisableRange().convertTo0to1(val));
-}
-
-void CarveAudioProcessor::setPreGain1(float val) {
-    mCarve.DSPUnit1.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInternal(val));
-    preGain1->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setPostGain1(float val) {
-    mCarve.DSPUnit1.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInternal(val));
-    postGain1->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setTweak1(float val) {
-    mCarve.DSPUnit1.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInternal(val));
-    tweak1->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setMode2(int val) {
-    mCarve.DSPUnit2.setMode(val);
-    mode2->setValueNotifyingHost(mode2->getNormalisableRange().convertTo0to1(val));
-}
-
-void CarveAudioProcessor::setPreGain2(float val) {
-    mCarve.DSPUnit2.setPreGain(WECore::Carve::Parameters::PREGAIN.NormalisedToInternal(val));
-    preGain2->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setPostGain2(float val) {
-    mCarve.DSPUnit2.setPostGain(WECore::Carve::Parameters::POSTGAIN.NormalisedToInternal(val));
-    postGain2->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setTweak2(float val) {
-    mCarve.DSPUnit2.setTweak(WECore::Carve::Parameters::TWEAK.NormalisedToInternal(val));
-    tweak2->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setRouting(float val) {
-    mCarve.setRouting(ROUTING.NormalisedToInternal(val));
-    routing->setValueNotifyingHost(val);
-}
-
 void CarveAudioProcessor::setStereo(bool val) {
     if (getNumOutputChannels() == 1) {
         mCarve.setStereo(false);
@@ -233,16 +188,6 @@ void CarveAudioProcessor::setStereo(bool val) {
         mCarve.setStereo(val);
         stereo->setValueNotifyingHost(val);
     }
-}
-
-void CarveAudioProcessor::setDryLevel(float val) {
-    mCarve.setDryLevel(DRYLEVEL.NormalisedToInternal(val));
-    dryLevel->setValueNotifyingHost(val);
-}
-
-void CarveAudioProcessor::setOutputGain(float val) {
-    mCarve.setOutputGain(OUTPUTGAIN.NormalisedToInternal(val));
-    outputGain->setValueNotifyingHost(val);
 }
 
 std::vector<juce::String> CarveAudioProcessor::_provideParamNamesForMigration() {
@@ -283,6 +228,28 @@ void CarveAudioProcessor::_migrateParamValues(std::vector<float>& paramValues) {
     }
 }
 
+void CarveAudioProcessor::_onParameterUpdate() {
+    mCarve.DSPUnit1.setMode(mode1->get());
+    mCarve.DSPUnit1.setPreGain(preGain1->get());
+    mCarve.DSPUnit1.setPostGain(postGain1->get());
+    mCarve.DSPUnit1.setTweak(tweak1->get());
+
+    mCarve.DSPUnit2.setMode(mode2->get());
+    mCarve.DSPUnit2.setPreGain(preGain2->get());
+    mCarve.DSPUnit2.setPostGain(postGain2->get());
+    mCarve.DSPUnit2.setTweak(tweak2->get());
+
+    mCarve.setRouting(routing->get());
+
+    if (getNumOutputChannels() == 1) {
+        mCarve.setStereo(false);
+    } else {
+        mCarve.setStereo(stereo->get());
+    }
+
+    mCarve.setDryLevel(dryLevel->get());
+    mCarve.setOutputGain(outputGain->get());
+}
 
 //==============================================================================
 // This creates new instances of the plugin..

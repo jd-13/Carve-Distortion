@@ -24,22 +24,22 @@
 #include "CarveWaveViewer.h"
 
 void CarveWaveViewer::paint(Graphics &g) {
-    
+
     // Sample the behaviour of the dsp unit through the values -1 to 1,
     // drawing it on a path
     constexpr int NUM_SAMPLES {25};
     constexpr float RANGE {2};
     constexpr float INCREMENT {RANGE / NUM_SAMPLES};
-    
+
     Path p;
     for (size_t idx {0}; idx < NUM_SAMPLES; idx++) {
         // Get the sample for this value
         const double sample {_dspUnit.process(-1 + idx * INCREMENT)};
-        
+
         // Scale the sample to the height of this component
         const double sampleX {(static_cast<double>(idx) / NUM_SAMPLES) * getWidth()};
-        const double sampleY {((sample + 1) / RANGE) * getHeight()};
-        
+        const double sampleY {((sample / 2.1 + 1) / RANGE) * getHeight()};
+
         // Add it to the path
         if (idx == 0) {
             p.startNewSubPath(0, sampleY);
@@ -50,5 +50,5 @@ void CarveWaveViewer::paint(Graphics &g) {
 
     g.setColour(findColour(highlightColourId));
     g.strokePath(p, PathStrokeType(2.0f));
-    
+
 }

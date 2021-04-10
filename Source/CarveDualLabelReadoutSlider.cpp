@@ -29,12 +29,9 @@ CarveDualLabelReadoutSlider::CarveDualLabelReadoutSlider(const String& component
         SliderLabelUpdater(componentName) {
 }
 
-void CarveDualLabelReadoutSlider::start(LabelWrapper label1,
-                                        LabelWrapper label2,
-                                        const ParameterDefinition::RangedParameter<double>* parameter) {
+void CarveDualLabelReadoutSlider::start(LabelWrapper label1, LabelWrapper label2) {
     _label1 = label1;
     _label2 = label2;
-    _parameter = parameter;
     _isRunning = true;
 }
 
@@ -45,10 +42,9 @@ void CarveDualLabelReadoutSlider::stop() {
 void CarveDualLabelReadoutSlider::_updateLabel() {
     if (_isRunning) {
         constexpr int DECIMAL_PLACES {2};
-        const double value {_parameter->NormalisedToInternal(getValue())};
 
-        _label1.first->setText(String(1 - value, DECIMAL_PLACES), dontSendNotification);
-        _label2.first->setText(String(value, DECIMAL_PLACES), dontSendNotification);
+        _label1.first->setText(String(1 - getValue(), DECIMAL_PLACES), dontSendNotification);
+        _label2.first->setText(String(getValue(), DECIMAL_PLACES), dontSendNotification);
     }
 }
 
