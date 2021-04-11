@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 6.0.7
+  Created with Projucer version: 6.0.8
 
   ------------------------------------------------------------------------------
 
@@ -716,23 +716,17 @@ void CarveAudioProcessorEditor::_drawDividers(Graphics &g) const {
 }
 
 void CarveAudioProcessorEditor::_enableDoubleClickToDefault() {
-    PreGain1Sld->setDoubleClickReturnValue(true,
-                                           WECore::Carve::Parameters::PREGAIN.InternalToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
-    PostGain1Sld->setDoubleClickReturnValue(true,
-                                            WECore::Carve::Parameters::POSTGAIN.InternalToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
-    Tweak1Sld->setDoubleClickReturnValue(true,
-                                         WECore::Carve::Parameters::TWEAK.InternalToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
+    PreGain1Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::PREGAIN.defaultValue);
+    PostGain1Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::POSTGAIN.defaultValue);
+    Tweak1Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::TWEAK.defaultValue);
 
-    PreGain2Sld->setDoubleClickReturnValue(true,
-                                           WECore::Carve::Parameters::PREGAIN.InternalToNormalised(WECore::Carve::Parameters::PREGAIN.defaultValue));
-    PostGain2Sld->setDoubleClickReturnValue(true,
-                                            WECore::Carve::Parameters::POSTGAIN.InternalToNormalised(WECore::Carve::Parameters::POSTGAIN.defaultValue));
-    Tweak2Sld->setDoubleClickReturnValue(true,
-                                         WECore::Carve::Parameters::TWEAK.InternalToNormalised(WECore::Carve::Parameters::TWEAK.defaultValue));
+    PreGain2Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::PREGAIN.defaultValue);
+    PostGain2Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::POSTGAIN.defaultValue);
+    Tweak2Sld->setDoubleClickReturnValue(true, WECore::Carve::Parameters::TWEAK.defaultValue);
 
-    RoutingSld->setDoubleClickReturnValue(true, ROUTING.InternalToNormalised(ROUTING.defaultValue));
-    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.InternalToNormalised(DRYLEVEL.defaultValue));
-    OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.InternalToNormalised(OUTPUTGAIN.defaultValue));
+    RoutingSld->setDoubleClickReturnValue(true, ROUTING.defaultValue);
+    DryLevelSld->setDoubleClickReturnValue(true, DRYLEVEL.defaultValue);
+    OutputGainSld->setDoubleClickReturnValue(true, OUTPUTGAIN.defaultValue);
 }
 
 void CarveAudioProcessorEditor::_startSliderReadouts() {
