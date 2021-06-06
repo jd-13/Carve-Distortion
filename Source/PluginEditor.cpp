@@ -152,7 +152,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     RoutingSld.reset (new CarveDualLabelReadoutSlider ("Routing Slider"));
     addAndMakeVisible (RoutingSld.get());
-    RoutingSld->setTooltip (TRANS("Routing of the signal between the two distortion units"));
+    RoutingSld->setTooltip (TRANS("Blends between series and parallel routing of the units"));
     RoutingSld->setRange (0, 1, 0.01);
     RoutingSld->setSliderStyle (juce::Slider::LinearHorizontal);
     RoutingSld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
@@ -223,7 +223,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     OutputGainSld.reset (new WECore::JUCEPlugin::LabelReadoutSlider<double> ("Output Gain Slider"));
     addAndMakeVisible (OutputGainSld.get());
-    OutputGainSld->setTooltip (TRANS("Output gain"));
+    OutputGainSld->setTooltip (TRANS("Sets the overall output level"));
     OutputGainSld->setRange (0, 1, 0.01);
     OutputGainSld->setSliderStyle (juce::Slider::LinearHorizontal);
     OutputGainSld->setTextBoxStyle (juce::Slider::NoTextBox, false, 80, 20);
@@ -303,7 +303,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     StereoBtn.reset (new juce::TextButton ("Stereo Button"));
     addAndMakeVisible (StereoBtn.get());
-    StereoBtn->setTooltip (TRANS("Allows unit 1 and unit 2 to process the left and right channels independently"));
+    StereoBtn->setTooltip (TRANS("Sets units 1 and 2 to process the left and right channels independently"));
     StereoBtn->setButtonText (TRANS("Stereo"));
     StereoBtn->addListener (this);
     StereoBtn->setColour (juce::TextButton::buttonColourId, juce::Colour (0xffb8b8c4));
@@ -321,6 +321,18 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     Wave2View->setName ("Wave 1 Viewer");
 
     Wave2View->setBounds (224, 72, 104, 48);
+
+    tooltipLbl.reset (new juce::Label ("Tooltip Label",
+                                       juce::String()));
+    addAndMakeVisible (tooltipLbl.get());
+    tooltipLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    tooltipLbl->setJustificationType (juce::Justification::centredLeft);
+    tooltipLbl->setEditable (false, false, false);
+    tooltipLbl->setColour (juce::Label::textColourId, juce::Colour (0xff9a9f50));
+    tooltipLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
+    tooltipLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
+
+    tooltipLbl->setBounds (8, 408, 360, 24);
 
 
     //[UserPreSize]
@@ -340,6 +352,10 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     // Wave view colours
     _customLookAndFeel.setColour(CarveWaveViewer::ColourIds::highlightColourId,
                                  _highlightColour);
+
+    // Start tooltip label
+    addMouseListener(&_tooltipLabelUpdater, true);
+    _tooltipLabelUpdater.start(tooltipLbl.get());
 
     // Combo box text colours
     const Colour lightYellow(0xffc6cd66);
@@ -377,6 +393,7 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     _stopSliderReadouts();
+    _tooltipLabelUpdater.stop();
     //[/Destructor_pre]
 
     RoutingGroup = nullptr;
@@ -406,6 +423,7 @@ CarveAudioProcessorEditor::~CarveAudioProcessorEditor()
     StereoBtn = nullptr;
     Wave1View = nullptr;
     Wave2View = nullptr;
+    tooltipLbl = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -848,7 +866,7 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="Routing Slider" id="f14b87e6d580ecee" memberName="RoutingSld"
           virtualName="CarveDualLabelReadoutSlider" explicitFocusOrder="0"
-          pos="112 312 88 24" tooltip="Routing of the signal between the two distortion units"
+          pos="112 312 88 24" tooltip="Blends between series and parallel routing of the units"
           min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
           needsCallback="1"/>
@@ -880,7 +898,7 @@ BEGIN_JUCER_METADATA
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <SLIDER name="Output Gain Slider" id="98dbad60d21a006b" memberName="OutputGainSld"
           virtualName="WECore::JUCEPlugin::LabelReadoutSlider&lt;double&gt;"
-          explicitFocusOrder="0" pos="112 375 232 24" tooltip="Output gain"
+          explicitFocusOrder="0" pos="112 375 232 24" tooltip="Sets the overall output level"
           min="0.0" max="1.0" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
           needsCallback="1"/>
@@ -916,7 +934,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Stereo Button" id="e450c34398554a3f" memberName="StereoBtn"
-              virtualName="" explicitFocusOrder="0" pos="272 312 70 24" tooltip="Allows unit 1 and unit 2 to process the left and right channels independently"
+              virtualName="" explicitFocusOrder="0" pos="272 312 70 24" tooltip="Sets units 1 and 2 to process the left and right channels independently"
               bgColOff="ffb8b8c4" buttonText="Stereo" connectedEdges="0" needsCallback="1"
               radioGroupId="0"/>
   <GENERICCOMPONENT name="Wave 1 Viewer" id="bc75cac19f439bbe" memberName="Wave1View"
@@ -925,6 +943,11 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="Wave 1 Viewer" id="464c704dad75c271" memberName="Wave2View"
                     virtualName="" explicitFocusOrder="0" pos="224 72 104 48" class="CarveWaveViewer"
                     params=""/>
+  <LABEL name="Tooltip Label" id="37c38fbe0fd8f213" memberName="tooltipLbl"
+         virtualName="" explicitFocusOrder="0" pos="8 408 360 24" textCol="ff9a9f50"
+         edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

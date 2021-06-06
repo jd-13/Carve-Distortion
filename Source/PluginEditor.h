@@ -27,6 +27,7 @@
 #include "CarveDualLabelReadoutSlider.h"
 #include "CoreJUCEPlugin/CoreProcessorEditor.h"
 #include "CoreJUCEPlugin/LabelReadoutSlider.h"
+#include "CoreJUCEPlugin/TooltipLabelUpdater.h"
 //[/Headers]
 
 
@@ -70,6 +71,8 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     CarveLookAndFeel _customLookAndFeel;
     const Colour _highlightColour;
+    WECore::JUCEPlugin::TooltipLabelUpdater _tooltipLabelUpdater;
+
 
     virtual void _onParameterUpdate() override;
     void _drawDividers(Graphics& g) const;
@@ -108,6 +111,7 @@ private:
     std::unique_ptr<juce::TextButton> StereoBtn;
     std::unique_ptr<CarveWaveViewer> Wave1View;
     std::unique_ptr<CarveWaveViewer> Wave2View;
+    std::unique_ptr<juce::Label> tooltipLbl;
 
 
     //==============================================================================
