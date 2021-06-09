@@ -326,7 +326,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
                                        juce::String()));
     addAndMakeVisible (tooltipLbl.get());
     tooltipLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
-    tooltipLbl->setJustificationType (juce::Justification::centredLeft);
+    tooltipLbl->setJustificationType (juce::Justification::centred);
     tooltipLbl->setEditable (false, false, false);
     tooltipLbl->setColour (juce::Label::textColourId, juce::Colour (0xff9a9f50));
     tooltipLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
@@ -947,7 +947,7 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="8 408 360 24" textCol="ff9a9f50"
          edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
+         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
