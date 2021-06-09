@@ -441,7 +441,7 @@ void CarveAudioProcessorEditor::paint (juce::Graphics& g)
 
     //[UserPaint] Add your own custom painting code here..
     Image bg = ImageCache::getFromMemory(BinaryData::background_jpeg, BinaryData::background_jpegSize);
-    g.drawImage(bg, 0, 0, 375, 430, 0, 0, 5 * 375, 5 * 430);
+    g.drawImage(bg, 0, 0, 375, 430, 0, 0, 2 * 375, 2 * 430);
 
     _drawDividers(g);
     //[/UserPaint]
