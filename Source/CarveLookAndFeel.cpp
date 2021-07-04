@@ -34,68 +34,6 @@ CarveLookAndFeel::CarveLookAndFeel() {
     jassert(_boldFont.getTypefaceName().isNotEmpty());
 }
 
-void CarveLookAndFeel::drawLinearSliderThumb(Graphics& g,
-                                             int x,
-                                             int y,
-                                             int width,
-                                             int height,
-                                             float sliderPos,
-                                             float minSliderPos,
-                                             float maxSliderPos,
-                                             const Slider::SliderStyle style,
-                                             Slider& slider) {
-
-    constexpr float MARGIN {2};
-
-    if (style == Slider::LinearHorizontal || style == Slider::LinearVertical) {
-
-        float rectangleX {static_cast<float>(minSliderPos)};
-        float rectangleY {static_cast<float>(y) + MARGIN};
-        float rectangleWidth {sliderPos - minSliderPos};
-        float rectangleHeight {static_cast<float>(height) - 3 * MARGIN};
-
-        if (style == Slider::LinearVertical) {
-            rectangleX = x + MARGIN;
-            rectangleY = maxSliderPos;
-            rectangleWidth = width - 3 * MARGIN;
-            rectangleHeight = -(sliderPos - minSliderPos);
-        }
-
-        if (slider.isEnabled()) {
-            g.setColour(highlightColour);
-        } else {
-            g.setColour(lightColour);
-        }
-
-        g.fillRect(Rectangle<float>(rectangleX, rectangleY, rectangleWidth, rectangleHeight));
-    }
-}
-
-void CarveLookAndFeel::drawLinearSliderBackground(Graphics& g,
-                                                  int x,
-                                                  int y,
-                                                  int width,
-                                                  int height,
-                                                  float /*sliderPos*/,
-                                                  float /*minSliderPos*/,
-                                                  float /*maxSliderPos*/,
-                                                  const Slider::SliderStyle, Slider& slider) {
-
-    constexpr int MARGIN {2};
-    constexpr int LINE_WIDTH {1};
-
-    if (slider.isEnabled()) {
-        g.setColour(highlightColour);
-    } else {
-        g.setColour(lightColour);
-    }
-
-    g.fillRect(Rectangle<float>(x,
-                                y + height - MARGIN - (LINE_WIDTH / 2),
-                                width,
-                                LINE_WIDTH));
-}
-
 Typeface::Ptr CarveLookAndFeel::getTypefaceForFont(const Font& font) {
     return font.isBold() ? _boldFont.getTypeface() : _regularFont.getTypeface();
 }

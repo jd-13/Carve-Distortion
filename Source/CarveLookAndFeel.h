@@ -32,27 +32,6 @@ public:
     CarveLookAndFeel();
     virtual ~CarveLookAndFeel() = default;
 
-    virtual void drawLinearSliderThumb(Graphics& g,
-                                       int x,
-                                       int y,
-                                       int width,
-                                       int height,
-                                       float sliderPos,
-                                       float minSliderPos,
-                                       float maxSliderPos,
-                                       const Slider::SliderStyle style,
-                                       Slider& slider) override;
-
-    virtual void drawLinearSliderBackground(Graphics& g,
-                                            int x,
-                                            int y,
-                                            int width,
-                                            int height,
-                                            float sliderPos,
-                                            float minSliderPos,
-                                            float maxSliderPos,
-                                            const Slider::SliderStyle, Slider& slider) override;
-
     virtual Typeface::Ptr getTypefaceForFont(const Font& font) override;
 
 private:
