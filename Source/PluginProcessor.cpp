@@ -31,7 +31,7 @@ CarveAudioProcessor::CarveAudioProcessor()
     registerParameter(tweak2, TWEAK2_STR, &CP::TWEAK, CP::TWEAK.defaultValue, PRECISION);
 
     registerParameter(routing, ROUTING_STR, &ROUTING, ROUTING.defaultValue, PRECISION);
-    registerParameter(stereo, STEREO_STR, STEREO_DEFAULT, [&](bool val) { setStereo(val); });
+    registerParameter(stereo, STEREO_STR, STEREO_DEFAULT);
     registerParameter(dryLevel, DRYLEVEL_STR, &DRYLEVEL, DRYLEVEL.defaultValue, PRECISION);
     registerParameter(outputGain, OUTPUTGAIN_STR, &OUTPUTGAIN, OUTPUTGAIN.defaultValue, PRECISION);
 }
@@ -181,12 +181,16 @@ AudioProcessorEditor* CarveAudioProcessor::createEditor()
 
 //==============================================================================
 void CarveAudioProcessor::setStereo(bool val) {
-    if (getNumOutputChannels() == 1) {
-        mCarve.setStereo(false);
-        stereo->setValueNotifyingHost(false);
-    } else {
-        mCarve.setStereo(val);
-        stereo->setValueNotifyingHost(val);
+    // This is called from _onParameterUpdate so only proceed if the value has actually changed,
+    // otherwise it will cause an infinite loop
+    if (val != mCarve.getStereo()) {
+        if (getNumOutputChannels() == 1) {
+            mCarve.setStereo(false);
+            stereo->setValueNotifyingHost(false);
+        } else {
+            mCarve.setStereo(val);
+            stereo->setValueNotifyingHost(val);
+        }
     }
 }
 
@@ -240,12 +244,7 @@ void CarveAudioProcessor::_onParameterUpdate() {
     mCarve.DSPUnit2.setTweak(tweak2->get());
 
     mCarve.setRouting(routing->get());
-
-    if (getNumOutputChannels() == 1) {
-        mCarve.setStereo(false);
-    } else {
-        mCarve.setStereo(stereo->get());
-    }
+    setStereo(stereo->get());
 
     mCarve.setDryLevel(dryLevel->get());
     mCarve.setOutputGain(outputGain->get());
