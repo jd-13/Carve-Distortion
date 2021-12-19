@@ -355,7 +355,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     // Start tooltip label
     addMouseListener(&_tooltipLabelUpdater, true);
-    _tooltipLabelUpdater.start(tooltipLbl.get(), true);
+    _tooltipLabelUpdater.start(tooltipLbl.get(), getAudioProcessor()->wrapperType);
 
     // Combo box text colours
     const Colour lightYellow(0xffc6cd66);
