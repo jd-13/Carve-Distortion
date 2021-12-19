@@ -328,7 +328,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     tooltipLbl->setFont (juce::Font (15.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     tooltipLbl->setJustificationType (juce::Justification::centred);
     tooltipLbl->setEditable (false, false, false);
-    tooltipLbl->setColour (juce::Label::textColourId, juce::Colour (0xff9a9f50));
+    tooltipLbl->setColour (juce::Label::textColourId, juce::Colour (0xff929292));
     tooltipLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
     tooltipLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
@@ -355,7 +355,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
 
     // Start tooltip label
     addMouseListener(&_tooltipLabelUpdater, true);
-    _tooltipLabelUpdater.start(tooltipLbl.get());
+    _tooltipLabelUpdater.start(tooltipLbl.get(), true);
 
     // Combo box text colours
     const Colour lightYellow(0xffc6cd66);
@@ -944,7 +944,7 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="224 72 104 48" class="CarveWaveViewer"
                     params=""/>
   <LABEL name="Tooltip Label" id="37c38fbe0fd8f213" memberName="tooltipLbl"
-         virtualName="" explicitFocusOrder="0" pos="8 408 360 24" textCol="ff9a9f50"
+         virtualName="" explicitFocusOrder="0" pos="8 408 360 24" textCol="ff929292"
          edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
