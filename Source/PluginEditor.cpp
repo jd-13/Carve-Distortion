@@ -332,7 +332,7 @@ CarveAudioProcessorEditor::CarveAudioProcessorEditor (CarveAudioProcessor& owner
     tooltipLbl->setColour (juce::TextEditor::textColourId, juce::Colours::black);
     tooltipLbl->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
-    tooltipLbl->setBounds (8, 408, 360, 24);
+    tooltipLbl->setBounds (8, 408, 359, 24);
 
 
     //[UserPreSize]
@@ -944,7 +944,7 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="224 72 104 48" class="CarveWaveViewer"
                     params=""/>
   <LABEL name="Tooltip Label" id="37c38fbe0fd8f213" memberName="tooltipLbl"
-         virtualName="" explicitFocusOrder="0" pos="8 408 360 24" textCol="ff929292"
+         virtualName="" explicitFocusOrder="0" pos="8 408 359 24" textCol="ff929292"
          edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
