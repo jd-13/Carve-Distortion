@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.5.0"
+<JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.6.0"
               bundleIdentifier="com.whiteelephantaudio.Carve" includeBinaryInAppConfig="1"
               buildVST="0" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Carve" pluginDesc="Carve" pluginManufacturer="White Elephant Audio"
