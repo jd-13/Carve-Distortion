@@ -42,6 +42,6 @@ private:
     LabelWrapper _label2;
     bool _isRunning;
 
-    void _updateLabel() override;
+    void _updateLabel(const juce::MouseEvent& event) override;
     void _resetLabel() override;
 };

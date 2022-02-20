@@ -39,7 +39,7 @@ void CarveDualLabelReadoutSlider::stop() {
     _isRunning = false;
 }
 
-void CarveDualLabelReadoutSlider::_updateLabel() {
+void CarveDualLabelReadoutSlider::_updateLabel(const juce::MouseEvent& /*event*/) {
     if (_isRunning) {
         constexpr int DECIMAL_PLACES {2};
 
