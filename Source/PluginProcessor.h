@@ -34,6 +34,8 @@ public:
 
     void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
 
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;

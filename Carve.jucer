@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.6.0"
+<JUCERPROJECT id="YJdyBy" name="Carve" projectType="audioplug" version="2.6.1"
               bundleIdentifier="com.whiteelephantaudio.Carve" includeBinaryInAppConfig="1"
               buildVST="0" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="Carve" pluginDesc="Carve" pluginManufacturer="White Elephant Audio"
-              pluginManufacturerCode="WEle" pluginCode="Carv" pluginChannelConfigs="{1, 1}, {1, 2}, {2, 2}"
-              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
-              pluginSilenceInIsSilenceOut="1" pluginEditorRequiresKeys="0"
-              pluginAUExportPrefix="CarveAU" pluginRTASCategory="" aaxIdentifier="com.whiteelephantaudio.Carve"
-              pluginAAXCategory="2" companyName="White Elephant Audio" companyWebsite="https://www.whiteelephantaudio.com"
-              companyEmail="info@whiteelephantaudio.com" buildAUv3="0" pluginIsMidiEffectPlugin="0"
+              pluginManufacturerCode="WEle" pluginCode="Carv" pluginIsSynth="0"
+              pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
+              pluginEditorRequiresKeys="0" pluginAUExportPrefix="CarveAU" pluginRTASCategory=""
+              aaxIdentifier="com.whiteelephantaudio.Carve" pluginAAXCategory="2"
+              companyName="White Elephant Audio" companyWebsite="https://www.whiteelephantaudio.com"
+              companyEmail="info@whiteelephantaudio.com" buildAUv3="1" pluginIsMidiEffectPlugin="0"
               displaySplashScreen="0" reportAppUsage="0" splashScreenColour="Dark"
-              buildStandalone="0" enableIAA="0" pluginFormats="buildAU,buildVST3"
+              buildStandalone="0" enableIAA="0" pluginFormats="buildAU,buildAUv3,buildVST3"
               cppLanguageStandard="17" jucerFormatVersion="1">
   <MAINGROUP id="S7VN6M" name="Carve">
     <GROUP id="{AF95D713-03BF-1825-639B-1E3F503E9751}" name="Graphics">
@@ -51,7 +51,7 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" postbuildCommand="" extraCompilerFlags="-Wall -Wextra -Wconversion -Wshadow -Wpedantic"
                vstFolder="~/SDKs/VST3 SDK" externalLibraries="" extraFrameworks=""
-               customXcodeResourceFolders="">
+               customXcodeResourceFolders="" hardenedRuntime="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxArchitecture="64BitIntel" isDebug="0" optimisation="3"
                        targetName="Carve" cppLanguageStandard="" cppLibType="" linkTimeOptimisation="1"
@@ -143,7 +143,7 @@
     <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_USE_CURL="0"/>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_USE_CURL="0" JUCE_WEB_BROWSER="0"/>
   <LIVE_SETTINGS>
     <OSX buildEnabled="0"/>
   </LIVE_SETTINGS>

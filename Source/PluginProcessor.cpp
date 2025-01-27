@@ -14,7 +14,8 @@
 
 
 //==============================================================================
-CarveAudioProcessor::CarveAudioProcessor()
+CarveAudioProcessor::CarveAudioProcessor() : WECore::JUCEPlugin::CoreAudioProcessor(BusesProperties().withInput("Input", juce::AudioChannelSet::stereo(), true)
+                                                                                                     .withOutput("Output", juce::AudioChannelSet::stereo(), true))
 {
     namespace CP = WECore::Carve::Parameters;
 
@@ -166,6 +167,27 @@ void CarveAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
         mCarve.Process2in2out(inLeftSample, inRightSample, buffer.getNumSamples());
     }
+}
+
+bool CarveAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const {
+    // {1, 1}, {1, 2}, {2, 2}
+
+    if (layouts.getMainInputChannelSet().size() == 1 && layouts.getMainOutputChannelSet().size() == 1) {
+        // Mono in mono out
+        return true;
+    }
+
+    if (layouts.getMainInputChannelSet().size() == 1 && layouts.getMainOutputChannelSet().size() == 2) {
+        // Mono in stereo out
+        return true;
+    }
+
+    if (layouts.getMainInputChannelSet().size() == 2 && layouts.getMainOutputChannelSet().size() == 2) {
+        // Stereo in stereo out
+        return true;
+    }
+
+    return false;
 }
 
 //==============================================================================

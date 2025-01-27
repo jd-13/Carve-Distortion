@@ -35,6 +35,6 @@ CarveLookAndFeel::CarveLookAndFeel() {
 }
 
 Typeface::Ptr CarveLookAndFeel::getTypefaceForFont(const Font& font) {
-    return font.isBold() ? _boldFont.getTypeface() : _regularFont.getTypeface();
+    return font.isBold() ? _boldFont.getTypefacePtr() : _regularFont.getTypefacePtr();
 }
 
