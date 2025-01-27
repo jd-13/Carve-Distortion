@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   BuildLinuxClang:
     runs-on: ubuntu-latest
-    container: jackd13/audioplugins:clang10
+    container: jackd13/audioplugins:clang
 
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
 
   BuildLinuxGCC:
     runs-on: ubuntu-latest
-    container: jackd13/audioplugins:gcc10
+    container: jackd13/audioplugins:gcc
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
           path: Builds/LinuxMakefile/build/*.vst3
 
   BuildMacOS:
-    runs-on: macos-10.15
+    runs-on: macos-13
 
     steps:
       - uses: actions/checkout@v2
