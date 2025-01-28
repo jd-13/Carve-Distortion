@@ -68,7 +68,6 @@
         <MODULEPATH id="juce_gui_basics" path="../../../../../SDKs/JUCE/modules"/>
         <MODULEPATH id="juce_cryptography" path="../../../../../SDKs/JUCE/modules"/>
         <MODULEPATH id="juce_video" path="../../../../../SDKs/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../../../SDKs/JUCE/modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../../../../SDKs/JUCE/modules"/>
         <MODULEPATH id="juce_audio_devices" path="../../../../../SDKs/JUCE/modules"/>
         <MODULEPATH id="juce_audio_formats" path="../../../../../SDKs/JUCE/modules"/>
@@ -88,7 +87,6 @@
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../JUCE/modules"/>
@@ -111,7 +109,6 @@
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video" path="..\JUCE\modules"/>
-        <MODULEPATH id="juce_opengl" path="..\JUCE\modules"/>
         <MODULEPATH id="juce_gui_extra" path="..\JUCE\modules"/>
         <MODULEPATH id="juce_gui_basics" path="..\JUCE\modules"/>
         <MODULEPATH id="juce_graphics" path="..\JUCE\modules"/>
@@ -140,7 +137,6 @@
     <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_USE_CURL="0" JUCE_WEB_BROWSER="0"/>
